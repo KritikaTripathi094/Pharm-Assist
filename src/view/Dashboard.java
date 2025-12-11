@@ -4,6 +4,7 @@
  */
 package view;
 
+
 /**
  *
  * @author This PC
@@ -11,12 +12,15 @@ package view;
 public class Dashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
+    private void initPopupMenu() {
+}
 
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
+        initPopupMenu();
     }
 
     /**
@@ -28,12 +32,16 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        Profile = new javax.swing.JMenuItem();
+        RateUs = new javax.swing.JMenuItem();
+        Logout = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         logopharmassist = new javax.swing.JLabel();
         namepharmassist = new javax.swing.JLabel();
         Slogan = new javax.swing.JLabel();
         Searchbar = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        Accounticon = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         Emergencycontacticon = new javax.swing.JLabel();
         bmiicon = new javax.swing.JLabel();
@@ -42,8 +50,17 @@ public class Dashboard extends javax.swing.JFrame {
         Emergencycontactsbtn = new javax.swing.JButton();
         Bmibtn = new javax.swing.JButton();
         Contactpharmacybtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        Cartbtn = new javax.swing.JButton();
+        Accountbtn = new javax.swing.JButton();
+
+        Profile.setText("Profile");
+        jPopupMenu1.add(Profile);
+
+        RateUs.setText("Rateus");
+        jPopupMenu1.add(RateUs);
+
+        Logout.setText("Logout");
+        jPopupMenu1.add(Logout);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -69,9 +86,9 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1.add(Searchbar);
         Searchbar.setBounds(180, 10, 398, 34);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(610, 10, 25, 25);
+        Accounticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
+        jPanel1.add(Accounticon);
+        Accounticon.setBounds(610, 10, 25, 25);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
@@ -114,16 +131,16 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel2.add(Contactpharmacybtn);
         Contactpharmacybtn.setBounds(570, 70, 130, 28);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
-        jButton1.setBorder(null);
-        jPanel2.add(jButton1);
-        jButton1.setBounds(580, 10, 25, 25);
+        Cartbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
+        Cartbtn.setBorder(null);
+        jPanel2.add(Cartbtn);
+        Cartbtn.setBounds(580, 10, 25, 25);
 
-        jButton2.setText("Account");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel2.add(jButton2);
-        jButton2.setBounds(615, 10, 90, 23);
+        Accountbtn.setText("Account");
+        Accountbtn.setBorder(null);
+        Accountbtn.addActionListener(this::AccountbtnActionPerformed);
+        jPanel2.add(Accountbtn);
+        Accountbtn.setBounds(615, 10, 90, 23);
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 700, 99);
@@ -142,9 +159,10 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_AllcategoriesbtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void AccountbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    jPopupMenu1.show(Accountbtn, 0, Accountbtn.getHeight());
+    }//GEN-LAST:event_AccountbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,20 +190,24 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Accountbtn;
+    private javax.swing.JLabel Accounticon;
     private javax.swing.JButton Allcategoriesbtn;
     private javax.swing.JButton Bmibtn;
+    private javax.swing.JButton Cartbtn;
     private javax.swing.JButton Contactpharmacybtn;
     private javax.swing.JLabel Emergencycontacticon;
     private javax.swing.JButton Emergencycontactsbtn;
+    private javax.swing.JMenuItem Logout;
+    private javax.swing.JMenuItem Profile;
+    private javax.swing.JMenuItem RateUs;
     private javax.swing.JTextField Searchbar;
     private javax.swing.JLabel Slogan;
     private javax.swing.JLabel bmiicon;
     private javax.swing.JLabel contactpharmacyicon;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JLabel namepharmassist;
     // End of variables declaration//GEN-END:variables
