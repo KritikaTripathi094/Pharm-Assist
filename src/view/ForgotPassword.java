@@ -28,21 +28,221 @@ public class ForgotPassword extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel1 = new javax.swing.JPanel();
+        Pharmassist = new javax.swing.JLabel();
+        Slogan = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        Bmi = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        pCONTACTS = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        categories = new javax.swing.JLabel();
+        Account = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        Forgot = new javax.swing.JLabel();
+        edit = new javax.swing.JLabel();
+        email = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        backgroundimage = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setPreferredSize(new java.awt.Dimension(700, 450));
+        getContentPane().setLayout(null);
+
+        jPanel1.setMinimumSize(new java.awt.Dimension(700, 450));
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 450));
+        jPanel1.setLayout(null);
+
+        Pharmassist.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        Pharmassist.setText("Pharm-Assist");
+        jPanel1.add(Pharmassist);
+        Pharmassist.setBounds(50, 10, 160, 27);
+
+        Slogan.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        Slogan.setText("Your healthy dose of convenience ");
+        jPanel1.add(Slogan);
+        Slogan.setBounds(0, 50, 180, 15);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel1.setText("Emergency Contacts");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
         );
+
+        jPanel1.add(jPanel2);
+        jPanel2.setBounds(180, 70, 130, 20);
+
+        Bmi.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel2.setText("BMI");
+
+        javax.swing.GroupLayout BmiLayout = new javax.swing.GroupLayout(Bmi);
+        Bmi.setLayout(BmiLayout);
+        BmiLayout.setHorizontalGroup(
+            BmiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+        );
+        BmiLayout.setVerticalGroup(
+            BmiLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(Bmi);
+        Bmi.setBounds(370, 70, 90, 20);
+
+        pCONTACTS.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        pCONTACTS.setText("Contact Pharmacy");
+        jPanel1.add(pCONTACTS);
+        pCONTACTS.setBounds(590, 60, 110, 40);
+
+        jPanel3.setBackground(new java.awt.Color(14, 93, 174));
+
+        categories.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        categories.setForeground(new java.awt.Color(255, 255, 255));
+        categories.setText("All Categories");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(categories, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 2, Short.MAX_VALUE)
+                .addComponent(categories))
+        );
+
+        jPanel1.add(jPanel3);
+        jPanel3.setBounds(0, 70, 120, 20);
+
+        Account.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        Account.setText("Account");
+        jPanel1.add(Account);
+        Account.setBounds(640, 20, 50, 30);
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(null);
+
+        Forgot.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        Forgot.setText("Forgot your Password?");
+        jPanel4.add(Forgot);
+        Forgot.setBounds(6, 0, 239, 30);
+
+        edit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        edit.setText("E-mail");
+        jPanel4.add(edit);
+        edit.setBounds(10, 40, 250, 20);
+
+        email.setText("Enter your email");
+        jPanel4.add(email);
+        email.setBounds(10, 70, 290, 22);
+
+        jButton1.setBackground(new java.awt.Color(14, 93, 174));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Send OTP");
+        jButton1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jPanel4.add(jButton1);
+        jButton1.setBounds(260, 100, 90, 25);
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setText("OTP");
+        jPanel4.add(jLabel3);
+        jLabel3.setBounds(10, 130, 50, 25);
+
+        jTextField1.setText("Enter the OTP");
+        jTextField1.addActionListener(this::jTextField1ActionPerformed);
+        jPanel4.add(jTextField1);
+        jTextField1.setBounds(10, 160, 280, 22);
+
+        jButton2.setBackground(new java.awt.Color(14, 93, 174));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Verify");
+        jButton2.setPreferredSize(new java.awt.Dimension(56, 20));
+        jButton2.addActionListener(this::jButton2ActionPerformed);
+        jPanel4.add(jButton2);
+        jButton2.setBounds(270, 190, 90, 20);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setText("Password");
+        jPanel4.add(jLabel4);
+        jLabel4.setBounds(10, 220, 110, 30);
+
+        jTextField2.setText("Enter your new password");
+        jTextField2.addActionListener(this::jTextField2ActionPerformed);
+        jPanel4.add(jTextField2);
+        jTextField2.setBounds(10, 250, 280, 22);
+
+        jButton3.setBackground(new java.awt.Color(14, 97, 174));
+        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("Reset");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jPanel4.add(jButton3);
+        jButton3.setBounds(260, 280, 100, 25);
+
+        jPanel1.add(jPanel4);
+        jPanel4.setBounds(120, 110, 470, 320);
+
+        backgroundimage.setBackground(new java.awt.Color(255, 255, 255));
+        backgroundimage.setForeground(new java.awt.Color(255, 255, 255));
+        backgroundimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forgot (3).png"))); // NOI18N
+        backgroundimage.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        backgroundimage.setPreferredSize(new java.awt.Dimension(700, 450));
+        jPanel1.add(backgroundimage);
+        backgroundimage.setBounds(0, 0, 700, 456);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 731, 447);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +270,28 @@ public class ForgotPassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Account;
+    private javax.swing.JPanel Bmi;
+    private javax.swing.JLabel Forgot;
+    private javax.swing.JLabel Pharmassist;
+    private javax.swing.JLabel Slogan;
+    private javax.swing.JLabel backgroundimage;
+    private javax.swing.JLabel categories;
+    private javax.swing.JLabel edit;
+    private javax.swing.JTextField email;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel pCONTACTS;
     // End of variables declaration//GEN-END:variables
 }
