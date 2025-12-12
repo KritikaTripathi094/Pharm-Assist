@@ -4,54 +4,38 @@
  */
 package database;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.*;
 
 public class mysqlconnector implements database {
 
 
-    @Override
-    public Connection openConnection() {
-        try {
-            String username = "root";
-            String password = "kritika123";
-            String database = "hello";
+@Override
+public Connection openConnection() {
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver"); // IMPORTANT LINE
 
-            Connection connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/" + database,
-                username,
-                password
-            );
+        String username = "root";
+        String password = "kritika123";
+        String database = "hello";
 
-            System.out.println("Connected Successfully!");
-            return connection;
+        Connection connection = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/" + database,
+            username,
+            password
+        );
 
-        } catch (SQLException e) {
-            System.out.println("Connection Error: " + e.getMessage());
-            return null;
-        }
+        System.out.println("Connected Successfully!");
+        return connection;
+
+    } catch (Exception e) {
+        System.out.println("Connection Error: " + e.getMessage());
+        return null;
     }
-    @Override
-    public ResultSet runQuery(Connection conn, String query) {
-        try {
-            Statement stmt = conn.createStatement();
-            return stmt.executeQuery(query);
-        } catch (SQLException e) {
-            System.out.println("Query Error: " + e.getMessage());
-            return null;
-        }
-    }
+}
 
-    @Override
-    public int executeUpdate(Connection conn, String query) {
-        try {
-            Statement stmt = conn.createStatement();
-            return stmt.executeUpdate(query);
-        } catch (SQLException e) {
-            System.out.println("Update Error: " + e.getMessage());
-            return -1;
-        }
-    }
-
+    
     @Override
     public void closeConnection(Connection conn) {
         try {
@@ -63,6 +47,32 @@ public class mysqlconnector implements database {
             System.out.println("Close Error: " + e.getMessage());
         }
     }
+
+
+
+
+    
+    @Override
+    public ResultSet runQuery(Connection conn, String query) {
+        try {
+            Statement stmp = conn.createStatement();
+            ResultSet result = stmp.executeQuery(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println("Query Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public int executeUpdate(Connection conn, String query) {
+        try {
+            Statement stmp = conn.createStatement();
+            int result = stmp.executeUpdate(query);
+            return result;
+        } catch (Exception e) {
+            System.out.println("Update Error: " + e.getMessage());
+            return -1;
+        }
+    }
 }
-
-

@@ -158,6 +158,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         edit.setBounds(10, 40, 250, 20);
 
         email.setText("Enter your email");
+        email.addActionListener(this::emailActionPerformed);
         jPanel4.add(email);
         email.setBounds(10, 70, 290, 22);
 
@@ -187,7 +188,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         jButton2.setPreferredSize(new java.awt.Dimension(56, 20));
         jButton2.addActionListener(this::jButton2ActionPerformed);
         jPanel4.add(jButton2);
-        jButton2.setBounds(270, 190, 90, 20);
+        jButton2.setBounds(260, 190, 90, 20);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Password");
@@ -243,6 +244,10 @@ public class ForgotPassword extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailActionPerformed
 
     /**
      * @param args the command line arguments

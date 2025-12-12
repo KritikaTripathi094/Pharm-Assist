@@ -2,18 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package database;
 
 /**
  *
  * @author kritss
  */
-import database.mysqlconnector;
-
-public class TestDb {
+public class DBConnection {
     public static void main(String[] args) {
-        System.out.println("Running Test...");
-        mysqlconnector db = new mysqlconnector();
-        db.openConnection();
-    }
+        database db = new mysqlconnector();
+        if(db.openConnection() != null) {
+           
+            System.out.println("Connection successful");
+        
+    } else {
+    System.out.println("Not Successfull");
 }
-
+    
+}
+}
