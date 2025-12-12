@@ -4,6 +4,8 @@
  */
 package view;
 
+import java.awt.CardLayout;
+
 
 /**
  *
@@ -37,12 +39,6 @@ public class Dashboard extends javax.swing.JFrame {
         RateUs = new javax.swing.JMenuItem();
         Logout = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        logopharmassist = new javax.swing.JLabel();
-        namepharmassist = new javax.swing.JLabel();
-        Slogan = new javax.swing.JLabel();
-        Searchbar = new javax.swing.JTextField();
-        Accounticon = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         Emergencycontacticon = new javax.swing.JLabel();
         bmiicon = new javax.swing.JLabel();
         contactpharmacyicon = new javax.swing.JLabel();
@@ -51,7 +47,17 @@ public class Dashboard extends javax.swing.JFrame {
         Bmibtn = new javax.swing.JButton();
         Contactpharmacybtn = new javax.swing.JButton();
         Cartbtn = new javax.swing.JButton();
+        logopharmassist = new javax.swing.JLabel();
+        Accounticon = new javax.swing.JLabel();
         Accountbtn = new javax.swing.JButton();
+        namepharmassist = new javax.swing.JLabel();
+        Slogan = new javax.swing.JLabel();
+        Searchbar = new javax.swing.JTextField();
+        contentPanel = new javax.swing.JPanel();
+        emergency = new javax.swing.JPanel();
+        bmi = new javax.swing.JPanel();
+        categories = new javax.swing.JPanel();
+        pharmacy = new javax.swing.JPanel();
 
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
@@ -65,12 +71,68 @@ public class Dashboard extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        jPanel1.setBackground(new java.awt.Color(244, 252, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
+
+        Emergencycontacticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
+        jPanel1.add(Emergencycontacticon);
+        Emergencycontacticon.setBounds(160, 70, 25, 25);
+
+        bmiicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
+        jPanel1.add(bmiicon);
+        bmiicon.setBounds(370, 70, 25, 25);
+
+        contactpharmacyicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
+        jPanel1.add(contactpharmacyicon);
+        contactpharmacyicon.setBounds(550, 70, 25, 25);
+
+        Allcategoriesbtn.setBackground(new java.awt.Color(14, 94, 174));
+        Allcategoriesbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Allcategoriesbtn.setText("All Categories");
+        Allcategoriesbtn.setBorder(null);
+        Allcategoriesbtn.addActionListener(this::AllcategoriesbtnActionPerformed);
+        jPanel1.add(Allcategoriesbtn);
+        Allcategoriesbtn.setBounds(0, 70, 122, 28);
+
+        Emergencycontactsbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Emergencycontactsbtn.setText("Emergency Contacts");
+        Emergencycontactsbtn.setBorder(null);
+        Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
+        jPanel1.add(Emergencycontactsbtn);
+        Emergencycontactsbtn.setBounds(180, 70, 150, 28);
+
+        Bmibtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Bmibtn.setText("BMI");
+        Bmibtn.setBorder(null);
+        Bmibtn.addActionListener(this::BmibtnActionPerformed);
+        jPanel1.add(Bmibtn);
+        Bmibtn.setBounds(370, 70, 122, 28);
+
+        Contactpharmacybtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Contactpharmacybtn.setText("Contact Pharmacy");
+        Contactpharmacybtn.setBorder(null);
+        Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
+        jPanel1.add(Contactpharmacybtn);
+        Contactpharmacybtn.setBounds(570, 70, 130, 28);
+
+        Cartbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
+        Cartbtn.setBorder(null);
+        jPanel1.add(Cartbtn);
+        Cartbtn.setBounds(580, 10, 25, 25);
 
         logopharmassist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reallogo.png"))); // NOI18N
         jPanel1.add(logopharmassist);
         logopharmassist.setBounds(10, 10, 40, 40);
+
+        Accounticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
+        jPanel1.add(Accounticon);
+        Accounticon.setBounds(610, 10, 25, 25);
+
+        Accountbtn.setText("Account");
+        Accountbtn.setBorder(null);
+        Accountbtn.addActionListener(this::AccountbtnActionPerformed);
+        jPanel1.add(Accountbtn);
+        Accountbtn.setBounds(620, 10, 80, 23);
 
         namepharmassist.setFont(new java.awt.Font("Comic Neue", 1, 20)); // NOI18N
         namepharmassist.setText("Pharm-Assist");
@@ -86,67 +148,23 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1.add(Searchbar);
         Searchbar.setBounds(180, 10, 398, 34);
 
-        Accounticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
-        jPanel1.add(Accounticon);
-        Accounticon.setBounds(610, 10, 25, 25);
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(null);
-
-        Emergencycontacticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
-        jPanel2.add(Emergencycontacticon);
-        Emergencycontacticon.setBounds(160, 70, 25, 25);
-
-        bmiicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
-        jPanel2.add(bmiicon);
-        bmiicon.setBounds(370, 70, 25, 25);
-
-        contactpharmacyicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
-        jPanel2.add(contactpharmacyicon);
-        contactpharmacyicon.setBounds(550, 70, 25, 25);
-
-        Allcategoriesbtn.setBackground(new java.awt.Color(14, 94, 174));
-        Allcategoriesbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
-        Allcategoriesbtn.setText("All Categories");
-        Allcategoriesbtn.setBorder(null);
-        Allcategoriesbtn.addActionListener(this::AllcategoriesbtnActionPerformed);
-        jPanel2.add(Allcategoriesbtn);
-        Allcategoriesbtn.setBounds(0, 70, 122, 28);
-
-        Emergencycontactsbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
-        Emergencycontactsbtn.setText("Emergency Contacts");
-        Emergencycontactsbtn.setBorder(null);
-        jPanel2.add(Emergencycontactsbtn);
-        Emergencycontactsbtn.setBounds(180, 70, 150, 28);
-
-        Bmibtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
-        Bmibtn.setText("BMI");
-        Bmibtn.setBorder(null);
-        jPanel2.add(Bmibtn);
-        Bmibtn.setBounds(370, 70, 122, 28);
-
-        Contactpharmacybtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
-        Contactpharmacybtn.setText("Contact Pharmacy");
-        Contactpharmacybtn.setBorder(null);
-        jPanel2.add(Contactpharmacybtn);
-        Contactpharmacybtn.setBounds(570, 70, 130, 28);
-
-        Cartbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
-        Cartbtn.setBorder(null);
-        jPanel2.add(Cartbtn);
-        Cartbtn.setBounds(580, 10, 25, 25);
-
-        Accountbtn.setText("Account");
-        Accountbtn.setBorder(null);
-        Accountbtn.addActionListener(this::AccountbtnActionPerformed);
-        jPanel2.add(Accountbtn);
-        Accountbtn.setBounds(615, 10, 90, 23);
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 700, 99);
-
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 700, 450);
+        jPanel1.setBounds(0, 0, 700, 100);
+
+        contentPanel.setLayout(new java.awt.CardLayout());
+
+        emergency.setBackground(new java.awt.Color(255, 0, 0));
+        contentPanel.add(emergency, "emergency");
+
+        bmi.setBackground(new java.awt.Color(51, 255, 0));
+        contentPanel.add(bmi, "bmi");
+        contentPanel.add(categories, "categories");
+
+        pharmacy.setBackground(new java.awt.Color(153, 0, 153));
+        contentPanel.add(pharmacy, "pharmacy");
+
+        getContentPane().add(contentPanel);
+        contentPanel.setBounds(0, 100, 700, 350);
 
         setBounds(0, 0, 716, 459);
     }// </editor-fold>//GEN-END:initComponents
@@ -155,14 +173,34 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SearchbarActionPerformed
 
-    private void AllcategoriesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllcategoriesbtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AllcategoriesbtnActionPerformed
-
     private void AccountbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountbtnActionPerformed
         // TODO add your handling code here:
     jPopupMenu1.show(Accountbtn, 0, Accountbtn.getHeight());
     }//GEN-LAST:event_AccountbtnActionPerformed
+
+    private void ContactpharmacybtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContactpharmacybtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "pharmacy");
+    }//GEN-LAST:event_ContactpharmacybtnActionPerformed
+
+    private void BmibtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BmibtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "bmi");
+    }//GEN-LAST:event_BmibtnActionPerformed
+
+    private void AllcategoriesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllcategoriesbtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "categories");
+    }//GEN-LAST:event_AllcategoriesbtnActionPerformed
+
+    private void EmergencycontactsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmergencycontactsbtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "emergency");
+    }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,12 +241,16 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JMenuItem RateUs;
     private javax.swing.JTextField Searchbar;
     private javax.swing.JLabel Slogan;
+    private javax.swing.JPanel bmi;
     private javax.swing.JLabel bmiicon;
+    private javax.swing.JPanel categories;
     private javax.swing.JLabel contactpharmacyicon;
+    private javax.swing.JPanel contentPanel;
+    private javax.swing.JPanel emergency;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JLabel namepharmassist;
+    private javax.swing.JPanel pharmacy;
     // End of variables declaration//GEN-END:variables
 }
