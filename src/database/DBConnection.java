@@ -5,25 +5,18 @@
 package database;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-/**
- *
- * @author kritss
- */
 public class DBConnection {
-    public static void main(String[] args) {
-        forgotpassworddatabase db = new mysqlconnector();
-        if(db.openConnection() != null) {
-           
-            System.out.println("Connection successful");
-        
-    } else {
-    System.out.println("Not Successfull");
-}
-    
-}
 
-    public static Connection getConnection() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    private static final String URL = "jdbc:mysql://localhost:3306/project";
+    private static final String USER = "root";
+    private static final String PASSWORD = "kritika123";
+
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
+
+

@@ -6,6 +6,9 @@
             <file>file:/C:/Users/L%20E%20N%20O%20V%20O/Documents/NetBeansProjects/group5Pharm-Assist/src/database/forgotpassworddatabase.java</file>
             <file>file:/C:/Users/L%20E%20N%20O%20V%20O/Documents/NetBeansProjects/group5Pharm-Assist/src/database/mysqlconnector.java</file>
             <file>file:/C:/Users/L%20E%20N%20O%20V%20O/Documents/NetBeansProjects/group5Pharm-Assist/src/Model/user.java</file>
+            <file>file:/C:/Users/L%20E%20N%20O%20V%20O/Documents/NetBeansProjects/group5Pharm-Assist/src/view/ForgotPassword.java</file>
+            <file>file:/C:/Users/L%20E%20N%20O%20V%20O/Documents/NetBeansProjects/group5Pharm-Assist/src/database/DBConnection.java</file>
+            <file>file:/C:/Users/L%20E%20N%20O%20V%20O/Documents/NetBeansProjects/group5Pharm-Assist/src/Controller/EmailService.java</file>
         </group>
     </open-files>
 </project-private>
