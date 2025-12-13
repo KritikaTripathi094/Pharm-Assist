@@ -4,7 +4,9 @@
  */
 package view;
 
-import java.awt.CardLayout;
+import java.awt.event.ActionListener;
+
+
 
 /**
  *
@@ -36,8 +38,8 @@ public class CategoryofMedicine extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        searchBtnTextField = new javax.swing.JTextField();
+        searchBtn = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -50,7 +52,6 @@ public class CategoryofMedicine extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -85,14 +86,16 @@ public class CategoryofMedicine extends javax.swing.JFrame {
         jPanel2.add(jButton1);
         jButton1.setBounds(20, 80, 110, 23);
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(398, 34));
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(170, 10, 370, 34);
+        searchBtnTextField.setText("Search");
+        searchBtnTextField.setPreferredSize(new java.awt.Dimension(398, 34));
+        searchBtnTextField.addActionListener(this::searchBtnTextFieldActionPerformed);
+        jPanel2.add(searchBtnTextField);
+        searchBtnTextField.setBounds(170, 10, 370, 34);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/searchlogo.png"))); // NOI18N
-        jPanel2.add(jButton2);
-        jButton2.setBounds(540, 10, 30, 30);
+        searchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/searchlogo.png"))); // NOI18N
+        searchBtn.addActionListener(this::searchBtnActionPerformed);
+        jPanel2.add(searchBtn);
+        searchBtn.setBounds(540, 10, 30, 30);
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
         jPanel2.add(jButton3);
@@ -156,10 +159,6 @@ public class CategoryofMedicine extends javax.swing.JFrame {
         jPanel5.add(jLabel5);
         jLabel5.setBounds(160, 0, 50, 16);
 
-        jLabel7.setText("jLabel7");
-        jPanel5.add(jLabel7);
-        jLabel7.setBounds(70, 40, 38, 16);
-
         jPanel4.add(jPanel5);
         jPanel5.setBounds(0, 30, 530, 110);
 
@@ -181,9 +180,9 @@ public class CategoryofMedicine extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void searchBtnTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_searchBtnTextFieldActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 jPanel5.setVisible(true);
@@ -199,6 +198,10 @@ jPanel6.setVisible(true);// TODO add your handling code here:
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void searchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -228,7 +231,6 @@ jPanel6.setVisible(true);// TODO add your handling code here:
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
@@ -241,13 +243,28 @@ jPanel6.setVisible(true);// TODO add your handling code here:
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    public javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton searchBtn;
+    private javax.swing.JTextField searchBtnTextField;
     // End of variables declaration//GEN-END:variables
+public String getSearchText() {
+        return searchBtnTextField.getText();
+    }
+
+    // ✅ you already have this
+    public void addSearchListener(ActionListener listener) {
+        searchBtn.addActionListener(listener);
+    }
+
+    // ✅ optional helper (not required, but nice)
+    public void refreshProductPanel() {
+        jPanel4.revalidate();
+        jPanel4.repaint();
+    }
+
 }

@@ -1,13 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package view;
 
-/**
- *
- * @author kritss
- */
+
+import Model.SearchModel;
+import controller.SearchController;
+import view.CategoryofMedicine;
+
+
 public class NewClass {
-    
+    public static void main(String[] args) {
+        CategoryofMedicine view = new CategoryofMedicine();
+        SearchModel model = new SearchModel();
+        new SearchController(view, model);
+
+        view.setVisible(true);
+    }
 }
