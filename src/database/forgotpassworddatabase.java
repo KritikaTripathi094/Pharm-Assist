@@ -7,7 +7,7 @@ package database;
 import java.sql.*;
 
 
-public interface database {
+public interface forgotpassworddatabase {
     Connection openConnection();
     void closeConnection(Connection conn);
     ResultSet runQuery(Connection conn, String query);

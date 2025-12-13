@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.*;
 
-public class mysqlconnector implements database {
+public class mysqlconnector implements forgotpassworddatabase {
 
 
 @Override
@@ -18,7 +18,7 @@ public Connection openConnection() {
 
         String username = "root";
         String password = "kritika123";
-        String database = "hello";
+        String database = "project";
 
         Connection connection = DriverManager.getConnection(
             "jdbc:mysql://localhost:3306/" + database,
@@ -58,7 +58,7 @@ public Connection openConnection() {
             Statement stmp = conn.createStatement();
             ResultSet result = stmp.executeQuery(query);
             return result;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Query Error: " + e.getMessage());
             return null;
         }
@@ -70,7 +70,7 @@ public Connection openConnection() {
             Statement stmp = conn.createStatement();
             int result = stmp.executeUpdate(query);
             return result;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("Update Error: " + e.getMessage());
             return -1;
         }

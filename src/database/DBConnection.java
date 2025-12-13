@@ -4,13 +4,15 @@
  */
 package database;
 
+import java.sql.Connection;
+
 /**
  *
  * @author kritss
  */
 public class DBConnection {
     public static void main(String[] args) {
-        database db = new mysqlconnector();
+        forgotpassworddatabase db = new mysqlconnector();
         if(db.openConnection() != null) {
            
             System.out.println("Connection successful");
@@ -20,4 +22,8 @@ public class DBConnection {
 }
     
 }
+
+    public static Connection getConnection() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

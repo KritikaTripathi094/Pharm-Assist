@@ -2,71 +2,68 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+
 package dao;
 
-import java.sql.*;
 import database.DBConnection;
+import java.sql.*;
 
 public class UserDAO {
 
-    // Save OTP
-    public static boolean saveOtp(String email, String otp) {
-        try {
-            Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement(
-                "UPDATE users SET otp=? WHERE email=?"
-            );
-
-            ps.setString(1, otp);
-            ps.setString(2, email);
-
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    // Verify OTP
-    public static boolean verifyOtp(String email, String otp) {
-        try {
-            Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement(
-                "SELECT otp FROM users WHERE email=?"
-            );
-
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return otp.equals(rs.getString("otp"));
+    // Method to check if email exists
+    public boolean isEmailExist(String email) throws SQLException {
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "SELECT COUNT(*) FROM users WHERE email = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, email);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) > 0;
+                    }
+                }
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
         return false;
     }
 
-    // Update password
-    public static boolean updatePassword(String email, String newPass) {
-        try {
-            Connection con = DBConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement(
-                "UPDATE users SET password=?, otp=NULL WHERE email=?"
-            );
-
-            ps.setString(1, newPass);
-            ps.setString(2, email);
-
-            return ps.executeUpdate() > 0;
-
-        } catch (Exception e) {
-            e.printStackTrace();
+    // Method to save OTP to database
+    public void saveOtp(String email, String otp) throws SQLException {
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "INSERT INTO password_resets (email, otp) VALUES (?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, email);
+                stmt.setString(2, otp);
+                stmt.executeUpdate();
+            }
         }
+    }
 
+    // Method to verify OTP
+    public boolean verifyOtp(String email, String otp) throws SQLException {
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "SELECT COUNT(*) FROM password_resets WHERE email = ? AND otp = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, email);
+                stmt.setString(2, otp);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) > 0;
+                    }
+                }
+            }
+        }
         return false;
+    }
+
+    // Method to update the user's password
+    public void updatePassword(String email, String newPassword) throws SQLException {
+        try (Connection conn = DBConnection.getConnection()) {
+            String query = "UPDATE users SET password = ? WHERE email = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, newPassword);
+                stmt.setString(2, email);
+                stmt.executeUpdate();
+            }
+        }
     }
 }

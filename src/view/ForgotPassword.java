@@ -4,6 +4,9 @@
  */
 package view;
 
+import Controller.ForgotPasswordController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author kritss
@@ -15,9 +18,13 @@ public class ForgotPassword extends javax.swing.JFrame {
     /**
      * Creates new form ForgotPassword
      */
-    public ForgotPassword() {
-        initComponents();
-    }
+    private final ForgotPasswordController controller;
+
+   public ForgotPassword() {
+    initComponents();
+    controller = new ForgotPasswordController();
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,19 +49,18 @@ public class ForgotPassword extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         Forgot = new javax.swing.JLabel();
         edit = new javax.swing.JLabel();
-        email = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtEmail = new javax.swing.JTextField();
+        btnSendOtp = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        txtOtp = new javax.swing.JTextField();
+        btnVerifyOtp = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        txtNewPassword = new javax.swing.JTextField();
+        btnResetPassword = new javax.swing.JButton();
         backgroundimage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(700, 450));
         getContentPane().setLayout(null);
 
         jPanel1.setMinimumSize(new java.awt.Dimension(700, 450));
@@ -157,56 +163,56 @@ public class ForgotPassword extends javax.swing.JFrame {
         jPanel4.add(edit);
         edit.setBounds(10, 40, 250, 20);
 
-        email.setText("Enter your email");
-        email.addActionListener(this::emailActionPerformed);
-        jPanel4.add(email);
-        email.setBounds(10, 70, 290, 22);
+        txtEmail.setText("Enter your email");
+        txtEmail.addActionListener(this::txtEmailActionPerformed);
+        jPanel4.add(txtEmail);
+        txtEmail.setBounds(10, 70, 290, 22);
 
-        jButton1.setBackground(new java.awt.Color(14, 93, 174));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Send OTP");
-        jButton1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel4.add(jButton1);
-        jButton1.setBounds(260, 100, 90, 25);
+        btnSendOtp.setBackground(new java.awt.Color(14, 93, 174));
+        btnSendOtp.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnSendOtp.setForeground(new java.awt.Color(255, 255, 255));
+        btnSendOtp.setText("Send OTP");
+        btnSendOtp.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        btnSendOtp.addActionListener(this::btnSendOtpActionPerformed);
+        jPanel4.add(btnSendOtp);
+        btnSendOtp.setBounds(260, 100, 90, 25);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("OTP");
         jPanel4.add(jLabel3);
         jLabel3.setBounds(10, 130, 50, 25);
 
-        jTextField1.setText("Enter the OTP");
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
-        jPanel4.add(jTextField1);
-        jTextField1.setBounds(10, 160, 280, 22);
+        txtOtp.setText("Enter the OTP");
+        txtOtp.addActionListener(this::txtOtpActionPerformed);
+        jPanel4.add(txtOtp);
+        txtOtp.setBounds(10, 160, 280, 22);
 
-        jButton2.setBackground(new java.awt.Color(14, 93, 174));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Verify");
-        jButton2.setPreferredSize(new java.awt.Dimension(56, 20));
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel4.add(jButton2);
-        jButton2.setBounds(260, 190, 90, 20);
+        btnVerifyOtp.setBackground(new java.awt.Color(14, 93, 174));
+        btnVerifyOtp.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnVerifyOtp.setForeground(new java.awt.Color(255, 255, 255));
+        btnVerifyOtp.setText("Verify");
+        btnVerifyOtp.setPreferredSize(new java.awt.Dimension(56, 20));
+        btnVerifyOtp.addActionListener(this::btnVerifyOtpActionPerformed);
+        jPanel4.add(btnVerifyOtp);
+        btnVerifyOtp.setBounds(260, 190, 90, 20);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Password");
         jPanel4.add(jLabel4);
         jLabel4.setBounds(10, 220, 110, 30);
 
-        jTextField2.setText("Enter your new password");
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
-        jPanel4.add(jTextField2);
-        jTextField2.setBounds(10, 250, 280, 22);
+        txtNewPassword.setText("Enter your new password");
+        txtNewPassword.addActionListener(this::txtNewPasswordActionPerformed);
+        jPanel4.add(txtNewPassword);
+        txtNewPassword.setBounds(10, 250, 280, 22);
 
-        jButton3.setBackground(new java.awt.Color(14, 97, 174));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Reset");
-        jButton3.addActionListener(this::jButton3ActionPerformed);
-        jPanel4.add(jButton3);
-        jButton3.setBounds(260, 280, 100, 25);
+        btnResetPassword.setBackground(new java.awt.Color(14, 97, 174));
+        btnResetPassword.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnResetPassword.setForeground(new java.awt.Color(255, 255, 255));
+        btnResetPassword.setText("Reset");
+        btnResetPassword.addActionListener(this::btnResetPasswordActionPerformed);
+        jPanel4.add(btnResetPassword);
+        btnResetPassword.setBounds(260, 280, 100, 25);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(120, 110, 470, 320);
@@ -225,33 +231,62 @@ public class ForgotPassword extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSendOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendOtpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String email = txtEmail.getText().trim();
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        if (email.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter email!");
+        return;
+}
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        controller.sendOtp(email);
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+       
+    }//GEN-LAST:event_btnSendOtpActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOtpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtOtpActionPerformed
 
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+    private void btnVerifyOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyOtpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
+        String email = txtEmail.getText().trim();
+String otp = txtOtp.getText().trim();
+
+if (controller.verifyOtp(email, otp)) {
+    JOptionPane.showMessageDialog(this, "OTP Verified!");
+} else {
+    JOptionPane.showMessageDialog(this, "Invalid OTP!");
+}
+
+    }//GEN-LAST:event_btnVerifyOtpActionPerformed
+
+    private void btnResetPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetPasswordActionPerformed
+        // TODO add your handling code here:
+        String email = txtEmail.getText().trim();
+String newPass = txtNewPassword.getText().trim();
+
+if (newPass.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Enter new password!");
+    return;
+}
+
+controller.resetPassword(email, newPass);
+
+    }//GEN-LAST:event_btnResetPasswordActionPerformed
+
+    private void txtNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNewPasswordActionPerformed
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
      * @param args the command line arguments
-     */
+     */     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -281,12 +316,11 @@ public class ForgotPassword extends javax.swing.JFrame {
     private javax.swing.JLabel Pharmassist;
     private javax.swing.JLabel Slogan;
     private javax.swing.JLabel backgroundimage;
+    private javax.swing.JButton btnResetPassword;
+    private javax.swing.JButton btnSendOtp;
+    private javax.swing.JButton btnVerifyOtp;
     private javax.swing.JLabel categories;
     private javax.swing.JLabel edit;
-    private javax.swing.JTextField email;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -295,8 +329,9 @@ public class ForgotPassword extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel pCONTACTS;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtNewPassword;
+    private javax.swing.JTextField txtOtp;
     // End of variables declaration//GEN-END:variables
 }
