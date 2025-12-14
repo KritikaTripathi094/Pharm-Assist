@@ -10,27 +10,26 @@ import java.util.Random;
 
 public class ForgotPasswordController {
 
-    // Use consistent variable name
     private final UserDAO userDao = new UserDAO();
 
-    // 1. Generate 6-digit OTP
+    // Generate 6-digit OTP
     private String generateOtp() {
         Random rand = new Random();
-        int otp = rand.nextInt(900000) + 100000; // ensures 6-digit
+        int otp = 100000 + rand.nextInt(900000);
         return String.valueOf(otp);
     }
 
-    // 2. SEND OTP
+    // Send OTP to email
     public void sendOtp(String email) {
         try {
-            if (userDao.isEmailExist(email)) {   // lowercase d
+            if (userDao.isEmailExist(email)) {
                 String otp = generateOtp();
-                userDao.saveOtp(email, otp);     // save OTP to database
+                userDao.saveOtp(email, otp);  // Save OTP in DB
 
-                // Send OTP via email
                 String subject = "Your OTP for Pharm-Assist";
                 String message = "Your OTP to reset your password is: " + otp;
-                EmailService.sendEmail(email, subject, message);
+
+                EmailService.sendEmail(email, subject, message);  // Send email
 
                 JOptionPane.showMessageDialog(null, "OTP sent to your email!");
             } else {
@@ -42,25 +41,25 @@ public class ForgotPasswordController {
         }
     }
 
-    // 3. VERIFY OTP
+    // Verify OTP
     public boolean verifyOtp(String email, String enteredOtp) {
         try {
             return userDao.verifyOtp(email, enteredOtp);
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error verifying OTP: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error verifying OTP!");
             return false;
         }
     }
 
-    // 4. RESET PASSWORD
+    // Reset Password
     public void resetPassword(String email, String newPassword) {
         try {
             userDao.updatePassword(email, newPassword);
             JOptionPane.showMessageDialog(null, "Password reset successful!");
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error resetting password: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error resetting password!");
         }
     }
 }

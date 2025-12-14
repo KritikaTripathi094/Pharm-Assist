@@ -3,10 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-
-import Controller.ForgotPasswordController;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author kritss
@@ -18,12 +14,8 @@ public class ForgotPassword extends javax.swing.JFrame {
     /**
      * Creates new form ForgotPassword
      */
-    private final ForgotPasswordController controller;
 
-   public ForgotPassword() {
-    initComponents();
-    controller = new ForgotPasswordController();
-}
+
 
 
     /**
@@ -166,7 +158,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         txtEmail.setText("Enter your email");
         txtEmail.addActionListener(this::txtEmailActionPerformed);
         jPanel4.add(txtEmail);
-        txtEmail.setBounds(10, 70, 290, 22);
+        txtEmail.setBounds(10, 70, 290, 30);
 
         btnSendOtp.setBackground(new java.awt.Color(14, 93, 174));
         btnSendOtp.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -175,7 +167,7 @@ public class ForgotPassword extends javax.swing.JFrame {
         btnSendOtp.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         btnSendOtp.addActionListener(this::btnSendOtpActionPerformed);
         jPanel4.add(btnSendOtp);
-        btnSendOtp.setBounds(260, 100, 90, 25);
+        btnSendOtp.setBounds(260, 110, 90, 25);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("OTP");
@@ -233,15 +225,6 @@ public class ForgotPassword extends javax.swing.JFrame {
 
     private void btnSendOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendOtpActionPerformed
         // TODO add your handling code here:
-        String email = txtEmail.getText().trim();
-
-        if (email.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please enter email!");
-        return;
-}
-
-        controller.sendOtp(email);
-
        
     }//GEN-LAST:event_btnSendOtpActionPerformed
 
@@ -251,28 +234,11 @@ public class ForgotPassword extends javax.swing.JFrame {
 
     private void btnVerifyOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyOtpActionPerformed
         // TODO add your handling code here:
-        String email = txtEmail.getText().trim();
-String otp = txtOtp.getText().trim();
-
-if (controller.verifyOtp(email, otp)) {
-    JOptionPane.showMessageDialog(this, "OTP Verified!");
-} else {
-    JOptionPane.showMessageDialog(this, "Invalid OTP!");
-}
 
     }//GEN-LAST:event_btnVerifyOtpActionPerformed
 
     private void btnResetPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetPasswordActionPerformed
         // TODO add your handling code here:
-        String email = txtEmail.getText().trim();
-String newPass = txtNewPassword.getText().trim();
-
-if (newPass.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Enter new password!");
-    return;
-}
-
-controller.resetPassword(email, newPass);
 
     }//GEN-LAST:event_btnResetPasswordActionPerformed
 
@@ -306,7 +272,7 @@ controller.resetPassword(email, newPass);
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new ForgotPassword().setVisible(true));
+     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
