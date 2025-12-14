@@ -39,9 +39,6 @@ public class Dashboard extends javax.swing.JFrame {
         RateUs = new javax.swing.JMenuItem();
         Logout = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
-        Emergencycontacticon = new javax.swing.JLabel();
-        bmiicon = new javax.swing.JLabel();
-        contactpharmacyicon = new javax.swing.JLabel();
         Allcategoriesbtn = new javax.swing.JButton();
         Emergencycontactsbtn = new javax.swing.JButton();
         Bmibtn = new javax.swing.JButton();
@@ -74,18 +71,6 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        Emergencycontacticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
-        jPanel1.add(Emergencycontacticon);
-        Emergencycontacticon.setBounds(160, 70, 25, 25);
-
-        bmiicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
-        jPanel1.add(bmiicon);
-        bmiicon.setBounds(370, 70, 25, 25);
-
-        contactpharmacyicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
-        jPanel1.add(contactpharmacyicon);
-        contactpharmacyicon.setBounds(550, 70, 25, 25);
-
         Allcategoriesbtn.setBackground(new java.awt.Color(14, 94, 174));
         Allcategoriesbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Allcategoriesbtn.setText("All Categories");
@@ -95,25 +80,28 @@ public class Dashboard extends javax.swing.JFrame {
         Allcategoriesbtn.setBounds(0, 70, 122, 28);
 
         Emergencycontactsbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Emergencycontactsbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
         Emergencycontactsbtn.setText("Emergency Contacts");
         Emergencycontactsbtn.setBorder(null);
         Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
         jPanel1.add(Emergencycontactsbtn);
-        Emergencycontactsbtn.setBounds(180, 70, 150, 28);
+        Emergencycontactsbtn.setBounds(190, 70, 150, 28);
 
         Bmibtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Bmibtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
         Bmibtn.setText("BMI");
         Bmibtn.setBorder(null);
         Bmibtn.addActionListener(this::BmibtnActionPerformed);
         jPanel1.add(Bmibtn);
-        Bmibtn.setBounds(370, 70, 122, 28);
+        Bmibtn.setBounds(410, 70, 60, 28);
 
         Contactpharmacybtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Contactpharmacybtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
         Contactpharmacybtn.setText("Contact Pharmacy");
         Contactpharmacybtn.setBorder(null);
         Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
         jPanel1.add(Contactpharmacybtn);
-        Contactpharmacybtn.setBounds(570, 70, 130, 28);
+        Contactpharmacybtn.setBounds(560, 70, 132, 28);
 
         Cartbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
         Cartbtn.setBorder(null);
@@ -158,6 +146,8 @@ public class Dashboard extends javax.swing.JFrame {
 
         bmi.setBackground(new java.awt.Color(51, 255, 0));
         contentPanel.add(bmi, "bmi");
+
+        categories.setBackground(new java.awt.Color(244, 252, 255));
         contentPanel.add(categories, "categories");
 
         pharmacy.setBackground(new java.awt.Color(153, 0, 153));
@@ -234,7 +224,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton Bmibtn;
     private javax.swing.JButton Cartbtn;
     private javax.swing.JButton Contactpharmacybtn;
-    private javax.swing.JLabel Emergencycontacticon;
     private javax.swing.JButton Emergencycontactsbtn;
     private javax.swing.JMenuItem Logout;
     private javax.swing.JMenuItem Profile;
@@ -242,9 +231,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JTextField Searchbar;
     private javax.swing.JLabel Slogan;
     private javax.swing.JPanel bmi;
-    private javax.swing.JLabel bmiicon;
     private javax.swing.JPanel categories;
-    private javax.swing.JLabel contactpharmacyicon;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel emergency;
     private javax.swing.JPanel jPanel1;
