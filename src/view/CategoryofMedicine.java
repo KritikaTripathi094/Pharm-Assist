@@ -18,6 +18,7 @@ public class CategoryofMedicine extends javax.swing.JFrame {
      * Creates new form CategoryofMedicine
      */
     public CategoryofMedicine() {
+        this.setUndecorated(true);
         initComponents();
     }
 
@@ -31,19 +32,6 @@ public class CategoryofMedicine extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -60,70 +48,6 @@ public class CategoryofMedicine extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(245, 253, 255));
         jPanel1.setLayout(null);
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setPreferredSize(new java.awt.Dimension(750, 100));
-        jPanel2.setLayout(null);
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reallogo.png"))); // NOI18N
-        jPanel2.add(jLabel1);
-        jLabel1.setBounds(0, 0, 40, 40);
-
-        jLabel2.setFont(new java.awt.Font("Comic Sans MS", 0, 20)); // NOI18N
-        jLabel2.setText("Pharm-Assist");
-        jPanel2.add(jLabel2);
-        jLabel2.setBounds(40, 0, 130, 28);
-
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 11)); // NOI18N
-        jLabel3.setText("Your healthy dose of convenience");
-        jPanel2.add(jLabel3);
-        jLabel3.setBounds(0, 40, 172, 17);
-
-        jButton1.setBackground(new java.awt.Color(14, 93, 174));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("All Categories");
-        jPanel2.add(jButton1);
-        jButton1.setBounds(20, 80, 110, 23);
-
-        jTextField1.setPreferredSize(new java.awt.Dimension(398, 34));
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
-        jPanel2.add(jTextField1);
-        jTextField1.setBounds(170, 10, 370, 34);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/searchlogo.png"))); // NOI18N
-        jPanel2.add(jButton2);
-        jButton2.setBounds(540, 10, 30, 30);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
-        jPanel2.add(jButton3);
-        jButton3.setBounds(580, 10, 31, 32);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
-        jPanel2.add(jButton4);
-        jButton4.setBounds(620, 10, 30, 30);
-
-        jLabel4.setText("Account");
-        jPanel2.add(jLabel4);
-        jLabel4.setBounds(650, 20, 50, 16);
-
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
-        jButton7.setText("BMI");
-        jPanel2.add(jButton7);
-        jButton7.setBounds(380, 70, 80, 30);
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
-        jButton6.setText("Emergency Contacts");
-        jButton6.addActionListener(this::jButton6ActionPerformed);
-        jPanel2.add(jButton6);
-        jButton6.setBounds(140, 70, 170, 30);
-
-        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
-        jButton8.setText("Contact Pharmacy");
-        jPanel2.add(jButton8);
-        jButton8.setBounds(540, 70, 160, 30);
-
-        jPanel1.add(jPanel2);
-        jPanel2.setBounds(0, 0, 700, 100);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -143,7 +67,7 @@ public class CategoryofMedicine extends javax.swing.JFrame {
         jButton10.setBounds(0, 50, 110, 26);
 
         jPanel1.add(jPanel3);
-        jPanel3.setBounds(20, 120, 112, 317);
+        jPanel3.setBounds(20, 10, 112, 317);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(530, 317));
@@ -173,17 +97,13 @@ public class CategoryofMedicine extends javax.swing.JFrame {
         jPanel6.setBounds(0, 160, 530, 120);
 
         jPanel1.add(jPanel4);
-        jPanel4.setBounds(140, 120, 530, 317);
+        jPanel4.setBounds(140, 10, 530, 317);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 700, 450);
+        jPanel1.setBounds(0, 0, 700, 350);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
 jPanel5.setVisible(true);
@@ -195,10 +115,6 @@ jPanel6.setVisible(false);
 jPanel5.setVisible(false);
 jPanel6.setVisible(true);// TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -226,28 +142,15 @@ jPanel6.setVisible(true);// TODO add your handling code here:
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

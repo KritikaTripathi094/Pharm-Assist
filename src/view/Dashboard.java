@@ -43,15 +43,15 @@ public class Dashboard extends javax.swing.JFrame {
         Searchbar = new javax.swing.JTextField();
         Accounticon = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        Emergencycontacticon = new javax.swing.JLabel();
         bmiicon = new javax.swing.JLabel();
         contactpharmacyicon = new javax.swing.JLabel();
         Allcategoriesbtn = new javax.swing.JButton();
-        Emergencycontactsbtn = new javax.swing.JButton();
         Bmibtn = new javax.swing.JButton();
         Contactpharmacybtn = new javax.swing.JButton();
         Cartbtn = new javax.swing.JButton();
         Accountbtn = new javax.swing.JButton();
+        Emergencycontactsbtn = new javax.swing.JButton();
+        Emergencycontacticon = new javax.swing.JLabel();
 
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
@@ -75,16 +75,16 @@ public class Dashboard extends javax.swing.JFrame {
         namepharmassist.setFont(new java.awt.Font("Comic Neue", 1, 20)); // NOI18N
         namepharmassist.setText("Pharm-Assist");
         jPanel1.add(namepharmassist);
-        namepharmassist.setBounds(60, 3, 120, 40);
+        namepharmassist.setBounds(60, 3, 140, 40);
 
         Slogan.setFont(new java.awt.Font("Comic Neue", 0, 11)); // NOI18N
         Slogan.setText("Your healthy dose of convenience");
         jPanel1.add(Slogan);
-        Slogan.setBounds(10, 50, 210, 13);
+        Slogan.setBounds(10, 50, 210, 15);
 
         Searchbar.addActionListener(this::SearchbarActionPerformed);
         jPanel1.add(Searchbar);
-        Searchbar.setBounds(180, 10, 398, 34);
+        Searchbar.setBounds(198, 10, 380, 34);
 
         Accounticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
         jPanel1.add(Accounticon);
@@ -92,10 +92,6 @@ public class Dashboard extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(null);
-
-        Emergencycontacticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
-        jPanel2.add(Emergencycontacticon);
-        Emergencycontacticon.setBounds(160, 70, 25, 25);
 
         bmiicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
         jPanel2.add(bmiicon);
@@ -107,17 +103,18 @@ public class Dashboard extends javax.swing.JFrame {
 
         Allcategoriesbtn.setBackground(new java.awt.Color(14, 94, 174));
         Allcategoriesbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Allcategoriesbtn.setForeground(new java.awt.Color(255, 255, 255));
         Allcategoriesbtn.setText("All Categories");
         Allcategoriesbtn.setBorder(null);
+        Allcategoriesbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Allcategoriesbtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AllcategoriesbtnMouseClicked(evt);
+            }
+        });
         Allcategoriesbtn.addActionListener(this::AllcategoriesbtnActionPerformed);
         jPanel2.add(Allcategoriesbtn);
         Allcategoriesbtn.setBounds(0, 70, 122, 28);
-
-        Emergencycontactsbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
-        Emergencycontactsbtn.setText("Emergency Contacts");
-        Emergencycontactsbtn.setBorder(null);
-        jPanel2.add(Emergencycontactsbtn);
-        Emergencycontactsbtn.setBounds(180, 70, 150, 28);
 
         Bmibtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Bmibtn.setText("BMI");
@@ -142,8 +139,21 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel2.add(Accountbtn);
         Accountbtn.setBounds(615, 10, 90, 23);
 
+        Emergencycontactsbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Emergencycontactsbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
+        Emergencycontactsbtn.setText("Emergency Contacts");
+        Emergencycontactsbtn.setBorder(null);
+        Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
+        jPanel2.add(Emergencycontactsbtn);
+        Emergencycontactsbtn.setBounds(180, 70, 150, 28);
+
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 700, 99);
+
+        Emergencycontacticon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
+        Emergencycontacticon.setText("Emergency Contact");
+        jPanel1.add(Emergencycontacticon);
+        Emergencycontacticon.setBounds(40, 190, 140, 25);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 700, 450);
@@ -163,6 +173,27 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
     jPopupMenu1.show(Accountbtn, 0, Accountbtn.getHeight());
     }//GEN-LAST:event_AccountbtnActionPerformed
+    private CategoryofMedicine cat;
+    private void AllcategoriesbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AllcategoriesbtnMouseClicked
+        // TODO add your handling code here:
+        if(cat == null){
+        cat = new CategoryofMedicine();
+        cat.setSize(700, 340);
+        cat.setLocation(0, 130);
+        }
+        if(cat.isVisible()){
+            cat.setVisible(false);
+        }
+        else{
+            cat.setVisible(true);
+            cat.toFront();
+        }
+        
+    }//GEN-LAST:event_AllcategoriesbtnMouseClicked
+
+    private void EmergencycontactsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmergencycontactsbtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
     /**
      * @param args the command line arguments
