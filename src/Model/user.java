@@ -6,16 +6,21 @@ package Model;
 
 
 
-public class user {
+public class User {
     private String email;
     private String password;
+    private String username;
 
-    public user() {}
+    public User() {}
 
-    public user(String email, String password) {
+    public User(String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }
+    
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }

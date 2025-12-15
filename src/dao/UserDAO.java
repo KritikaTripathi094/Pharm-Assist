@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dao;
+
 import Model.User;
 import database.DBConnection;
 import java.sql.Connection;
@@ -16,13 +17,11 @@ import java.sql.SQLException;
  */
 public class UserDAO {
 
-    DBConnection db = new DBConnection();
-
     // ===== REGISTER USER =====
     public boolean register(User user) {
         String sql = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
 
-        try (Connection con = db.openConnection();
+        try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, user.getUsername());
@@ -39,14 +38,15 @@ public class UserDAO {
     }
 
     // ===== LOGIN =====
-    public boolean login(String username, String password) {
-        String sql = "SELECT * FROM users WHERE username=? AND password=?";
+    public boolean login(String usernameOrEmail, String password) {
+        String sql = "SELECT * FROM users WHERE (username=? OR email=?) AND password=?";
 
-        try (Connection con = db.openConnection();
+        try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
-            ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(1, usernameOrEmail);
+            ps.setString(2, usernameOrEmail);
+            ps.setString(3, password);
 
             ResultSet rs = ps.executeQuery();
             return rs.next();
@@ -61,7 +61,7 @@ public class UserDAO {
     public boolean emailExists(String email) {
         String sql = "SELECT * FROM users WHERE email=?";
 
-        try (Connection con = db.openConnection();
+        try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, email);
@@ -78,7 +78,7 @@ public class UserDAO {
     public boolean updatePassword(String email, String newPassword) {
         String sql = "UPDATE users SET password=? WHERE email=?";
 
-        try (Connection con = db.openConnection();
+        try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, newPassword);
