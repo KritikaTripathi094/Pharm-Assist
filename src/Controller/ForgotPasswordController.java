@@ -4,62 +4,57 @@
  */
 package Controller;
 
+
 import dao.UserDAO;
-import javax.swing.JOptionPane;
 import java.util.Random;
+
+
+
 
 public class ForgotPasswordController {
 
-    private final UserDAO userDao = new UserDAO();
+    private String generatedOtp;
+    private boolean otpVerified = false;
 
-    // Generate 6-digit OTP
-    private String generateOtp() {
-        Random rand = new Random();
-        int otp = 100000 + rand.nextInt(900000);
-        return String.valueOf(otp);
-    }
+    private UserDAO userDAO = new UserDAO();
 
-    // Send OTP to email
-    public void sendOtp(String email) {
-        try {
-            if (userDao.isEmailExist(email)) {
-                String otp = generateOtp();
-                userDao.saveOtp(email, otp);  // Save OTP in DB
+    // Send OTP
+    public boolean sendOtp(String email) {
 
-                String subject = "Your OTP for Pharm-Assist";
-                String message = "Your OTP to reset your password is: " + otp;
-
-                EmailService.sendEmail(email, subject, message);  // Send email
-
-                JOptionPane.showMessageDialog(null, "OTP sent to your email!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Email not found!");
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error occurred while sending OTP!");
+        if (!userDAO.emailExists(email)) {
+            return false;
         }
+
+        generatedOtp = String.valueOf(new Random().nextInt(900000) + 100000);
+        otpVerified = false; // reset old verification
+
+        EmailService.sendEmail(
+            email,
+            "Password Reset OTP",
+            "Your OTP is: " + generatedOtp
+        );
+
+        return true;
     }
 
     // Verify OTP
-    public boolean verifyOtp(String email, String enteredOtp) {
-        try {
-            return userDao.verifyOtp(email, enteredOtp);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error verifying OTP!");
-            return false;
+    public boolean verifyOtp(String enteredOtp) {
+
+        if (generatedOtp != null && generatedOtp.equals(enteredOtp)) {
+            otpVerified = true;
+            return true;
         }
+
+        return false;
     }
 
-    // Reset Password
-    public void resetPassword(String email, String newPassword) {
-        try {
-            userDao.updatePassword(email, newPassword);
-            JOptionPane.showMessageDialog(null, "Password reset successful!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error resetting password!");
+    // 🔒 Reset password ONLY if OTP verified
+    public boolean resetPassword(String email, String newPassword) {
+
+        if (!otpVerified) {
+            return false; // ❌ block res
         }
+
+        return userDAO.updatePassword(email, newPassword);
     }
 }
