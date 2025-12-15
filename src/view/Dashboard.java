@@ -51,17 +51,23 @@ public class Dashboard extends javax.swing.JFrame {
         Slogan = new javax.swing.JLabel();
         Searchbar = new javax.swing.JTextField();
         contentPanel = new javax.swing.JPanel();
+        categories = new javax.swing.JPanel();
         emergency = new javax.swing.JPanel();
         bmi = new javax.swing.JPanel();
-        categories = new javax.swing.JPanel();
         pharmacy = new javax.swing.JPanel();
 
+        jPopupMenu1.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        jPopupMenu1.setToolTipText("");
+
+        Profile.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
 
+        RateUs.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         RateUs.setText("Rateus");
         jPopupMenu1.add(RateUs);
 
+        Logout.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         Logout.setText("Logout");
         jPopupMenu1.add(Logout);
 
@@ -81,7 +87,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         Emergencycontactsbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Emergencycontactsbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
-        Emergencycontactsbtn.setText("Emergency Contacts");
+        Emergencycontactsbtn.setText("Emergency Contacts ");
         Emergencycontactsbtn.setBorder(null);
         Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
         jPanel1.add(Emergencycontactsbtn);
@@ -89,7 +95,7 @@ public class Dashboard extends javax.swing.JFrame {
 
         Bmibtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Bmibtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
-        Bmibtn.setText("BMI");
+        Bmibtn.setText("BMI ");
         Bmibtn.setBorder(null);
         Bmibtn.addActionListener(this::BmibtnActionPerformed);
         jPanel1.add(Bmibtn);
@@ -141,14 +147,14 @@ public class Dashboard extends javax.swing.JFrame {
 
         contentPanel.setLayout(new java.awt.CardLayout());
 
+        categories.setBackground(new java.awt.Color(244, 252, 255));
+        contentPanel.add(categories, "categories");
+
         emergency.setBackground(new java.awt.Color(255, 0, 0));
         contentPanel.add(emergency, "emergency");
 
         bmi.setBackground(new java.awt.Color(51, 255, 0));
         contentPanel.add(bmi, "bmi");
-
-        categories.setBackground(new java.awt.Color(244, 252, 255));
-        contentPanel.add(categories, "categories");
 
         pharmacy.setBackground(new java.awt.Color(153, 0, 153));
         contentPanel.add(pharmacy, "pharmacy");
