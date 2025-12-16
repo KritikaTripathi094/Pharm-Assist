@@ -108,6 +108,7 @@ public class Dashboard extends javax.swing.JFrame {
         jPopupMenu1.add(Profile);
 
         RateUs.setText("Rateus");
+        RateUs.addActionListener(this::RateUsActionPerformed);
         jPopupMenu1.add(RateUs);
 
         Logout.setText("Logout");
@@ -133,6 +134,8 @@ public class Dashboard extends javax.swing.JFrame {
         Emergencycontactsbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
         Emergencycontactsbtn.setText("Emergency Contacts  ");
         Emergencycontactsbtn.setBorder(null);
+        Emergencycontactsbtn.setBorderPainted(false);
+        Emergencycontactsbtn.setContentAreaFilled(false);
         Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
         jPanel1.add(Emergencycontactsbtn);
         Emergencycontactsbtn.setBounds(190, 70, 150, 28);
@@ -141,6 +144,8 @@ public class Dashboard extends javax.swing.JFrame {
         Bmibtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
         Bmibtn.setText("BMI ");
         Bmibtn.setBorder(null);
+        Bmibtn.setBorderPainted(false);
+        Bmibtn.setContentAreaFilled(false);
         Bmibtn.addActionListener(this::BmibtnActionPerformed);
         jPanel1.add(Bmibtn);
         Bmibtn.setBounds(400, 70, 60, 28);
@@ -149,6 +154,8 @@ public class Dashboard extends javax.swing.JFrame {
         Contactpharmacybtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
         Contactpharmacybtn.setText("Contact Pharmacy ");
         Contactpharmacybtn.setBorder(null);
+        Contactpharmacybtn.setBorderPainted(false);
+        Contactpharmacybtn.setContentAreaFilled(false);
         Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
         jPanel1.add(Contactpharmacybtn);
         Contactpharmacybtn.setBounds(550, 70, 130, 28);
@@ -160,6 +167,8 @@ public class Dashboard extends javax.swing.JFrame {
         Accountbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
         Accountbtn.setText("Account ");
         Accountbtn.setBorder(null);
+        Accountbtn.setBorderPainted(false);
+        Accountbtn.setContentAreaFilled(false);
         Accountbtn.addActionListener(this::AccountbtnActionPerformed);
         jPanel1.add(Accountbtn);
         Accountbtn.setBounds(610, 10, 90, 23);
@@ -179,6 +188,8 @@ public class Dashboard extends javax.swing.JFrame {
         Searchbar.setBounds(200, 10, 370, 30);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
         jPanel1.add(jButton5);
         jButton5.setBounds(580, 10, 25, 25);
 
@@ -524,6 +535,13 @@ jPanel5.setVisible(false);        // TODO add your handling code here:
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void RateUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RateUsActionPerformed
+        // TODO add your handling code here:
+        RateUS rateFrame = new RateUS();
+        rateFrame.setVisible(true);
+        rateFrame.setLocationRelativeTo(this);
+    }//GEN-LAST:event_RateUsActionPerformed
 
     /**
      * @param args the command line arguments

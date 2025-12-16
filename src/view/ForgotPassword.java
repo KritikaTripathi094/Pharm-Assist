@@ -229,7 +229,7 @@ public ForgotPassword() {
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 731, 447);
 
-        pack();
+        setBounds(0, 0, 722, 459);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSendOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendOtpActionPerformed

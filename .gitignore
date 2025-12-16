@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-src/database/
-nbproject/private/
-=======
-# Ignore database and private configs
-src/database/
-nbproject/private/
 
-# Optional: ignore compiled class files
-*.class
-build/
-dist/
->>>>>>> rojal-category
+src/database
+nbproject/private/
