@@ -4,6 +4,7 @@
  */
 package view;
 import Controller.UserController;
+import Model.User;
 import javax.swing.JOptionPane;
 
 /**
@@ -129,28 +130,35 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         // Get input from text fields
-        String username = txtUsername.getText();
-        String password = new String(txtPassword.getPassword());
+String username = txtUsername.getText();
+String password = new String(txtPassword.getPassword());
 
-    if (username.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(this,
-                "Please enter username/email and password");
-        return;
-    }
+if (username.isEmpty() || password.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Please enter username/email and password");
+    return;
+}
 
-    if (controller.login(username, password)) {
-        JOptionPane.showMessageDialog(this, "Login Successful!");
+// Call login which now returns a User object
+User user = controller.login(username, password);
 
-        Dashboard dashboard = new Dashboard();
-        dashboard.setVisible(true);
+if (user != null) {
+    JOptionPane.showMessageDialog(this, "Login Successful!");
 
-        this.dispose();
+    // Check role to decide which dashboard to open
+    if ("ADMIN".equalsIgnoreCase(user.getRole())) {
+        AdminDashboard adminDash = new AdminDashboard();
+        adminDash.setVisible(true);
     } else {
-        JOptionPane.showMessageDialog(this,
-                "Invalid username/email or password");
+        Dashboard userDash = new Dashboard();
+        userDash.setVisible(true);
     }
 
-  
+    this.dispose();
+} else {
+    JOptionPane.showMessageDialog(this, "Invalid username/email or password");
+}
+
+
 
     }//GEN-LAST:event_btnLoginActionPerformed
 

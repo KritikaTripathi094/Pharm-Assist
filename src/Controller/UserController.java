@@ -22,7 +22,9 @@ public class UserController {
         return dao.register(user);
     }
 
-    public boolean login(String username, String password) {
+     // ===== LOGIN =====
+    // Return the User object instead of boolean so we can check role
+    public User login(String username, String password) {
         return dao.login(username, password);
     }
 }

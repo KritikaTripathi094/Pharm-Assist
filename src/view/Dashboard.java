@@ -138,7 +138,7 @@ public class Dashboard extends javax.swing.JFrame {
         Emergencycontactsbtn.setContentAreaFilled(false);
         Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
         jPanel1.add(Emergencycontactsbtn);
-        Emergencycontactsbtn.setBounds(190, 70, 150, 28);
+        Emergencycontactsbtn.setBounds(190, 70, 160, 28);
 
         Bmibtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Bmibtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
@@ -158,7 +158,7 @@ public class Dashboard extends javax.swing.JFrame {
         Contactpharmacybtn.setContentAreaFilled(false);
         Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
         jPanel1.add(Contactpharmacybtn);
-        Contactpharmacybtn.setBounds(550, 70, 130, 28);
+        Contactpharmacybtn.setBounds(530, 70, 140, 28);
 
         logopharmassist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reallogo.png"))); // NOI18N
         jPanel1.add(logopharmassist);
