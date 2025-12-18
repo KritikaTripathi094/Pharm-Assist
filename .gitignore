@@ -1,8 +1,5 @@
-# Ignore database and private configs
-src/database/
+
+src/database
 nbproject/private/
 
-# Optional: ignore compiled class files
-*.class
-build/
-dist/
+

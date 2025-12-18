@@ -5,7 +5,9 @@
 package view;
 
 import java.awt.CardLayout;
-
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,6 +17,7 @@ public class Dashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
     private void initPopupMenu() {
+        
 }
 
     /**
@@ -23,7 +26,95 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         initPopupMenu();
+        loadProductUI();
     }
+     private void loadProductUI() {
+             System.out.println("=== Loading products from database ===");
+    
+    // Clear the panel first
+    jPanel4.removeAll();
+    
+    // Use FlowLayout for horizontal scrolling
+    jPanel4.setLayout(new java.awt.FlowLayout(
+        java.awt.FlowLayout.LEFT,
+        20,
+        20
+    ));
+    
+    try {
+        // Get products from DATABASE
+        dao.ProductDAO productDAO = new dao.ProductDAO();
+        java.util.List<Model.Product> products = productDAO.getAllProducts();
+        
+        System.out.println("Products from DB: " + products.size());
+        
+        if (products.isEmpty()) {
+            System.out.println("No products in DB, showing fallback...");
+            // Fallback: Show test product
+            Model.Product testProduct = new Model.Product(1, "Flexon Tab", 30.00, "flexy.jpg");
+            ProductCard card = new ProductCard();
+            card.setProduct(testProduct);
+            card.setPreferredSize(new java.awt.Dimension(150, 170));
+            
+            card.setCartButtonAction(e -> {
+                javax.swing.JOptionPane.showMessageDialog(
+                    Dashboard.this,
+                    "✅ Added to cart:\n• Flexon Tab\n• Price: Rs.30.00",
+                    "Cart Update",
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE
+                );
+            });
+            
+            jPanel4.add(card);
+        } else {
+            // Create and add product cards from DATABASE
+            for (Model.Product product : products) {
+                System.out.println("Creating card for: " + product.getName());
+                
+                ProductCard card = new ProductCard();
+                card.setProduct(product);
+                card.setPreferredSize(new java.awt.Dimension(150, 170));
+                
+                card.setCartButtonAction(e -> {
+                    javax.swing.JOptionPane.showMessageDialog(
+                        Dashboard.this,
+                        "✅ Added to cart:\n• " + product.getName() + 
+                        "\n• Price: Rs." + String.format("%.2f", product.getPrice()),
+                        "Cart Update",
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE
+                    );
+                });
+                
+                jPanel4.add(card);
+            }
+        }
+        
+    } catch (Exception e) {
+        System.err.println("❌ ERROR: " + e.getMessage());
+        e.printStackTrace();
+        
+        // Show error message
+        javax.swing.JLabel errorLabel = new javax.swing.JLabel(
+            "Database error: " + e.getMessage(),
+            javax.swing.SwingConstants.CENTER
+        );
+        errorLabel.setForeground(java.awt.Color.RED);
+        jPanel4.add(errorLabel);
+    }
+    
+    // Set preferred size for scrolling
+    jPanel4.setPreferredSize(new java.awt.Dimension(800, 350));
+    
+    // Refresh
+    jPanel4.revalidate();
+    jPanel4.repaint();
+    jScrollPane2.revalidate();
+    
+    System.out.println("=== Finished loading products ===");
+            
+         
+     }
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,52 +147,11 @@ public class Dashboard extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
         emergency = new javax.swing.JPanel();
         bmi = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
         pharmacy = new javax.swing.JPanel();
 
         Profile.setText("Profile");
@@ -212,251 +262,12 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(null);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(null);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollPane2.setViewportView(jPanel4);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(null);
-
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hervir400.jpg"))); // NOI18N
-        jPanel6.add(jLabel6);
-        jLabel6.setBounds(10, 0, 90, 30);
-
-        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
-        jLabel7.setText("HERVIR 400");
-        jPanel6.add(jLabel7);
-        jLabel7.setBounds(10, 30, 70, 14);
-
-        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel8.setText("Rs. 270");
-        jPanel6.add(jLabel8);
-        jLabel8.setBounds(10, 50, 50, 18);
-
-        jLabel9.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Add to cart");
-        jLabel9.setOpaque(true);
-        jPanel6.add(jLabel9);
-        jLabel9.setBounds(10, 70, 70, 16);
-
-        jPanel4.add(jPanel6);
-        jPanel6.setBounds(270, 20, 110, 90);
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(null);
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lulu.jpg"))); // NOI18N
-        jPanel7.add(jLabel10);
-        jLabel10.setBounds(10, 0, 90, 26);
-
-        jLabel11.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel11.setText("Luly 1%");
-        jPanel7.add(jLabel11);
-        jLabel11.setBounds(10, 30, 50, 18);
-
-        jLabel12.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel12.setText("Rs. 500");
-        jPanel7.add(jLabel12);
-        jLabel12.setBounds(10, 50, 50, 18);
-
-        jLabel13.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Add to cart");
-        jLabel13.setOpaque(true);
-        jPanel7.add(jLabel13);
-        jLabel13.setBounds(10, 70, 70, 16);
-
-        jPanel4.add(jPanel7);
-        jPanel7.setBounds(20, 20, 110, 90);
-
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setLayout(null);
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HERVIR 800.png"))); // NOI18N
-        jPanel8.add(jLabel14);
-        jLabel14.setBounds(10, 0, 90, 30);
-
-        jLabel15.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
-        jLabel15.setText("HERVIR 800");
-        jPanel8.add(jLabel15);
-        jLabel15.setBounds(10, 30, 70, 14);
-
-        jLabel16.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel16.setText("Rs. 280");
-        jPanel8.add(jLabel16);
-        jLabel16.setBounds(10, 50, 50, 18);
-
-        jLabel17.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Add to cart");
-        jLabel17.setOpaque(true);
-        jPanel8.add(jLabel17);
-        jLabel17.setBounds(10, 70, 70, 16);
-
-        jPanel4.add(jPanel8);
-        jPanel8.setBounds(400, 20, 110, 90);
-
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setLayout(null);
-
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ketoconaz2.png"))); // NOI18N
-        jPanel9.add(jLabel18);
-        jLabel18.setBounds(10, 0, 90, 29);
-
-        jLabel19.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel19.setText("Ketoconaz");
-        jPanel9.add(jLabel19);
-        jLabel19.setBounds(10, 30, 60, 18);
-
-        jLabel20.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel20.setText("Rs. 270");
-        jPanel9.add(jLabel20);
-        jLabel20.setBounds(10, 50, 50, 18);
-
-        jLabel21.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Add to cart");
-        jLabel21.setOpaque(true);
-        jPanel9.add(jLabel21);
-        jLabel21.setBounds(10, 70, 70, 16);
-
-        jPanel4.add(jPanel9);
-        jPanel9.setBounds(150, 20, 110, 90);
-
-        jLabel22.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel22.setText("Anti-fungal");
-        jPanel4.add(jLabel22);
-        jLabel22.setBounds(230, 0, 70, 18);
-
-        jPanel3.add(jPanel4);
-        jPanel4.setBounds(10, 170, 520, 120);
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setLayout(null);
-
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel1.setText("Pain Relief");
-        jPanel5.add(jLabel1);
-        jLabel1.setBounds(210, 0, 60, 18);
-
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setLayout(null);
-
-        jLabel24.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel24.setText("Flexon");
-        jPanel10.add(jLabel24);
-        jLabel24.setBounds(10, 30, 50, 10);
-
-        jLabel25.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel25.setText("Rs. 30");
-        jPanel10.add(jLabel25);
-        jLabel25.setBounds(10, 40, 50, 18);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flexy.jpg"))); // NOI18N
-        jButton3.addActionListener(this::jButton3ActionPerformed);
-        jPanel10.add(jButton3);
-        jButton3.setBounds(10, 10, 86, 20);
-
-        jButton4.setBackground(new java.awt.Color(14, 93, 174));
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Add to cart");
-        jPanel10.add(jButton4);
-        jButton4.setBounds(10, 60, 100, 23);
-
-        jPanel5.add(jPanel10);
-        jPanel10.setBounds(20, 20, 130, 90);
-
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setLayout(null);
-
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gel.jpg"))); // NOI18N
-        jPanel11.add(jLabel23);
-        jLabel23.setBounds(10, 10, 90, 20);
-
-        jLabel26.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
-        jLabel26.setText("D.F.O Gel");
-        jPanel11.add(jLabel26);
-        jLabel26.setBounds(10, 30, 50, 14);
-
-        jLabel27.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel27.setText("Rs. 199.12");
-        jPanel11.add(jLabel27);
-        jLabel27.setBounds(10, 50, 60, 18);
-
-        jLabel28.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setText("Add to cart");
-        jLabel28.setOpaque(true);
-        jPanel11.add(jLabel28);
-        jLabel28.setBounds(10, 70, 70, 16);
-
-        jPanel5.add(jPanel11);
-        jPanel11.setBounds(160, 20, 110, 90);
-
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setLayout(null);
-
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/viopatch.jpg"))); // NOI18N
-        jPanel12.add(jLabel29);
-        jLabel29.setBounds(30, 0, 40, 30);
-
-        jLabel30.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel30.setText("Viopatch Relief");
-        jPanel12.add(jLabel30);
-        jLabel30.setBounds(10, 30, 90, 18);
-
-        jLabel31.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel31.setText("Rs. 160");
-        jPanel12.add(jLabel31);
-        jLabel31.setBounds(10, 50, 50, 18);
-
-        jLabel32.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("Add to cart");
-        jLabel32.setOpaque(true);
-        jPanel12.add(jLabel32);
-        jLabel32.setBounds(10, 70, 70, 16);
-
-        jPanel5.add(jPanel12);
-        jPanel12.setBounds(280, 20, 110, 90);
-
-        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel13.setLayout(null);
-
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/anasen.jpg"))); // NOI18N
-        jPanel13.add(jLabel33);
-        jLabel33.setBounds(10, 0, 90, 30);
-
-        jLabel34.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
-        jLabel34.setText("Anasen 500mg");
-        jPanel13.add(jLabel34);
-        jLabel34.setBounds(10, 40, 80, 14);
-
-        jLabel35.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel35.setText("Rs. 70");
-        jPanel13.add(jLabel35);
-        jLabel35.setBounds(10, 50, 50, 18);
-
-        jLabel36.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel36.setText("Add to cart");
-        jLabel36.setOpaque(true);
-        jPanel13.add(jLabel36);
-        jLabel36.setBounds(10, 70, 70, 16);
-
-        jPanel5.add(jPanel13);
-        jPanel13.setBounds(400, 20, 110, 90);
-
-        jPanel3.add(jPanel5);
-        jPanel5.setBounds(10, 30, 520, 120);
+        jPanel3.add(jScrollPane2);
+        jScrollPane2.setBounds(0, 0, 530, 310);
 
         categories.add(jPanel3);
         jPanel3.setBounds(150, 20, 530, 310);
@@ -466,7 +277,15 @@ public class Dashboard extends javax.swing.JFrame {
         emergency.setBackground(new java.awt.Color(255, 0, 0));
         contentPanel.add(emergency, "emergency");
 
-        bmi.setBackground(new java.awt.Color(51, 255, 0));
+        bmi.setBackground(new java.awt.Color(245, 253, 255));
+        bmi.setLayout(null);
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setPreferredSize(new java.awt.Dimension(651, 319));
+        jPanel14.setLayout(null);
+        bmi.add(jPanel14);
+        jPanel14.setBounds(30, 10, 651, 319);
+
         contentPanel.add(bmi, "bmi");
 
         pharmacy.setBackground(new java.awt.Color(153, 0, 153));
@@ -512,18 +331,12 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-jPanel4.setVisible(false);
-jPanel5.setVisible(true);        // TODO add your handling code here:
+       // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-jPanel4.setVisible(true);
-jPanel5.setVisible(false);        // TODO add your handling code here:
+       // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -567,56 +380,15 @@ jPanel5.setVisible(false);        // TODO add your handling code here:
     private javax.swing.JPanel emergency;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JLabel namepharmassist;
     private javax.swing.JPanel pharmacy;
