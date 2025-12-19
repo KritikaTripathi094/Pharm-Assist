@@ -28,21 +28,124 @@ public class AdminDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Topbar = new javax.swing.JPanel();
+        logopharmassist = new javax.swing.JLabel();
+        namepharmassist = new javax.swing.JLabel();
+        Slogan = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        Sidebar = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        Maincontentpanel = new javax.swing.JPanel();
+        manageProductsPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        productFormPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        Topbar.setBackground(new java.awt.Color(255, 255, 255));
+        Topbar.setLayout(null);
+
+        logopharmassist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reallogo.png"))); // NOI18N
+        Topbar.add(logopharmassist);
+        logopharmassist.setBounds(10, 10, 40, 40);
+
+        namepharmassist.setFont(new java.awt.Font("Comic Neue", 1, 20)); // NOI18N
+        namepharmassist.setText("Pharm-Assist");
+        Topbar.add(namepharmassist);
+        namepharmassist.setBounds(60, 3, 130, 40);
+
+        Slogan.setFont(new java.awt.Font("Comic Neue", 0, 11)); // NOI18N
+        Slogan.setText("Your healthy dose of convenience");
+        Topbar.add(Slogan);
+        Slogan.setBounds(10, 50, 210, 13);
+
+        jLabel1.setFont(new java.awt.Font("Comic Neue", 1, 24)); // NOI18N
+        jLabel1.setText("Admin Dashboard");
+        Topbar.add(jLabel1);
+        jLabel1.setBounds(260, 0, 190, 60);
+
+        jButton1.setText("Logout");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        Topbar.add(jButton1);
+        jButton1.setBounds(600, 10, 72, 23);
+
+        getContentPane().add(Topbar);
+        Topbar.setBounds(0, 0, 700, 70);
+
+        Sidebar.setBackground(new java.awt.Color(245, 245, 245));
+
+        jButton2.setText("Manage Products");
+
+        jButton3.setText("Add Product");
+
+        javax.swing.GroupLayout SidebarLayout = new javax.swing.GroupLayout(Sidebar);
+        Sidebar.setLayout(SidebarLayout);
+        SidebarLayout.setHorizontalGroup(
+            SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SidebarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SidebarLayout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        SidebarLayout.setVerticalGroup(
+            SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SidebarLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton3)
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
-        pack();
+        getContentPane().add(Sidebar);
+        Sidebar.setBounds(10, 80, 130, 320);
+
+        Maincontentpanel.setLayout(new java.awt.CardLayout());
+
+        manageProductsPanel.setLayout(null);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Name", "price", "Category", "Image"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        manageProductsPanel.add(jScrollPane1);
+        jScrollPane1.setBounds(0, 0, 500, 300);
+
+        Maincontentpanel.add(manageProductsPanel, "card2");
+
+        productFormPanel.setLayout(null);
+        productFormPanel.add(jScrollPane2);
+        jScrollPane2.setBounds(0, 0, 100, 100);
+
+        Maincontentpanel.add(productFormPanel, "card3");
+
+        getContentPane().add(Maincontentpanel);
+        Maincontentpanel.setBounds(170, 100, 500, 300);
+
+        setBounds(0, 0, 716, 459);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -70,5 +173,20 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Maincontentpanel;
+    private javax.swing.JPanel Sidebar;
+    private javax.swing.JLabel Slogan;
+    private javax.swing.JPanel Topbar;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel logopharmassist;
+    private javax.swing.JPanel manageProductsPanel;
+    private javax.swing.JLabel namepharmassist;
+    private javax.swing.JPanel productFormPanel;
     // End of variables declaration//GEN-END:variables
 }

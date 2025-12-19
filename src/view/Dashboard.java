@@ -104,6 +104,9 @@ public class Dashboard extends javax.swing.JFrame {
         bmi = new javax.swing.JPanel();
         pharmacy = new javax.swing.JPanel();
 
+        jPopupMenu1.setBorder(null);
+        jPopupMenu1.setOpaque(false);
+
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
 
