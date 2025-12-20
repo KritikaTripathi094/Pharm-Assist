@@ -29,10 +29,14 @@ public class Dashboard extends javax.swing.JFrame {
         loadProductUI();
     }
      private void loadProductUI() {
-             System.out.println("=== Loading products from database ===");
+             System.out.println("=== DEBUG START ===");
     
     // Clear the panel first
     jPanel4.removeAll();
+    
+    // DEBUG: Check panel before
+    System.out.println("jPanel4 size: " + jPanel4.getWidth() + "x" + jPanel4.getHeight());
+    System.out.println("jPanel4 visible: " + jPanel4.isVisible());
     
     // Use FlowLayout for horizontal scrolling
     jPanel4.setLayout(new java.awt.FlowLayout(
@@ -46,46 +50,60 @@ public class Dashboard extends javax.swing.JFrame {
         dao.ProductDAO productDAO = new dao.ProductDAO();
         java.util.List<Model.Product> products = productDAO.getAllProducts();
         
-        System.out.println("Products from DB: " + products.size());
+        System.out.println("✅ Database returned: " + products.size() + " products");
+        
+        // DEBUG: List ALL products
+        System.out.println("📋 PRODUCT LIST:");
+        for (int i = 0; i < products.size(); i++) {
+            Model.Product p = products.get(i);
+            System.out.println((i+1) + ". " + p.getName() + " | Rs." + p.getPrice() + " | Image: " + p.getImage());
+        }
         
         if (products.isEmpty()) {
-            System.out.println("No products in DB, showing fallback...");
-            // Fallback: Show test product
-            Model.Product testProduct = new Model.Product(1, "Flexon Tab", 30.00, "flexy.jpg");
-            ProductCard card = new ProductCard();
-            card.setProduct(testProduct);
-            card.setPreferredSize(new java.awt.Dimension(150, 170));
+            System.out.println("⚠️ No products in DB, creating 3 test cards...");
             
-            card.setCartButtonAction(e -> {
-                javax.swing.JOptionPane.showMessageDialog(
-                    Dashboard.this,
-                    "✅ Added to cart:\n• Flexon Tab\n• Price: Rs.30.00",
-                    "Cart Update",
-                    javax.swing.JOptionPane.INFORMATION_MESSAGE
-                );
-            });
-            
-            jPanel4.add(card);
+            // Create 3 TEST cards to verify
+            for (int i = 1; i <= 3; i++) {
+                Model.Product test = new Model.Product(i, "TEST " + i, i*100, "okflexon.jpg");
+                ProductCard card = new ProductCard();
+                card.setProduct(test);
+                card.setPreferredSize(new java.awt.Dimension(150, 170));
+                
+                // Add colored border to see each card
+                card.setBorder(javax.swing.BorderFactory.createLineBorder(
+                    new java.awt.Color(i*80, i*50, i*30), 3
+                ));
+                
+                jPanel4.add(card);
+                System.out.println("   Added TEST card " + i);
+            }
         } else {
             // Create and add product cards from DATABASE
-            for (Model.Product product : products) {
-                System.out.println("Creating card for: " + product.getName());
+            System.out.println("🛠️ Creating cards...");
+            for (int i = 0; i < products.size(); i++) {
+                Model.Product product = products.get(i);
+                System.out.println("   Creating card " + (i+1) + ": " + product.getName());
                 
                 ProductCard card = new ProductCard();
                 card.setProduct(product);
                 card.setPreferredSize(new java.awt.Dimension(150, 170));
                 
+                // Add colored border to see each card
+                card.setBorder(javax.swing.BorderFactory.createLineBorder(
+                    java.awt.Color.RED, 2
+                ));
+                
                 card.setCartButtonAction(e -> {
                     javax.swing.JOptionPane.showMessageDialog(
                         Dashboard.this,
-                        "✅ Added to cart:\n• " + product.getName() + 
-                        "\n• Price: Rs." + String.format("%.2f", product.getPrice()),
-                        "Cart Update",
+                        "✅ Added: " + product.getName() + "\nPrice: Rs." + product.getPrice(),
+                        "Cart",
                         javax.swing.JOptionPane.INFORMATION_MESSAGE
                     );
                 });
                 
                 jPanel4.add(card);
+                System.out.println("   ✅ Card added to panel");
             }
         }
         
@@ -93,26 +111,28 @@ public class Dashboard extends javax.swing.JFrame {
         System.err.println("❌ ERROR: " + e.getMessage());
         e.printStackTrace();
         
-        // Show error message
-        javax.swing.JLabel errorLabel = new javax.swing.JLabel(
-            "Database error: " + e.getMessage(),
-            javax.swing.SwingConstants.CENTER
-        );
-        errorLabel.setForeground(java.awt.Color.RED);
-        jPanel4.add(errorLabel);
+        // Show 3 error test cards
+        for (int i = 1; i <= 3; i++) {
+            javax.swing.JLabel errorCard = new javax.swing.JLabel("ERROR " + i, javax.swing.SwingConstants.CENTER);
+            errorCard.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.RED));
+            errorCard.setPreferredSize(new java.awt.Dimension(150, 170));
+            jPanel4.add(errorCard);
+        }
     }
     
     // Set preferred size for scrolling
     jPanel4.setPreferredSize(new java.awt.Dimension(800, 350));
+    
+    // DEBUG: Check after adding
+    System.out.println("jPanel4 now has: " + jPanel4.getComponentCount() + " components");
     
     // Refresh
     jPanel4.revalidate();
     jPanel4.repaint();
     jScrollPane2.revalidate();
     
-    System.out.println("=== Finished loading products ===");
-            
-         
+    System.out.println("=== DEBUG END ===");
+                
      }
         
 
@@ -173,8 +193,10 @@ public class Dashboard extends javax.swing.JFrame {
 
         Allcategoriesbtn.setBackground(new java.awt.Color(14, 94, 174));
         Allcategoriesbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Allcategoriesbtn.setForeground(new java.awt.Color(255, 255, 255));
         Allcategoriesbtn.setText("All Categories");
         Allcategoriesbtn.setBorder(null);
+        Allcategoriesbtn.setBorderPainted(false);
         Allcategoriesbtn.addActionListener(this::AllcategoriesbtnActionPerformed);
         jPanel1.add(Allcategoriesbtn);
         Allcategoriesbtn.setBounds(0, 70, 122, 28);
@@ -183,6 +205,8 @@ public class Dashboard extends javax.swing.JFrame {
         Emergencycontactsbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
         Emergencycontactsbtn.setText("Emergency Contacts  ");
         Emergencycontactsbtn.setBorder(null);
+        Emergencycontactsbtn.setBorderPainted(false);
+        Emergencycontactsbtn.setContentAreaFilled(false);
         Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
         jPanel1.add(Emergencycontactsbtn);
         Emergencycontactsbtn.setBounds(180, 70, 160, 28);
@@ -191,6 +215,8 @@ public class Dashboard extends javax.swing.JFrame {
         Bmibtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
         Bmibtn.setText("BMI");
         Bmibtn.setBorder(null);
+        Bmibtn.setBorderPainted(false);
+        Bmibtn.setContentAreaFilled(false);
         Bmibtn.addActionListener(this::BmibtnActionPerformed);
         jPanel1.add(Bmibtn);
         Bmibtn.setBounds(410, 70, 60, 28);
@@ -199,6 +225,8 @@ public class Dashboard extends javax.swing.JFrame {
         Contactpharmacybtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
         Contactpharmacybtn.setText("Contact Pharmacy");
         Contactpharmacybtn.setBorder(null);
+        Contactpharmacybtn.setBorderPainted(false);
+        Contactpharmacybtn.setContentAreaFilled(false);
         Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
         jPanel1.add(Contactpharmacybtn);
         Contactpharmacybtn.setBounds(560, 70, 131, 28);
@@ -210,6 +238,8 @@ public class Dashboard extends javax.swing.JFrame {
         Accountbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
         Accountbtn.setText("Account");
         Accountbtn.setBorder(null);
+        Accountbtn.setBorderPainted(false);
+        Accountbtn.setContentAreaFilled(false);
         Accountbtn.addActionListener(this::AccountbtnActionPerformed);
         jPanel1.add(Accountbtn);
         Accountbtn.setBounds(620, 10, 80, 23);
@@ -229,6 +259,9 @@ public class Dashboard extends javax.swing.JFrame {
         Searchbar.setBounds(200, 10, 360, 30);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.setPreferredSize(new java.awt.Dimension(25, 25));
         jPanel1.add(jButton5);
         jButton5.setBounds(570, 10, 40, 30);
 
@@ -262,8 +295,6 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(null);
 
-        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setViewportView(jPanel4);
 
         jPanel3.add(jScrollPane2);

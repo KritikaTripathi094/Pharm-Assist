@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
+
 /**
  *
  * @author This PC
@@ -24,9 +25,11 @@ public class ProductCard extends javax.swing.JPanel {
     /**
      * Creates new form product
      */
-    public ProductCard() {
+        public ProductCard() {
         initComponents();
         lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        
+
     }
         // Set the product data
     public void setProduct(Product product) {
@@ -132,26 +135,30 @@ private Image scaleImageToFit(Image img, int width, int height) {
         add(lblImage);
         lblImage.setBounds(50, 10, 60, 60);
 
-        lblName.setText("item name");
+        lblName.setText("     item name");
         add(lblName);
-        lblName.setBounds(50, 80, 80, 20);
+        lblName.setBounds(20, 80, 110, 20);
 
-        lblPrice.setText("item price");
+        lblPrice.setText("     item price");
         add(lblPrice);
-        lblPrice.setBounds(50, 100, 80, 20);
+        lblPrice.setBounds(20, 100, 110, 20);
 
+        btnAddToCart.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         btnAddToCart.setText("Add to cart");
         btnAddToCart.addActionListener(this::btnAddToCartActionPerformed);
         add(btnAddToCart);
-        btnAddToCart.setBounds(40, 130, 90, 30);
+        btnAddToCart.setBounds(30, 130, 100, 21);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
-        if (product != null) {
+            if (product != null) {
             JOptionPane.showMessageDialog(this, 
                 "Added to cart: " + product.getName() + 
                 "\nPrice: $" + product.getPrice());
         }// TODO add your handling code here:
+                                                
+    
+    
     }//GEN-LAST:event_btnAddToCartActionPerformed
 
 
