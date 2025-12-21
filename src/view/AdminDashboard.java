@@ -43,6 +43,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         productFormPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        lblPrice = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        lblCategory = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -133,7 +140,33 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         productFormPanel.setLayout(null);
         productFormPanel.add(jScrollPane2);
-        jScrollPane2.setBounds(0, 0, 100, 100);
+        jScrollPane2.setBounds(0, 0, 2, 2);
+
+        lblName.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        lblName.setText("Product Name");
+        productFormPanel.add(lblName);
+        lblName.setBounds(110, 40, 120, 20);
+        productFormPanel.add(txtName);
+        txtName.setBounds(230, 40, 240, 22);
+
+        lblPrice.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        lblPrice.setText("Price");
+        productFormPanel.add(lblPrice);
+        lblPrice.setBounds(110, 80, 90, 20);
+        productFormPanel.add(jTextField2);
+        jTextField2.setBounds(230, 80, 240, 22);
+
+        lblCategory.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        lblCategory.setText("Category");
+        productFormPanel.add(lblCategory);
+        lblCategory.setBounds(110, 120, 80, 20);
+        productFormPanel.add(jTextField3);
+        jTextField3.setBounds(230, 120, 240, 22);
+
+        btnSave.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        btnSave.setText("Save product");
+        productFormPanel.add(btnSave);
+        btnSave.setBounds(330, 230, 120, 21);
 
         Maincontentpanel.add(productFormPanel, "card3");
 
@@ -177,6 +210,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Sidebar;
     private javax.swing.JLabel Slogan;
     private javax.swing.JPanel Topbar;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -184,9 +218,15 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JPanel manageProductsPanel;
     private javax.swing.JLabel namepharmassist;
     private javax.swing.JPanel productFormPanel;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
 }
