@@ -5,7 +5,9 @@
 package view;
 
 import java.awt.CardLayout;
-
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import javax.swing.JPanel;
 
 /**
  *
@@ -15,15 +17,75 @@ public class Dashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
     private void initPopupMenu() {
+        
 }
+private Controller.DashboardController controller;
 
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
+        controller = new Controller.DashboardController(this);
         initPopupMenu();
+        loadProductUI();
+        loadAllProducts();
+        
+        
     }
+     private void loadProductUI() {
+         
+           
+}
+    private void loadAllProducts() {
+
+    productListPanel.removeAll();
+    productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
+
+    try {
+        java.util.List<Model.Product> products = controller.getAllProducts();
+        for (Model.Product product : products) {
+            ProductCard card = new ProductCard();
+            card.setProduct(product);
+            card.setPreferredSize(new Dimension(150, 170));
+            productListPanel.add(card);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
+}
+    private void loadProductsByCategory(String category) {
+           productListPanel.removeAll();
+    productListPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+
+    try {
+        java.util.List<Model.Product> products = controller.getProductsByCategory(category);
+
+
+        for (Model.Product product : products) {
+            ProductCard card = new ProductCard();
+            card.setProduct(product);
+            card.setPreferredSize(new Dimension(150, 170));
+            productListPanel.add(card);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
+        
+        
+        
+    }
+    
+   
+        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,56 +114,16 @@ public class Dashboard extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
         categories = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        categoryFilterPanel = new javax.swing.JPanel();
+        PainReliefbtn = new javax.swing.JButton();
+        AntiFungalbtn = new javax.swing.JButton();
+        Allbtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel29 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
-        jLabel31 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
+        productScrollPane = new javax.swing.JScrollPane();
+        productListPanel = new javax.swing.JPanel();
         emergency = new javax.swing.JPanel();
         bmi = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
         pharmacy = new javax.swing.JPanel();
 
         jPopupMenu1.setBorder(null);
@@ -127,8 +149,10 @@ public class Dashboard extends javax.swing.JFrame {
 
         Allcategoriesbtn.setBackground(new java.awt.Color(14, 94, 174));
         Allcategoriesbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Allcategoriesbtn.setForeground(new java.awt.Color(255, 255, 255));
         Allcategoriesbtn.setText("All Categories");
         Allcategoriesbtn.setBorder(null);
+        Allcategoriesbtn.setBorderPainted(false);
         Allcategoriesbtn.addActionListener(this::AllcategoriesbtnActionPerformed);
         jPanel1.add(Allcategoriesbtn);
         Allcategoriesbtn.setBounds(0, 70, 122, 28);
@@ -193,6 +217,7 @@ public class Dashboard extends javax.swing.JFrame {
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
+        jButton5.setPreferredSize(new java.awt.Dimension(25, 25));
         jPanel1.add(jButton5);
         jButton5.setBounds(580, 10, 25, 25);
 
@@ -204,283 +229,59 @@ public class Dashboard extends javax.swing.JFrame {
         categories.setBackground(new java.awt.Color(244, 252, 255));
         categories.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(null);
+        categoryFilterPanel.setBackground(new java.awt.Color(255, 255, 255));
+        categoryFilterPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        categoryFilterPanel.setLayout(null);
 
-        jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton1.setText("Pain Relief");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel2.add(jButton1);
-        jButton1.setBounds(0, 0, 120, 30);
+        PainReliefbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        PainReliefbtn.setText("Pain Relief");
+        PainReliefbtn.addActionListener(this::PainReliefbtnActionPerformed);
+        categoryFilterPanel.add(PainReliefbtn);
+        PainReliefbtn.setBounds(0, 30, 120, 30);
 
-        jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton2.setText("Antifungal");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel2.add(jButton2);
-        jButton2.setBounds(0, 30, 120, 30);
+        AntiFungalbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        AntiFungalbtn.setText("Antifungal");
+        AntiFungalbtn.addActionListener(this::AntiFungalbtnActionPerformed);
+        categoryFilterPanel.add(AntiFungalbtn);
+        AntiFungalbtn.setBounds(0, 60, 120, 30);
 
-        categories.add(jPanel2);
-        jPanel2.setBounds(30, 20, 120, 310);
+        Allbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        Allbtn.setText("All");
+        Allbtn.addActionListener(this::AllbtnActionPerformed);
+        categoryFilterPanel.add(Allbtn);
+        Allbtn.setBounds(0, 0, 120, 30);
+
+        categories.add(categoryFilterPanel);
+        categoryFilterPanel.setBounds(30, 20, 120, 330);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(null);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setLayout(null);
+        productScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setLayout(null);
+        productListPanel.setBackground(new java.awt.Color(255, 255, 255));
+        productScrollPane.setViewportView(productListPanel);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hervir400.jpg"))); // NOI18N
-        jPanel6.add(jLabel6);
-        jLabel6.setBounds(10, 0, 90, 30);
-
-        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
-        jLabel7.setText("HERVIR 400");
-        jPanel6.add(jLabel7);
-        jLabel7.setBounds(10, 30, 70, 14);
-
-        jLabel8.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel8.setText("Rs. 270");
-        jPanel6.add(jLabel8);
-        jLabel8.setBounds(10, 50, 50, 18);
-
-        jLabel9.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Add to cart");
-        jLabel9.setOpaque(true);
-        jPanel6.add(jLabel9);
-        jLabel9.setBounds(10, 70, 70, 16);
-
-        jPanel4.add(jPanel6);
-        jPanel6.setBounds(270, 20, 110, 90);
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setLayout(null);
-
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lulu.jpg"))); // NOI18N
-        jPanel7.add(jLabel10);
-        jLabel10.setBounds(10, 0, 90, 26);
-
-        jLabel11.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel11.setText("Luly 1%");
-        jPanel7.add(jLabel11);
-        jLabel11.setBounds(10, 30, 50, 18);
-
-        jLabel12.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel12.setText("Rs. 500");
-        jPanel7.add(jLabel12);
-        jLabel12.setBounds(10, 50, 50, 18);
-
-        jLabel13.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Add to cart");
-        jLabel13.setOpaque(true);
-        jPanel7.add(jLabel13);
-        jLabel13.setBounds(10, 70, 70, 16);
-
-        jPanel4.add(jPanel7);
-        jPanel7.setBounds(20, 20, 110, 90);
-
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setLayout(null);
-
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HERVIR 800.png"))); // NOI18N
-        jPanel8.add(jLabel14);
-        jLabel14.setBounds(10, 0, 90, 30);
-
-        jLabel15.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
-        jLabel15.setText("HERVIR 800");
-        jPanel8.add(jLabel15);
-        jLabel15.setBounds(10, 30, 70, 14);
-
-        jLabel16.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel16.setText("Rs. 280");
-        jPanel8.add(jLabel16);
-        jLabel16.setBounds(10, 50, 50, 18);
-
-        jLabel17.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("Add to cart");
-        jLabel17.setOpaque(true);
-        jPanel8.add(jLabel17);
-        jLabel17.setBounds(10, 70, 70, 16);
-
-        jPanel4.add(jPanel8);
-        jPanel8.setBounds(400, 20, 110, 90);
-
-        jPanel9.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel9.setLayout(null);
-
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ketoconaz2.png"))); // NOI18N
-        jPanel9.add(jLabel18);
-        jLabel18.setBounds(10, 0, 90, 29);
-
-        jLabel19.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel19.setText("Ketoconaz");
-        jPanel9.add(jLabel19);
-        jLabel19.setBounds(10, 30, 60, 18);
-
-        jLabel20.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel20.setText("Rs. 270");
-        jPanel9.add(jLabel20);
-        jLabel20.setBounds(10, 50, 50, 18);
-
-        jLabel21.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setText("Add to cart");
-        jLabel21.setOpaque(true);
-        jPanel9.add(jLabel21);
-        jLabel21.setBounds(10, 70, 70, 16);
-
-        jPanel4.add(jPanel9);
-        jPanel9.setBounds(150, 20, 110, 90);
-
-        jLabel22.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel22.setText("Anti-fungal");
-        jPanel4.add(jLabel22);
-        jLabel22.setBounds(230, 0, 70, 18);
-
-        jPanel3.add(jPanel4);
-        jPanel4.setBounds(10, 170, 520, 120);
-
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setLayout(null);
-
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel1.setText("Pain Relief");
-        jPanel5.add(jLabel1);
-        jLabel1.setBounds(210, 0, 60, 18);
-
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setLayout(null);
-
-        jLabel24.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel24.setText("Flexon");
-        jPanel10.add(jLabel24);
-        jLabel24.setBounds(10, 30, 50, 10);
-
-        jLabel25.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel25.setText("Rs. 30");
-        jPanel10.add(jLabel25);
-        jLabel25.setBounds(10, 40, 50, 18);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/flexy.jpg"))); // NOI18N
-        jButton3.addActionListener(this::jButton3ActionPerformed);
-        jPanel10.add(jButton3);
-        jButton3.setBounds(10, 10, 86, 20);
-
-        jButton4.setBackground(new java.awt.Color(14, 93, 174));
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Add to cart");
-        jPanel10.add(jButton4);
-        jButton4.setBounds(10, 60, 100, 23);
-
-        jPanel5.add(jPanel10);
-        jPanel10.setBounds(20, 20, 130, 90);
-
-        jPanel11.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel11.setLayout(null);
-
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/gel.jpg"))); // NOI18N
-        jPanel11.add(jLabel23);
-        jLabel23.setBounds(10, 10, 90, 20);
-
-        jLabel26.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
-        jLabel26.setText("D.F.O Gel");
-        jPanel11.add(jLabel26);
-        jLabel26.setBounds(10, 30, 50, 14);
-
-        jLabel27.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel27.setText("Rs. 199.12");
-        jPanel11.add(jLabel27);
-        jLabel27.setBounds(10, 50, 60, 18);
-
-        jLabel28.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel28.setText("Add to cart");
-        jLabel28.setOpaque(true);
-        jPanel11.add(jLabel28);
-        jLabel28.setBounds(10, 70, 70, 16);
-
-        jPanel5.add(jPanel11);
-        jPanel11.setBounds(160, 20, 110, 90);
-
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setLayout(null);
-
-        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/viopatch.jpg"))); // NOI18N
-        jPanel12.add(jLabel29);
-        jLabel29.setBounds(30, 0, 40, 30);
-
-        jLabel30.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel30.setText("Viopatch Relief");
-        jPanel12.add(jLabel30);
-        jLabel30.setBounds(10, 30, 90, 18);
-
-        jLabel31.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel31.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel31.setText("Rs. 160");
-        jPanel12.add(jLabel31);
-        jLabel31.setBounds(10, 50, 50, 18);
-
-        jLabel32.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel32.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel32.setText("Add to cart");
-        jLabel32.setOpaque(true);
-        jPanel12.add(jLabel32);
-        jLabel32.setBounds(10, 70, 70, 16);
-
-        jPanel5.add(jPanel12);
-        jPanel12.setBounds(280, 20, 110, 90);
-
-        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel13.setLayout(null);
-
-        jLabel33.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/anasen.jpg"))); // NOI18N
-        jPanel13.add(jLabel33);
-        jLabel33.setBounds(10, 0, 90, 30);
-
-        jLabel34.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
-        jLabel34.setText("Anasen 500mg");
-        jPanel13.add(jLabel34);
-        jLabel34.setBounds(10, 40, 80, 14);
-
-        jLabel35.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(14, 93, 174));
-        jLabel35.setText("Rs. 70");
-        jPanel13.add(jLabel35);
-        jLabel35.setBounds(10, 50, 50, 18);
-
-        jLabel36.setBackground(new java.awt.Color(14, 93, 174));
-        jLabel36.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel36.setText("Add to cart");
-        jLabel36.setOpaque(true);
-        jPanel13.add(jLabel36);
-        jLabel36.setBounds(10, 70, 70, 16);
-
-        jPanel5.add(jPanel13);
-        jPanel13.setBounds(400, 20, 110, 90);
-
-        jPanel3.add(jPanel5);
-        jPanel5.setBounds(10, 30, 520, 120);
+        jPanel3.add(productScrollPane);
+        productScrollPane.setBounds(0, 0, 550, 330);
 
         categories.add(jPanel3);
-        jPanel3.setBounds(150, 20, 530, 310);
+        jPanel3.setBounds(150, 20, 530, 330);
 
         contentPanel.add(categories, "categories");
 
         emergency.setBackground(new java.awt.Color(255, 0, 0));
         contentPanel.add(emergency, "emergency");
 
-        bmi.setBackground(new java.awt.Color(51, 255, 0));
+        bmi.setBackground(new java.awt.Color(245, 253, 255));
+        bmi.setLayout(null);
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setPreferredSize(new java.awt.Dimension(651, 319));
+        jPanel14.setLayout(null);
+        bmi.add(jPanel14);
+        jPanel14.setBounds(30, 10, 651, 319);
+
         contentPanel.add(bmi, "bmi");
 
         pharmacy.setBackground(new java.awt.Color(153, 0, 153));
@@ -517,6 +318,8 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "categories");
+        
+        
     }//GEN-LAST:event_AllcategoriesbtnActionPerformed
 
     private void EmergencycontactsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmergencycontactsbtnActionPerformed
@@ -525,19 +328,17 @@ public class Dashboard extends javax.swing.JFrame {
         card.show(contentPanel, "emergency");
     }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-jPanel4.setVisible(false);
-jPanel5.setVisible(true);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void PainReliefbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainReliefbtnActionPerformed
+       loadProductsByCategory("Pain Relief");// TODO add your handling code here:
+    }//GEN-LAST:event_PainReliefbtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-jPanel4.setVisible(true);
-jPanel5.setVisible(false);        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void AntiFungalbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AntiFungalbtnActionPerformed
+       loadProductsByCategory("Anti-fungal"); // TODO add your handling code here:
+    }//GEN-LAST:event_AntiFungalbtnActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void AllbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllbtnActionPerformed
+       loadAllProducts();   // TODO add your handling code here:
+    }//GEN-LAST:event_AllbtnActionPerformed
 
     private void RateUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RateUsActionPerformed
         // TODO add your handling code here:
@@ -573,73 +374,35 @@ jPanel5.setVisible(false);        // TODO add your handling code here:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Accountbtn;
+    private javax.swing.JButton Allbtn;
     private javax.swing.JButton Allcategoriesbtn;
+    private javax.swing.JButton AntiFungalbtn;
     private javax.swing.JButton Bmibtn;
     private javax.swing.JButton Contactpharmacybtn;
     private javax.swing.JButton Emergencycontactsbtn;
     private javax.swing.JMenuItem Logout;
+    private javax.swing.JButton PainReliefbtn;
     private javax.swing.JMenuItem Profile;
     private javax.swing.JMenuItem RateUs;
     private javax.swing.JTextField Searchbar;
     private javax.swing.JLabel Slogan;
     private javax.swing.JPanel bmi;
     private javax.swing.JPanel categories;
+    private javax.swing.JPanel categoryFilterPanel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel emergency;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel30;
-    private javax.swing.JLabel jLabel31;
-    private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JLabel namepharmassist;
     private javax.swing.JPanel pharmacy;
+    private javax.swing.JPanel productListPanel;
+    private javax.swing.JScrollPane productScrollPane;
     // End of variables declaration//GEN-END:variables
+
+   
 }
