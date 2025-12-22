@@ -22,6 +22,7 @@ public class ProductCard extends javax.swing.JPanel {
     
     
     
+    
     /**
      * Creates new form product
      */
@@ -49,13 +50,15 @@ public class ProductCard extends javax.swing.JPanel {
         return product;
     }
     
+    
+    
     public void setCartButtonAction(java.awt.event.ActionListener listener) {
         btnAddToCart.addActionListener(listener);
     }
     
     // Load product image
     private void loadProductImage() {
-            if (product == null) {
+        if (product == null) {
         lblImage.setText("No Image");
         lblImage.setIcon(null);
         return;
@@ -110,6 +113,9 @@ private Image scaleImageToFit(Image img, int width, int height) {
     // Scale image
     return img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
        
+
+            
+    
     }
      
     /**
@@ -126,7 +132,8 @@ private Image scaleImageToFit(Image img, int width, int height) {
         lblPrice = new javax.swing.JLabel();
         btnAddToCart = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(204, 255, 255));
+        setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setPreferredSize(new java.awt.Dimension(100, 100));
         setLayout(null);
 
@@ -154,7 +161,7 @@ private Image scaleImageToFit(Image img, int width, int height) {
             if (product != null) {
             JOptionPane.showMessageDialog(this, 
                 "Added to cart: " + product.getName() + 
-                "\nPrice: $" + product.getPrice());
+                "\nPrice: Rs." + product.getPrice());
         }// TODO add your handling code here:
                                                 
     

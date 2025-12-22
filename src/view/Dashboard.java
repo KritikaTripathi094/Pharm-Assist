@@ -19,121 +19,72 @@ public class Dashboard extends javax.swing.JFrame {
     private void initPopupMenu() {
         
 }
+private Controller.DashboardController controller;
 
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
+        controller = new Controller.DashboardController(this);
         initPopupMenu();
         loadProductUI();
+        loadAllProducts();
+        
+        
     }
      private void loadProductUI() {
-             System.out.println("=== DEBUG START ===");
-    
-    // Clear the panel first
-    jPanel4.removeAll();
-    
-    // DEBUG: Check panel before
-    System.out.println("jPanel4 size: " + jPanel4.getWidth() + "x" + jPanel4.getHeight());
-    System.out.println("jPanel4 visible: " + jPanel4.isVisible());
-    
-    // Use FlowLayout for horizontal scrolling
-    jPanel4.setLayout(new java.awt.FlowLayout(
-        java.awt.FlowLayout.LEFT,
-        20,
-        20
-    ));
-    
+         
+           
+}
+    private void loadAllProducts() {
+
+    productListPanel.removeAll();
+    productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
+
     try {
-        // Get products from DATABASE
-        dao.ProductDAO productDAO = new dao.ProductDAO();
-        java.util.List<Model.Product> products = productDAO.getAllProducts();
-        
-        System.out.println("✅ Database returned: " + products.size() + " products");
-        
-        // DEBUG: List ALL products
-        System.out.println("📋 PRODUCT LIST:");
-        for (int i = 0; i < products.size(); i++) {
-            Model.Product p = products.get(i);
-            System.out.println((i+1) + ". " + p.getName() + " | Rs." + p.getPrice() + " | Image: " + p.getImage());
+        java.util.List<Model.Product> products = controller.getAllProducts();
+        for (Model.Product product : products) {
+            ProductCard card = new ProductCard();
+            card.setProduct(product);
+            card.setPreferredSize(new Dimension(150, 170));
+            productListPanel.add(card);
         }
-        
-        if (products.isEmpty()) {
-            System.out.println("⚠️ No products in DB, creating 3 test cards...");
-            
-            // Create 3 TEST cards to verify
-            for (int i = 1; i <= 3; i++) {
-                Model.Product test = new Model.Product(i, "TEST " + i, i*100, "okflexon.jpg");
-                ProductCard card = new ProductCard();
-                card.setProduct(test);
-                card.setPreferredSize(new java.awt.Dimension(150, 170));
-                
-                // Add colored border to see each card
-                card.setBorder(javax.swing.BorderFactory.createLineBorder(
-                    new java.awt.Color(i*80, i*50, i*30), 3
-                ));
-                
-                jPanel4.add(card);
-                System.out.println("   Added TEST card " + i);
-            }
-        } else {
-            // Create and add product cards from DATABASE
-            System.out.println("🛠️ Creating cards...");
-            for (int i = 0; i < products.size(); i++) {
-                Model.Product product = products.get(i);
-                System.out.println("   Creating card " + (i+1) + ": " + product.getName());
-                
-                ProductCard card = new ProductCard();
-                card.setProduct(product);
-                card.setPreferredSize(new java.awt.Dimension(150, 170));
-                
-                // Add colored border to see each card
-                card.setBorder(javax.swing.BorderFactory.createLineBorder(
-                    java.awt.Color.RED, 2
-                ));
-                
-                card.setCartButtonAction(e -> {
-                    javax.swing.JOptionPane.showMessageDialog(
-                        Dashboard.this,
-                        "✅ Added: " + product.getName() + "\nPrice: Rs." + product.getPrice(),
-                        "Cart",
-                        javax.swing.JOptionPane.INFORMATION_MESSAGE
-                    );
-                });
-                
-                jPanel4.add(card);
-                System.out.println("   ✅ Card added to panel");
-            }
-        }
-        
+
     } catch (Exception e) {
-        System.err.println("❌ ERROR: " + e.getMessage());
         e.printStackTrace();
-        
-        // Show 3 error test cards
-        for (int i = 1; i <= 3; i++) {
-            javax.swing.JLabel errorCard = new javax.swing.JLabel("ERROR " + i, javax.swing.SwingConstants.CENTER);
-            errorCard.setBorder(javax.swing.BorderFactory.createLineBorder(java.awt.Color.RED));
-            errorCard.setPreferredSize(new java.awt.Dimension(150, 170));
-            jPanel4.add(errorCard);
+    }
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
+}
+    private void loadProductsByCategory(String category) {
+           productListPanel.removeAll();
+    productListPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+
+    try {
+        java.util.List<Model.Product> products = controller.getProductsByCategory(category);
+
+
+        for (Model.Product product : products) {
+            ProductCard card = new ProductCard();
+            card.setProduct(product);
+            card.setPreferredSize(new Dimension(150, 170));
+            productListPanel.add(card);
         }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
+        
+        
+        
     }
     
-    // Set preferred size for scrolling
-    jPanel4.setPreferredSize(new java.awt.Dimension(800, 350));
-    
-    // DEBUG: Check after adding
-    System.out.println("jPanel4 now has: " + jPanel4.getComponentCount() + " components");
-    
-    // Refresh
-    jPanel4.revalidate();
-    jPanel4.repaint();
-    jScrollPane2.revalidate();
-    
-    System.out.println("=== DEBUG END ===");
-                
-     }
+   
         
 
     /**
@@ -163,12 +114,13 @@ public class Dashboard extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
         categories = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        categoryFilterPanel = new javax.swing.JPanel();
+        PainReliefbtn = new javax.swing.JButton();
+        AntiFungalbtn = new javax.swing.JButton();
+        Allbtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jPanel4 = new javax.swing.JPanel();
+        productScrollPane = new javax.swing.JScrollPane();
+        productListPanel = new javax.swing.JPanel();
         emergency = new javax.swing.JPanel();
         bmi = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
@@ -273,35 +225,44 @@ public class Dashboard extends javax.swing.JFrame {
         categories.setBackground(new java.awt.Color(244, 252, 255));
         categories.setLayout(null);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jPanel2.setLayout(null);
+        categoryFilterPanel.setBackground(new java.awt.Color(255, 255, 255));
+        categoryFilterPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        categoryFilterPanel.setLayout(null);
 
-        jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton1.setText("Pain Relief");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel2.add(jButton1);
-        jButton1.setBounds(0, 0, 120, 30);
+        PainReliefbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        PainReliefbtn.setText("Pain Relief");
+        PainReliefbtn.addActionListener(this::PainReliefbtnActionPerformed);
+        categoryFilterPanel.add(PainReliefbtn);
+        PainReliefbtn.setBounds(0, 30, 120, 30);
 
-        jButton2.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
-        jButton2.setText("Antifungal");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
-        jPanel2.add(jButton2);
-        jButton2.setBounds(0, 30, 120, 30);
+        AntiFungalbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        AntiFungalbtn.setText("Antifungal");
+        AntiFungalbtn.addActionListener(this::AntiFungalbtnActionPerformed);
+        categoryFilterPanel.add(AntiFungalbtn);
+        AntiFungalbtn.setBounds(0, 60, 120, 30);
 
-        categories.add(jPanel2);
-        jPanel2.setBounds(30, 20, 120, 310);
+        Allbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        Allbtn.setText("All");
+        Allbtn.addActionListener(this::AllbtnActionPerformed);
+        categoryFilterPanel.add(Allbtn);
+        Allbtn.setBounds(0, 0, 120, 30);
+
+        categories.add(categoryFilterPanel);
+        categoryFilterPanel.setBounds(30, 20, 120, 330);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(null);
 
-        jScrollPane2.setViewportView(jPanel4);
+        productScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        jPanel3.add(jScrollPane2);
-        jScrollPane2.setBounds(0, 0, 530, 310);
+        productListPanel.setBackground(new java.awt.Color(255, 255, 255));
+        productScrollPane.setViewportView(productListPanel);
+
+        jPanel3.add(productScrollPane);
+        productScrollPane.setBounds(0, 0, 550, 330);
 
         categories.add(jPanel3);
-        jPanel3.setBounds(150, 20, 530, 310);
+        jPanel3.setBounds(150, 20, 530, 330);
 
         contentPanel.add(categories, "categories");
 
@@ -353,6 +314,8 @@ public class Dashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "categories");
+        
+        
     }//GEN-LAST:event_AllcategoriesbtnActionPerformed
 
     private void EmergencycontactsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmergencycontactsbtnActionPerformed
@@ -361,13 +324,17 @@ public class Dashboard extends javax.swing.JFrame {
         card.show(contentPanel, "emergency");
     }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void PainReliefbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainReliefbtnActionPerformed
+       loadProductsByCategory("Pain Relief");// TODO add your handling code here:
+    }//GEN-LAST:event_PainReliefbtnActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void AntiFungalbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AntiFungalbtnActionPerformed
+       loadProductsByCategory("Anti-fungal"); // TODO add your handling code here:
+    }//GEN-LAST:event_AntiFungalbtnActionPerformed
+
+    private void AllbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllbtnActionPerformed
+       loadAllProducts();   // TODO add your handling code here:
+    }//GEN-LAST:event_AllbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -396,32 +363,35 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Accountbtn;
+    private javax.swing.JButton Allbtn;
     private javax.swing.JButton Allcategoriesbtn;
+    private javax.swing.JButton AntiFungalbtn;
     private javax.swing.JButton Bmibtn;
     private javax.swing.JButton Contactpharmacybtn;
     private javax.swing.JButton Emergencycontactsbtn;
     private javax.swing.JMenuItem Logout;
+    private javax.swing.JButton PainReliefbtn;
     private javax.swing.JMenuItem Profile;
     private javax.swing.JMenuItem RateUs;
     private javax.swing.JTextField Searchbar;
     private javax.swing.JLabel Slogan;
     private javax.swing.JPanel bmi;
     private javax.swing.JPanel categories;
+    private javax.swing.JPanel categoryFilterPanel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel emergency;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JLabel namepharmassist;
     private javax.swing.JPanel pharmacy;
+    private javax.swing.JPanel productListPanel;
+    private javax.swing.JScrollPane productScrollPane;
     // End of variables declaration//GEN-END:variables
+
+   
 }
