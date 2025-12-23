@@ -4,7 +4,7 @@
  */
 package dao;
 import Model.Product;
-import Database.mysqlconnection;
+import database.mysqlconnection;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class ProductDAO {
 
                 db.closeConnection(conn);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
