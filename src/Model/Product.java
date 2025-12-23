@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
 /**
@@ -10,14 +6,17 @@ package Model;
  */
 public class Product {
      private int id;
-    private String name;
-    private double price;
-    private String image;
-    private String category;
-    
+     private String name;
+     private double price;
+     private String image;
+     private String category;
+     private String description;  // Added description field
+     private int stock;           // Added stock field
 
+    // Default constructor
     public Product() {}
 
+    // Constructor with id, name, price, and image
     public Product(int id, String name, double price, String image) {
         this.id = id;
         this.name = name;
@@ -25,6 +24,7 @@ public class Product {
         this.image = image;
     }
 
+    // Getters and setters for all fields, including the new ones
     public int getId() {
         return id;
     }
@@ -56,6 +56,7 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+
     public String getCategory() {
         return category;
     }
@@ -63,5 +64,20 @@ public class Product {
     public void setCategory(String category) {
         this.category = category;
     }
-    
+
+    public String getDescription() {  // Getter for description
+        return description;
+    }
+
+    public void setDescription(String description) {  // Setter for description
+        this.description = description;
+    }
+
+    public int getStock() {  // Getter for stock
+        return stock;
+    }
+
+    public void setStock(int stock) {  // Setter for stock
+        this.stock = stock;
+    }
 }

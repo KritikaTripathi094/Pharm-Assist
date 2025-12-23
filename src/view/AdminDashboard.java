@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import Controller.AdminDashboardController;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,12 +37,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         Sidebar = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnmanageproduct = new javax.swing.JButton();
+        btnaddproduct = new javax.swing.JButton();
         Maincontentpanel = new javax.swing.JPanel();
         manageProductsPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        btndelete = new javax.swing.JButton();
+        btnload = new javax.swing.JButton();
         productFormPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lblName = new javax.swing.JLabel();
@@ -50,6 +54,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         lblCategory = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         btnSave = new javax.swing.JButton();
+        lblDescription = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtDescription = new javax.swing.JTextField();
+        txtStock = new javax.swing.JTextField();
+        txtImagePath = new javax.swing.JTextField();
+        lblimage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -76,45 +86,48 @@ public class AdminDashboard extends javax.swing.JFrame {
         Topbar.add(jLabel1);
         jLabel1.setBounds(260, 0, 190, 60);
 
+        jButton1.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         jButton1.setText("Logout");
         jButton1.addActionListener(this::jButton1ActionPerformed);
         Topbar.add(jButton1);
-        jButton1.setBounds(600, 10, 72, 23);
+        jButton1.setBounds(600, 10, 72, 24);
 
         getContentPane().add(Topbar);
         Topbar.setBounds(0, 0, 700, 70);
 
         Sidebar.setBackground(new java.awt.Color(245, 245, 245));
 
-        jButton2.setText("Manage Products");
+        btnmanageproduct.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        btnmanageproduct.setText("Manage Products");
+        btnmanageproduct.addActionListener(this::btnmanageproductActionPerformed);
 
-        jButton3.setText("Add Product");
+        btnaddproduct.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        btnaddproduct.setText("Add Product");
+        btnaddproduct.addActionListener(this::btnaddproductActionPerformed);
 
         javax.swing.GroupLayout SidebarLayout = new javax.swing.GroupLayout(Sidebar);
         Sidebar.setLayout(SidebarLayout);
         SidebarLayout.setHorizontalGroup(
             SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SidebarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SidebarLayout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnmanageproduct)
+                .addGap(0, 5, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SidebarLayout.createSequentialGroup()
+                .addComponent(btnaddproduct, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         SidebarLayout.setVerticalGroup(
             SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SidebarLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jButton2)
+                .addComponent(btnmanageproduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addComponent(btnaddproduct)
+                .addContainerGap(238, Short.MAX_VALUE))
         );
 
         getContentPane().add(Sidebar);
-        Sidebar.setBounds(10, 80, 130, 320);
+        Sidebar.setBounds(10, 80, 140, 320);
 
         Maincontentpanel.setLayout(new java.awt.CardLayout());
 
@@ -134,7 +147,17 @@ public class AdminDashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         manageProductsPanel.add(jScrollPane1);
-        jScrollPane1.setBounds(0, 0, 500, 300);
+        jScrollPane1.setBounds(0, 0, 500, 260);
+
+        btndelete.setText("Delete");
+        btndelete.addActionListener(this::btndeleteActionPerformed);
+        manageProductsPanel.add(btndelete);
+        btndelete.setBounds(250, 270, 75, 23);
+
+        btnload.setText("Load");
+        btnload.addActionListener(this::btnloadActionPerformed);
+        manageProductsPanel.add(btnload);
+        btnload.setBounds(110, 270, 72, 23);
 
         Maincontentpanel.add(manageProductsPanel, "card2");
 
@@ -145,28 +168,62 @@ public class AdminDashboard extends javax.swing.JFrame {
         lblName.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         lblName.setText("Product Name");
         productFormPanel.add(lblName);
-        lblName.setBounds(110, 40, 120, 20);
+        lblName.setBounds(40, 40, 120, 20);
+
+        txtName.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         productFormPanel.add(txtName);
-        txtName.setBounds(230, 40, 240, 22);
+        txtName.setBounds(230, 40, 240, 20);
 
         lblPrice.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         lblPrice.setText("Price");
         productFormPanel.add(lblPrice);
-        lblPrice.setBounds(110, 80, 90, 20);
+        lblPrice.setBounds(40, 80, 90, 20);
+
+        jTextField2.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         productFormPanel.add(jTextField2);
-        jTextField2.setBounds(230, 80, 240, 22);
+        jTextField2.setBounds(230, 80, 240, 20);
 
         lblCategory.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         lblCategory.setText("Category");
         productFormPanel.add(lblCategory);
-        lblCategory.setBounds(110, 120, 80, 20);
+        lblCategory.setBounds(40, 120, 80, 20);
+
+        jTextField3.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         productFormPanel.add(jTextField3);
-        jTextField3.setBounds(230, 120, 240, 22);
+        jTextField3.setBounds(230, 120, 240, 20);
 
         btnSave.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         btnSave.setText("Save product");
+        btnSave.addActionListener(this::btnSaveActionPerformed);
         productFormPanel.add(btnSave);
-        btnSave.setBounds(330, 230, 120, 21);
+        btnSave.setBounds(340, 250, 120, 21);
+
+        lblDescription.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        lblDescription.setText("Description");
+        productFormPanel.add(lblDescription);
+        lblDescription.setBounds(40, 160, 90, 17);
+
+        jLabel3.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        jLabel3.setText("Stock");
+        productFormPanel.add(jLabel3);
+        jLabel3.setBounds(40, 200, 70, 17);
+
+        txtDescription.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        productFormPanel.add(txtDescription);
+        txtDescription.setBounds(230, 160, 240, 20);
+
+        txtStock.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        productFormPanel.add(txtStock);
+        txtStock.setBounds(230, 200, 240, 20);
+
+        txtImagePath.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        productFormPanel.add(txtImagePath);
+        txtImagePath.setBounds(230, 240, 64, 23);
+
+        lblimage.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        lblimage.setText("Image");
+        productFormPanel.add(lblimage);
+        lblimage.setBounds(40, 240, 70, 16);
 
         Maincontentpanel.add(productFormPanel, "card3");
 
@@ -179,6 +236,52 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnmanageproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmanageproductActionPerformed
+        // TODO add your handling code here:
+        AdminDashboardController.showPanel(Maincontentpanel, "card2");
+        
+    }//GEN-LAST:event_btnmanageproductActionPerformed
+
+    private void btnaddproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddproductActionPerformed
+        // TODO add your handling code here:
+        AdminDashboardController.showPanel(Maincontentpanel, "card3");
+        
+    }//GEN-LAST:event_btnaddproductActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        String name = txtName.getText();
+        String price = jTextField2.getText();
+        String category = jTextField3.getText();
+        String description = txtDescription.getText();
+        int stock = Integer.parseInt(txtStock.getText());
+        String image = txtImagePath.getText(); // Assuming this holds the image path
+
+        // Call the saveProductToDatabase method from AdminDashboardController
+        AdminDashboardController.saveProductToDatabase(name, price, category, description, stock, image);
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloadActionPerformed
+        // TODO add your handling code here:
+        AdminDashboardController.loadProductsIntoTable(jTable1);
+    }//GEN-LAST:event_btnloadActionPerformed
+
+    private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
+        // TODO add your handling code here:
+     // Get the selected row from the table
+    int selectedRow = jTable1.getSelectedRow();
+
+    // Check if any row is selected
+    if (selectedRow >= 0) {
+        // Call the deleteProduct method from AdminDashboardController
+        AdminDashboardController.deleteProduct(jTable1, selectedRow);
+    } else {
+        // Show a message if no row is selected
+        JOptionPane.showMessageDialog(null, "Please select a product to delete.");
+    }
+        
+    }//GEN-LAST:event_btndeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,22 +314,30 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel Slogan;
     private javax.swing.JPanel Topbar;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnaddproduct;
+    private javax.swing.JButton btndelete;
+    private javax.swing.JButton btnload;
+    private javax.swing.JButton btnmanageproduct;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblCategory;
+    private javax.swing.JLabel lblDescription;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
+    private javax.swing.JLabel lblimage;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JPanel manageProductsPanel;
     private javax.swing.JLabel namepharmassist;
     private javax.swing.JPanel productFormPanel;
+    private javax.swing.JTextField txtDescription;
+    private javax.swing.JTextField txtImagePath;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package dao;
 import Model.Product;
 import database.mysqlconnection;
@@ -14,11 +10,12 @@ import java.util.List;
  * @author rojal
  */
 public class ProductDAO {
-        public List<Product> getAllProducts() {
+    
+    // Existing method to get all products
+    public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
         
         try {
-            // Use your mysqlconnection class
             mysqlconnection db = new mysqlconnection();
             Connection conn = db.openConnection();
             
@@ -45,7 +42,8 @@ public class ProductDAO {
         return products;
     }
     
-           public List<Product> getProductsByCategory(String category) {
+    // Existing method to get products by category
+    public List<Product> getProductsByCategory(String category) {
         List<Product> products = new ArrayList<>();
 
         try {
@@ -76,5 +74,30 @@ public class ProductDAO {
 
         return products;
     }
-    
+
+    // New method to add a product to the database
+    public boolean addProduct(Product product) {
+        String query = "INSERT INTO products (name, price, category, image, description, stock) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = new mysqlconnection().openConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            // Set the parameters for the PreparedStatement
+            stmt.setString(1, product.getName());
+            stmt.setDouble(2, product.getPrice());
+            stmt.setString(3, product.getCategory());
+            stmt.setString(4, product.getImage());
+            stmt.setString(5, product.getDescription());
+            stmt.setInt(6, product.getStock());
+
+            int rowsAffected = stmt.executeUpdate();
+
+            // Return true if at least one row was inserted, otherwise false
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;  // If an error occurred, return false
+        }
+    }
 }
