@@ -6,8 +6,8 @@
 package dao;
 
 
-import Database.DBConnection;
-import Database.mysqlconnection;
+import database.DBConnection;
+import database.mysqlconnection;
 import java.sql.*;
 
 public class UserDAO {

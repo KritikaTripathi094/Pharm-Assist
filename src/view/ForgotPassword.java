@@ -239,7 +239,12 @@ public ForgotPassword() {
         // TODO add your handling code here:
         
         
-
+String email = txtEmail.getText();
+    if (controller.sendOtp(email)) {
+        JOptionPane.showMessageDialog(this, "OTP sent to email");
+    } else {
+        JOptionPane.showMessageDialog(this, "Email not found");
+    }
        
     }//GEN-LAST:event_btnSendOtpActionPerformed
 
