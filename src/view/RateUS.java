@@ -3,8 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-import java.sql.*;
-import database.DBConnection;
+import Controller.RatingController;
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -188,22 +189,22 @@ public class RateUS extends javax.swing.JFrame {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        try (Connection conn = DBConnection.getConnection()) {
-        if (conn != null) {
-            String sql = "INSERT INTO user_ratings (rating) VALUES (?)";
-            java.sql.PreparedStatement pst = conn.prepareStatement(sql);
-            pst.setInt(1, rating);
-            int rows = pst.executeUpdate();
-            if (rows > 0) {
-                System.out.println("Rating saved: " + rating);
-            }
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+        RatingController controller = new RatingController();
 
-    // Close the form
-    dispose();
+    boolean success = controller.submitRating(rating);
+
+    if (success) {
+        JOptionPane.showMessageDialog(this,
+                "Thank you for your rating!",
+                "Success",
+                JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+    } else {
+        JOptionPane.showMessageDialog(this,
+                "Please select a rating before submitting.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**

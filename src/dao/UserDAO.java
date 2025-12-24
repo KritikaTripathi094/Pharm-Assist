@@ -5,7 +5,7 @@
 package dao;
 
 import Model.User;
-import database.DBConnection;
+import database.DBConnections;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,7 +21,7 @@ public class UserDAO {
     public boolean register(User user) {
         String sql = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
 
-        try (Connection con = DBConnection.getConnection();
+        try (Connection con = DBConnections.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, user.getUsername());
@@ -41,7 +41,7 @@ public class UserDAO {
 public User login(String usernameOrEmail, String password) {
     String sql = "SELECT * FROM users WHERE (username=? OR email=?) AND password=?";
 
-    try (Connection con = DBConnection.getConnection();
+    try (Connection con = DBConnections.getConnection();
          PreparedStatement ps = con.prepareStatement(sql)) {
 
         ps.setString(1, usernameOrEmail);
@@ -73,7 +73,7 @@ public User login(String usernameOrEmail, String password) {
     public boolean emailExists(String email) {
         String sql = "SELECT * FROM users WHERE email=?";
 
-        try (Connection con = DBConnection.getConnection();
+        try (Connection con = DBConnections.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, email);
@@ -90,7 +90,7 @@ public User login(String usernameOrEmail, String password) {
     public boolean updatePassword(String email, String newPassword) {
         String sql = "UPDATE users SET password=? WHERE email=?";
 
-        try (Connection con = DBConnection.getConnection();
+        try (Connection con = DBConnections.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, newPassword);

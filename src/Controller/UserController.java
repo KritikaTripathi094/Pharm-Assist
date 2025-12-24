@@ -14,6 +14,11 @@ public class UserController {
      UserDAO dao = new UserDAO();
 
     public boolean register(String username, String email, String password) {
+        if(username == null || username.isEmpty() ||
+           email == null || email.isEmpty() ||
+           password == null || password.isEmpty()) {
+            return false;
+        }
         User user = new User();
         user.setUsername(username);
         user.setEmail(email);
@@ -25,6 +30,9 @@ public class UserController {
      // ===== LOGIN =====
     // Return the User object instead of boolean so we can check role
     public User login(String username, String password) {
+        if(username == null || username.isEmpty() || password == null || password.isEmpty()) {
+        return null;
+    }
         return dao.login(username, password);
     }
 }

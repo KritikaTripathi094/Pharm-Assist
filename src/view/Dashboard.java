@@ -126,9 +126,6 @@ private Controller.DashboardController controller;
         jPanel14 = new javax.swing.JPanel();
         pharmacy = new javax.swing.JPanel();
 
-        jPopupMenu1.setBorder(null);
-        jPopupMenu1.setOpaque(false);
-
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
 
@@ -137,6 +134,7 @@ private Controller.DashboardController controller;
         jPopupMenu1.add(RateUs);
 
         Logout.setText("Logout");
+        Logout.addActionListener(this::LogoutActionPerformed);
         jPopupMenu1.add(Logout);
 
         jLabel2.setText("jLabel2");
@@ -165,40 +163,40 @@ private Controller.DashboardController controller;
         Emergencycontactsbtn.setContentAreaFilled(false);
         Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
         jPanel1.add(Emergencycontactsbtn);
-        Emergencycontactsbtn.setBounds(190, 70, 160, 28);
+        Emergencycontactsbtn.setBounds(180, 70, 160, 28);
 
         Bmibtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Bmibtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
-        Bmibtn.setText("BMI ");
+        Bmibtn.setText("BMI");
         Bmibtn.setBorder(null);
         Bmibtn.setBorderPainted(false);
         Bmibtn.setContentAreaFilled(false);
         Bmibtn.addActionListener(this::BmibtnActionPerformed);
         jPanel1.add(Bmibtn);
-        Bmibtn.setBounds(400, 70, 60, 28);
+        Bmibtn.setBounds(410, 70, 60, 28);
 
         Contactpharmacybtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Contactpharmacybtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
-        Contactpharmacybtn.setText("Contact Pharmacy ");
+        Contactpharmacybtn.setText("Contact Pharmacy");
         Contactpharmacybtn.setBorder(null);
         Contactpharmacybtn.setBorderPainted(false);
         Contactpharmacybtn.setContentAreaFilled(false);
         Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
         jPanel1.add(Contactpharmacybtn);
-        Contactpharmacybtn.setBounds(530, 70, 140, 28);
+        Contactpharmacybtn.setBounds(560, 70, 132, 28);
 
         logopharmassist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reallogo.png"))); // NOI18N
         jPanel1.add(logopharmassist);
         logopharmassist.setBounds(10, 10, 40, 40);
 
         Accountbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
-        Accountbtn.setText("Account ");
+        Accountbtn.setText("Account");
         Accountbtn.setBorder(null);
         Accountbtn.setBorderPainted(false);
         Accountbtn.setContentAreaFilled(false);
         Accountbtn.addActionListener(this::AccountbtnActionPerformed);
         jPanel1.add(Accountbtn);
-        Accountbtn.setBounds(610, 10, 90, 23);
+        Accountbtn.setBounds(620, 10, 80, 23);
 
         namepharmassist.setFont(new java.awt.Font("Comic Neue", 1, 20)); // NOI18N
         namepharmassist.setText("Pharm-Assist");
@@ -212,14 +210,14 @@ private Controller.DashboardController controller;
 
         Searchbar.addActionListener(this::SearchbarActionPerformed);
         jPanel1.add(Searchbar);
-        Searchbar.setBounds(200, 10, 370, 30);
+        Searchbar.setBounds(200, 10, 360, 30);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
         jButton5.setPreferredSize(new java.awt.Dimension(25, 25));
         jPanel1.add(jButton5);
-        jButton5.setBounds(580, 10, 25, 25);
+        jButton5.setBounds(570, 10, 40, 30);
 
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 700, 100);
@@ -346,6 +344,13 @@ private Controller.DashboardController controller;
         rateFrame.setVisible(true);
         rateFrame.setLocationRelativeTo(this);
     }//GEN-LAST:event_RateUsActionPerformed
+
+    private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    Login loginWindow = new Login();
+    loginWindow.setVisible(true);
+    }//GEN-LAST:event_LogoutActionPerformed
 
     /**
      * @param args the command line arguments

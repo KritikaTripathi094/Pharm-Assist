@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
-
 /**
  *
  * @author This PC
@@ -19,9 +18,6 @@ public class ProductCard extends javax.swing.JPanel {
     
     
     private Product product;
-    
-    
-    
     
     /**
      * Creates new form product

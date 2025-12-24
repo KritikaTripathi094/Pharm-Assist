@@ -35,7 +35,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         namepharmassist = new javax.swing.JLabel();
         Slogan = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnlogout = new javax.swing.JButton();
         Sidebar = new javax.swing.JPanel();
         btnmanageproduct = new javax.swing.JButton();
         btnaddproduct = new javax.swing.JButton();
@@ -45,6 +45,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         btndelete = new javax.swing.JButton();
         btnload = new javax.swing.JButton();
+        btnsave = new javax.swing.JButton();
         productFormPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         lblName = new javax.swing.JLabel();
@@ -86,11 +87,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         Topbar.add(jLabel1);
         jLabel1.setBounds(260, 0, 190, 60);
 
-        jButton1.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
-        jButton1.setText("Logout");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        Topbar.add(jButton1);
-        jButton1.setBounds(600, 10, 72, 24);
+        btnlogout.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        btnlogout.setText("Logout");
+        btnlogout.addActionListener(this::btnlogoutActionPerformed);
+        Topbar.add(btnlogout);
+        btnlogout.setBounds(600, 10, 72, 24);
 
         getContentPane().add(Topbar);
         Topbar.setBounds(0, 0, 700, 70);
@@ -123,11 +124,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(btnmanageproduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnaddproduct)
-                .addContainerGap(238, Short.MAX_VALUE))
+                .addContainerGap(198, Short.MAX_VALUE))
         );
 
         getContentPane().add(Sidebar);
-        Sidebar.setBounds(10, 80, 140, 320);
+        Sidebar.setBounds(10, 80, 140, 280);
 
         Maincontentpanel.setLayout(new java.awt.CardLayout());
 
@@ -149,15 +150,23 @@ public class AdminDashboard extends javax.swing.JFrame {
         manageProductsPanel.add(jScrollPane1);
         jScrollPane1.setBounds(0, 0, 500, 260);
 
+        btndelete.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         btndelete.setText("Delete");
         btndelete.addActionListener(this::btndeleteActionPerformed);
         manageProductsPanel.add(btndelete);
-        btndelete.setBounds(250, 270, 75, 23);
+        btndelete.setBounds(230, 270, 75, 24);
 
+        btnload.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         btnload.setText("Load");
         btnload.addActionListener(this::btnloadActionPerformed);
         manageProductsPanel.add(btnload);
-        btnload.setBounds(110, 270, 72, 23);
+        btnload.setBounds(110, 270, 72, 24);
+
+        btnsave.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        btnsave.setText("Save");
+        btnsave.addActionListener(this::btnsaveActionPerformed);
+        manageProductsPanel.add(btnsave);
+        btnsave.setBounds(360, 270, 72, 24);
 
         Maincontentpanel.add(manageProductsPanel, "card2");
 
@@ -233,9 +242,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         setBounds(0, 0, 716, 459);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnlogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlogoutActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    this.dispose();
+    Login loginWindow = new Login();
+    loginWindow.setVisible(true);
+    }//GEN-LAST:event_btnlogoutActionPerformed
 
     private void btnmanageproductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmanageproductActionPerformed
         // TODO add your handling code here:
@@ -283,6 +295,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btndeleteActionPerformed
 
+    private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
+        // TODO add your handling code here:
+        AdminDashboardController.saveTableChanges(jTable1);
+    }//GEN-LAST:event_btnsaveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -317,8 +334,9 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JButton btnaddproduct;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnload;
+    private javax.swing.JButton btnlogout;
     private javax.swing.JButton btnmanageproduct;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnsave;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;

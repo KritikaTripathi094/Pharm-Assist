@@ -100,4 +100,41 @@ public class ProductDAO {
             return false;  // If an error occurred, return false
         }
     }
+    
+    public boolean deleteProductById(int id) {
+    String query = "DELETE FROM products WHERE id = ?";
+
+    try (Connection conn = new mysqlconnection().openConnection();
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+
+        stmt.setInt(1, id);
+        return stmt.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+    
+    public boolean updateProduct(Product product) {
+
+    String sql = "UPDATE products SET name=?, price=?, category=?, image=? WHERE id=?";
+
+    try (Connection conn = new mysqlconnection().openConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        ps.setString(1, product.getName());
+        ps.setDouble(2, product.getPrice());
+        ps.setString(3, product.getCategory());
+        ps.setString(4, product.getImage());
+        ps.setInt(5, product.getId());
+
+        return ps.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
 }
