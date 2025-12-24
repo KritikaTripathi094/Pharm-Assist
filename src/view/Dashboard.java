@@ -28,61 +28,19 @@ private Controller.DashboardController controller;
         initComponents();
         controller = new Controller.DashboardController(this);
         initPopupMenu();
-        loadProductUI();
-        loadAllProducts();
+        
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+    card.show(contentPanel, "categories"); 
+
+    controller.loadAllProducts();
         
         
     }
-     private void loadProductUI() {
-         
-           
-}
-    private void loadAllProducts() {
-
-    productListPanel.removeAll();
-    productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
-
-    try {
-        java.util.List<Model.Product> products = controller.getAllProducts();
-        for (Model.Product product : products) {
-            ProductCard card = new ProductCard();
-            card.setProduct(product);
-            card.setPreferredSize(new Dimension(150, 170));
-            productListPanel.add(card);
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
+    public javax.swing.JPanel getProductListPanel() {
+        return productListPanel;
     }
-
-    productListPanel.revalidate();
-    productListPanel.repaint();
-}
-    private void loadProductsByCategory(String category) {
-           productListPanel.removeAll();
-    productListPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-
-    try {
-        java.util.List<Model.Product> products = controller.getProductsByCategory(category);
-
-
-        for (Model.Product product : products) {
-            ProductCard card = new ProductCard();
-            card.setProduct(product);
-            card.setPreferredSize(new Dimension(150, 170));
-            productListPanel.add(card);
-        }
-
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    productListPanel.revalidate();
-    productListPanel.repaint();
-        
-        
-        
-    }
+     
+    
     
    
         
@@ -325,15 +283,15 @@ private Controller.DashboardController controller;
     }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
     private void PainReliefbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainReliefbtnActionPerformed
-       loadProductsByCategory("Pain Relief");// TODO add your handling code here:
+       controller.loadProductsByCategory("Pain Relief");// TODO add your handling code here:
     }//GEN-LAST:event_PainReliefbtnActionPerformed
 
     private void AntiFungalbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AntiFungalbtnActionPerformed
-       loadProductsByCategory("Anti-fungal"); // TODO add your handling code here:
+       controller.loadProductsByCategory("Anti-fungal"); // TODO add your handling code here:
     }//GEN-LAST:event_AntiFungalbtnActionPerformed
 
     private void AllbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllbtnActionPerformed
-       loadAllProducts();   // TODO add your handling code here:
+       controller.loadAllProducts();   // TODO add your handling code here:
     }//GEN-LAST:event_AllbtnActionPerformed
 
     /**
