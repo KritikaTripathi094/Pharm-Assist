@@ -17,7 +17,7 @@ import view.Dashboard;
 public class DashboardController {
     
 
-    private ProductDAO dao;
+    private final ProductDAO dao;
     private Dashboard view;
 
     public DashboardController(Dashboard view) {

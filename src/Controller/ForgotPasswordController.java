@@ -4,6 +4,13 @@
  */
 package Controller;
 
+/**
+ *
+ * @author kritss
+ */
+
+    
+
 
 import dao.UserDAO;
 import java.util.Random;
@@ -16,7 +23,7 @@ public class ForgotPasswordController {
     private String generatedOtp;
     private boolean otpVerified = false;
 
-    private UserDAO userDAO = new UserDAO();
+    private final UserDAO userDAO = new UserDAO();
 
 
     public boolean sendOtp(String email) {
@@ -58,3 +65,6 @@ public class ForgotPasswordController {
         return userDAO.updatePassword(email, newPassword);
     }
 }
+
+    
+

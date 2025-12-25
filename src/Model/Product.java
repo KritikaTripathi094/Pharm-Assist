@@ -14,6 +14,7 @@ public class Product {
     private double price;
     private String image;
     private String category;
+    private String description;
     
 
     public Product() {}
@@ -63,5 +64,17 @@ public class Product {
     public void setCategory(String category) {
         this.category = category;
     }
+public String getDescription() {
+    return description;
+}
+
+public void setDescription(String description) {
+    this.description = description;
+}
+
+    public void setStock(int aInt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     
 }

@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class ForgotPassword extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ForgotPassword.class.getName());
-private ForgotPasswordController controller = new ForgotPasswordController();
+private final ForgotPasswordController controller = new ForgotPasswordController();
 
     /**
      * Creates new form ForgotPassword
@@ -283,6 +283,7 @@ String email = txtEmail.getText();
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
@@ -307,7 +308,16 @@ String email = txtEmail.getText();
         //</editor-fold>
 
         /* Create and display the form */
-     
+      try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
