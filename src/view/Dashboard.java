@@ -82,6 +82,17 @@ private Controller.DashboardController controller;
         emergency = new javax.swing.JPanel();
         bmi = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        Height = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        Weight = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        Calculatebtn = new javax.swing.JButton();
+        Result = new javax.swing.JLabel();
         pharmacy = new javax.swing.JPanel();
 
         Profile.setText("Profile");
@@ -233,6 +244,63 @@ private Controller.DashboardController controller;
         jPanel14.setBackground(new java.awt.Color(255, 255, 255));
         jPanel14.setPreferredSize(new java.awt.Dimension(651, 319));
         jPanel14.setLayout(null);
+
+        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 1, 18)); // NOI18N
+        jLabel1.setText("BMI CALCULATOR");
+        jPanel14.add(jLabel1);
+        jLabel1.setBounds(230, 10, 220, 30);
+
+        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BMI_Chart.png"))); // NOI18N
+        jLabel3.setOpaque(true);
+        jPanel14.add(jLabel3);
+        jLabel3.setBounds(350, 40, 300, 250);
+
+        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
+        jLabel4.setText("Please enter your height and weight");
+        jPanel14.add(jLabel4);
+        jLabel4.setBounds(30, 60, 280, 30);
+
+        jLabel5.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jLabel5.setText("Your Height");
+        jPanel14.add(jLabel5);
+        jLabel5.setBounds(30, 110, 120, 26);
+
+        Height.setText("0");
+        jPanel14.add(Height);
+        Height.setBounds(30, 140, 50, 30);
+
+        jLabel6.setText("CM");
+        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel14.add(jLabel6);
+        jLabel6.setBounds(80, 140, 37, 30);
+
+        jLabel7.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jLabel7.setText("Your Weight");
+        jPanel14.add(jLabel7);
+        jLabel7.setBounds(30, 190, 120, 26);
+
+        Weight.setText("0");
+        jPanel14.add(Weight);
+        Weight.setBounds(30, 220, 50, 30);
+
+        jLabel8.setText("KG");
+        jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel14.add(jLabel8);
+        jLabel8.setBounds(80, 220, 37, 30);
+
+        Calculatebtn.setBackground(new java.awt.Color(14, 94, 174));
+        Calculatebtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        Calculatebtn.setForeground(new java.awt.Color(255, 255, 255));
+        Calculatebtn.setText("Calculate");
+        Calculatebtn.addActionListener(this::CalculatebtnActionPerformed);
+        jPanel14.add(Calculatebtn);
+        Calculatebtn.setBounds(240, 240, 100, 30);
+
+        Result.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel14.add(Result);
+        Result.setBounds(20, 270, 200, 30);
+
         bmi.add(jPanel14);
         jPanel14.setBounds(30, 10, 651, 319);
 
@@ -294,6 +362,38 @@ private Controller.DashboardController controller;
        controller.loadAllProducts();   // TODO add your handling code here:
     }//GEN-LAST:event_AllbtnActionPerformed
 
+    private void CalculatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalculatebtnActionPerformed
+           try {
+        // Read height in CM and weight in KG
+        double heightCm = Double.parseDouble(Height.getText());
+        double weightKg = Double.parseDouble(Weight.getText());
+
+        // Convert height from CM to meters
+        double heightM = heightCm / 100.0;
+
+        // Calculate BMI
+        double bmi = weightKg / (heightM * heightM);
+
+        // Determine BMI category
+        String category;
+        if (bmi < 18.5) {
+            category = "Underweight";
+        } else if (bmi < 25) {
+            category = "Normal Weight";
+        } else if (bmi < 30) {
+            category = "Overweight";
+        } else {
+            category = "Obese";
+        }
+
+        // Show result in JLabel
+        Result.setText(String.format("%.2f", bmi) + " (" + category + ")");
+
+    } catch (NumberFormatException e) {
+        Result.setText("Enter valid numbers");
+    } // TODO add your handling code here:
+    }//GEN-LAST:event_CalculatebtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -325,21 +425,32 @@ private Controller.DashboardController controller;
     private javax.swing.JButton Allcategoriesbtn;
     private javax.swing.JButton AntiFungalbtn;
     private javax.swing.JButton Bmibtn;
+    private javax.swing.JButton Calculatebtn;
     private javax.swing.JButton Contactpharmacybtn;
     private javax.swing.JButton Emergencycontactsbtn;
+    private javax.swing.JTextField Height;
     private javax.swing.JMenuItem Logout;
     private javax.swing.JButton PainReliefbtn;
     private javax.swing.JMenuItem Profile;
     private javax.swing.JMenuItem RateUs;
+    private javax.swing.JLabel Result;
     private javax.swing.JTextField Searchbar;
     private javax.swing.JLabel Slogan;
+    private javax.swing.JTextField Weight;
     private javax.swing.JPanel bmi;
     private javax.swing.JPanel categories;
     private javax.swing.JPanel categoryFilterPanel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel emergency;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel3;
