@@ -38,37 +38,38 @@ public class UserDAO {
     }
 
     // ===== LOGIN =====
-public User login(String usernameOrEmail, String password) {
-    String sql = "SELECT * FROM users WHERE (username=? OR email=?) AND password=?";
+    public User login(String usernameOrEmail, String password) {
+        String sql = "SELECT * FROM users WHERE (username=? OR email=?) AND password=?";
 
-    try (Connection con = DBConnections.getConnection();
-         PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnections.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
 
-        ps.setString(1, usernameOrEmail);
-        ps.setString(2, usernameOrEmail);
-        ps.setString(3, password);
+            ps.setString(1, usernameOrEmail);
+            ps.setString(2, usernameOrEmail);
+            ps.setString(3, password);
 
-        ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-        if(rs.next()) {
-            // Create User object and set details including role
-            User user = new User();
-            user.setUsername(rs.getString("username"));
-            user.setEmail(rs.getString("email"));
-            user.setPassword(rs.getString("password"));
-            user.setRole(rs.getString("role")); // <-- get role from DB
-            return user; // login successful
-        } else {
-            return null; // login failed
+            if(rs.next()) {
+                // Create User object and set details including role
+                User user = new User();
+                user.setId(rs.getInt("id"));  // ADD THIS LINE
+                user.setUsername(rs.getString("username"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getString("role"));
+                user.setAddress(rs.getString("address"));      
+                user.setPhoneNumber(rs.getString("phone_number"));
+                return user; // login successful
+            } else {
+                return null; // login failed
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return null;
     }
-}
-
-
     // ===== CHECK IF EMAIL EXISTS =====
     public boolean emailExists(String email) {
         String sql = "SELECT * FROM users WHERE email=?";

@@ -130,33 +130,39 @@ public class Login extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
         // Get input from text fields
-String username = txtUsername.getText();
-String password = new String(txtPassword.getPassword());
+     String username = txtUsername.getText();
+    String password = new String(txtPassword.getPassword());
 
-if (username.isEmpty() || password.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Please enter username/email and password");
-    return;
-}
-
-// Call login which now returns a User object
-User user = controller.login(username, password);
-
-if (user != null) {
-    JOptionPane.showMessageDialog(this, "Login Successful!");
-
-    // Check role to decide which dashboard to open
-    if ("ADMIN".equalsIgnoreCase(user.getRole())) {
-        AdminDashboard adminDash = new AdminDashboard();
-        adminDash.setVisible(true);
-    } else {
-        Dashboard userDash = new Dashboard();
-        userDash.setVisible(true);
+    if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter username/email and password");
+        return;
     }
 
-    this.dispose();
-} else {
-    JOptionPane.showMessageDialog(this, "Invalid username/email or password");
-}
+    dao.UserDAO userDAO = new dao.UserDAO();
+    Model.User user = userDAO.login(username, password);
+
+    if (user != null) {
+        JOptionPane.showMessageDialog(this, "Login Successful!");
+        
+        System.out.println("=== Login Successful ===");
+        System.out.println("User ID: " + user.getId());
+        System.out.println("Username: " + user.getUsername());
+        System.out.println("Address: " + user.getAddress());
+
+        if ("ADMIN".equalsIgnoreCase(user.getRole())) {
+            AdminDashboard adminDash = new AdminDashboard();
+            adminDash.setVisible(true);
+        } else {
+            // Create Dashboard WITHOUT parameter
+            Dashboard userDash = new Dashboard();  // Use default constructor
+            userDash.setCurrentUser(user);         // Then set the user
+            userDash.setVisible(true);
+        }
+
+        this.dispose();
+    } else {
+        JOptionPane.showMessageDialog(this, "Invalid username/email or password");
+    }
 
 
 

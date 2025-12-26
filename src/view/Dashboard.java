@@ -4,6 +4,7 @@
  */
 package view;
 
+import Model.User;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,8 +15,11 @@ import javax.swing.JPanel;
  * @author This PC
  */
 public class Dashboard extends javax.swing.JFrame {
+    private Model.User currentUser;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
+
+
     private void initPopupMenu() {
         
 }
@@ -30,8 +34,12 @@ private Controller.DashboardController controller;
         initPopupMenu();
         loadProductUI();
         loadAllProducts();
-        
-        
+    }
+    public void setCurrentUser(Model.User user) {
+        this.currentUser = user;
+        if (user != null) {
+            System.out.println("User set: " + user.getUsername());
+        }
     }
      private void loadProductUI() {
          
@@ -112,7 +120,15 @@ private Controller.DashboardController controller;
         Slogan = new javax.swing.JLabel();
         Searchbar = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
+        btnproceed = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
+        Shippingdetails = new javax.swing.JPanel();
+        heder = new javax.swing.JPanel();
+        panelfrodetail = new javax.swing.JPanel();
+        txtlocation = new javax.swing.JLabel();
+        txtname = new javax.swing.JLabel();
+        txtnumber = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         categories = new javax.swing.JPanel();
         categoryFilterPanel = new javax.swing.JPanel();
         PainReliefbtn = new javax.swing.JButton();
@@ -219,10 +235,55 @@ private Controller.DashboardController controller;
         jPanel1.add(jButton5);
         jButton5.setBounds(570, 10, 40, 30);
 
+        btnproceed.setText("Proceed");
+        btnproceed.addActionListener(this::btnproceedActionPerformed);
+        jPanel1.add(btnproceed);
+        btnproceed.setBounds(500, 40, 75, 23);
+
         getContentPane().add(jPanel1);
         jPanel1.setBounds(0, 0, 700, 100);
 
         contentPanel.setLayout(new java.awt.CardLayout());
+
+        Shippingdetails.setLayout(null);
+
+        heder.setBackground(new java.awt.Color(214, 242, 249));
+        heder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        heder.setLayout(null);
+
+        panelfrodetail.setBackground(new java.awt.Color(255, 255, 255));
+        panelfrodetail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelfrodetail.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        panelfrodetail.setLayout(null);
+
+        txtlocation.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        txtlocation.setText("location");
+        panelfrodetail.add(txtlocation);
+        txtlocation.setBounds(10, 50, 450, 40);
+
+        txtname.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        txtname.setText("name ");
+        panelfrodetail.add(txtname);
+        txtname.setBounds(10, 10, 90, 17);
+
+        txtnumber.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        txtnumber.setText("phone");
+        panelfrodetail.add(txtnumber);
+        txtnumber.setBounds(120, 10, 100, 17);
+
+        heder.add(panelfrodetail);
+        panelfrodetail.setBounds(0, 20, 470, 90);
+
+        jLabel1.setBackground(new java.awt.Color(214, 242, 249));
+        jLabel1.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        jLabel1.setText("Shipping Details");
+        heder.add(jLabel1);
+        jLabel1.setBounds(10, 0, 380, 20);
+
+        Shippingdetails.add(heder);
+        heder.setBounds(10, 60, 470, 110);
+
+        contentPanel.add(Shippingdetails, "Shippingdetails");
 
         categories.setBackground(new java.awt.Color(244, 252, 255));
         categories.setLayout(null);
@@ -348,9 +409,34 @@ private Controller.DashboardController controller;
     private void LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    Login loginWindow = new Login();
-    loginWindow.setVisible(true);
+     Login loginWindow = new Login();
+     loginWindow.setVisible(true);
     }//GEN-LAST:event_LogoutActionPerformed
+
+    private void btnproceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproceedActionPerformed
+        // TODO add your handling code here:
+         // Show shipping details panel
+        // Show shipping details panel
+    CardLayout card = (CardLayout) contentPanel.getLayout();
+    card.show(contentPanel, "Shippingdetails");
+    
+    // Use currentUser's data
+    String username = currentUser.getUsername();
+    String phone = currentUser.getPhoneNumber();
+    String address = currentUser.getAddress();
+    
+    // Set the text (handle null values)
+    txtname.setText(username != null ? username : "Name not available");
+    txtnumber.setText(phone != null ? phone : "Phone not available");
+    txtlocation.setText(address != null ? address : "Address not available");
+    
+    // Show in console
+    System.out.println("=== Shipping Details ===");
+    System.out.println("User: " + username);
+    System.out.println("Phone: " + phone);
+    System.out.println("Address: " + address);
+    
+    }//GEN-LAST:event_btnproceedActionPerformed
 
     /**
      * @param args the command line arguments
@@ -390,13 +476,17 @@ private Controller.DashboardController controller;
     private javax.swing.JMenuItem Profile;
     private javax.swing.JMenuItem RateUs;
     private javax.swing.JTextField Searchbar;
+    private javax.swing.JPanel Shippingdetails;
     private javax.swing.JLabel Slogan;
     private javax.swing.JPanel bmi;
+    private javax.swing.JButton btnproceed;
     private javax.swing.JPanel categories;
     private javax.swing.JPanel categoryFilterPanel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel emergency;
+    private javax.swing.JPanel heder;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
@@ -404,10 +494,14 @@ private Controller.DashboardController controller;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JLabel namepharmassist;
+    private javax.swing.JPanel panelfrodetail;
     private javax.swing.JPanel pharmacy;
     private javax.swing.JPanel productListPanel;
     private javax.swing.JScrollPane productScrollPane;
+    private javax.swing.JLabel txtlocation;
+    private javax.swing.JLabel txtname;
+    private javax.swing.JLabel txtnumber;
     // End of variables declaration//GEN-END:variables
 
-   
+
 }
