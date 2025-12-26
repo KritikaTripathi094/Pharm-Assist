@@ -82,7 +82,7 @@ public class CategoryofMedicine extends javax.swing.JFrame {
 
         jLabel7.setText("jLabel7");
         jPanel5.add(jLabel7);
-        jLabel7.setBounds(70, 40, 38, 16);
+        jLabel7.setBounds(70, 40, 37, 16);
 
         jPanel4.add(jPanel5);
         jPanel5.setBounds(0, 30, 530, 110);
