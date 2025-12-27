@@ -7,7 +7,11 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import javax.swing.JPanel;
+import view.ProductDescriptionPanel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.BorderLayout;
+
 
 /**
  *
@@ -19,7 +23,7 @@ public class Dashboard extends javax.swing.JFrame {
     private void initPopupMenu() {
         
 }
-private Controller.DashboardController controller;
+private final Controller.DashboardController controller;
 
     /**
      * Creates new form Dashboard
@@ -28,6 +32,8 @@ private Controller.DashboardController controller;
         initComponents();
         controller = new Controller.DashboardController(this);
         initPopupMenu();
+        
+        contentPanel.add(ProductDescriptionPanel, "productDescription");
         loadProductUI();
         loadAllProducts();
         
@@ -37,17 +43,39 @@ private Controller.DashboardController controller;
          
            
 }
-    private void loadAllProducts() {
-
+private void loadAllProducts() {
     productListPanel.removeAll();
     productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
 
     try {
         java.util.List<Model.Product> products = controller.getAllProducts();
+
         for (Model.Product product : products) {
             ProductCard card = new ProductCard();
             card.setProduct(product);
             card.setPreferredSize(new Dimension(150, 170));
+
+            // Clicking a product opens the ProductDescriptionPanel
+            card.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                 
+                    ProductDescriptionPanel.setLayout(new BorderLayout());
+        ProductDescriptionPanel pd = new ProductDescriptionPanel(product.getId(), contentPanel);
+        ProductDescriptionPanel.removeAll();
+        ProductDescriptionPanel.add(pd, BorderLayout.CENTER);
+        ProductDescriptionPanel.revalidate();
+        ProductDescriptionPanel.repaint();
+
+        CardLayout cl = (CardLayout) contentPanel.getLayout();
+        cl.show(contentPanel, "productDescription");
+   
+
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
+                }
+            });
+
             productListPanel.add(card);
         }
 
@@ -58,18 +86,38 @@ private Controller.DashboardController controller;
     productListPanel.revalidate();
     productListPanel.repaint();
 }
-    private void loadProductsByCategory(String category) {
-           productListPanel.removeAll();
+
+private void loadProductsByCategory(String category) {
+    productListPanel.removeAll();
     productListPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
 
     try {
         java.util.List<Model.Product> products = controller.getProductsByCategory(category);
 
-
         for (Model.Product product : products) {
             ProductCard card = new ProductCard();
             card.setProduct(product);
             card.setPreferredSize(new Dimension(150, 170));
+
+            card.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                 ProductDescriptionPanel.setLayout(new BorderLayout());
+        ProductDescriptionPanel pd = new ProductDescriptionPanel(product.getId(), contentPanel);
+        ProductDescriptionPanel.removeAll();
+        ProductDescriptionPanel.add(pd, BorderLayout.CENTER);
+        ProductDescriptionPanel.revalidate();
+        ProductDescriptionPanel.repaint();
+
+        CardLayout cl = (CardLayout) contentPanel.getLayout();
+        cl.show(contentPanel, "productDescription");
+
+
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
+                }
+            });
+
             productListPanel.add(card);
         }
 
@@ -79,13 +127,11 @@ private Controller.DashboardController controller;
 
     productListPanel.revalidate();
     productListPanel.repaint();
-        
-        
-        
-    }
+}
+
+    
     
    
-        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,6 +171,7 @@ private Controller.DashboardController controller;
         bmi = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         pharmacy = new javax.swing.JPanel();
+        ProductDescriptionPanel = new javax.swing.JPanel();
 
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
@@ -181,7 +228,7 @@ private Controller.DashboardController controller;
         Contactpharmacybtn.setContentAreaFilled(false);
         Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
         jPanel1.add(Contactpharmacybtn);
-        Contactpharmacybtn.setBounds(560, 70, 131, 28);
+        Contactpharmacybtn.setBounds(560, 70, 130, 28);
 
         logopharmassist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reallogo.png"))); // NOI18N
         jPanel1.add(logopharmassist);
@@ -204,7 +251,7 @@ private Controller.DashboardController controller;
         Slogan.setFont(new java.awt.Font("Comic Neue", 0, 11)); // NOI18N
         Slogan.setText("Your healthy dose of convenience");
         jPanel1.add(Slogan);
-        Slogan.setBounds(10, 50, 210, 15);
+        Slogan.setBounds(10, 50, 210, 13);
 
         Searchbar.addActionListener(this::SearchbarActionPerformed);
         jPanel1.add(Searchbar);
@@ -283,10 +330,15 @@ private Controller.DashboardController controller;
         pharmacy.setBackground(new java.awt.Color(153, 0, 153));
         contentPanel.add(pharmacy, "pharmacy");
 
+        ProductDescriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ProductDescriptionPanel.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        ProductDescriptionPanel.setPreferredSize(new java.awt.Dimension(500, 200));
+        contentPanel.add(ProductDescriptionPanel, "card6");
+
         getContentPane().add(contentPanel);
         contentPanel.setBounds(0, 100, 700, 350);
 
-        setBounds(0, 0, 716, 459);
+        setBounds(0, 0, 717, 459);
     }// </editor-fold>//GEN-END:initComponents
 
     private void SearchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbarActionPerformed
@@ -371,6 +423,7 @@ private Controller.DashboardController controller;
     private javax.swing.JButton Emergencycontactsbtn;
     private javax.swing.JMenuItem Logout;
     private javax.swing.JButton PainReliefbtn;
+    private javax.swing.JPanel ProductDescriptionPanel;
     private javax.swing.JMenuItem Profile;
     private javax.swing.JMenuItem RateUs;
     private javax.swing.JTextField Searchbar;

@@ -31,12 +31,7 @@ public class ProductCard extends javax.swing.JPanel {
     initComponents();
     lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-    this.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent e) {
-            openProductDescription(); // ✅ NOW IT IS USED
-        }
-    });
+    
 }
 
         // Set the product data
@@ -53,9 +48,7 @@ public class ProductCard extends javax.swing.JPanel {
     }
     
     // Get the product
-    public Product getProduct() {
-        return product;
-    }
+
     
     
     
@@ -63,13 +56,7 @@ public class ProductCard extends javax.swing.JPanel {
         btnAddToCart.addActionListener(listener);
     }
     
-    private void openProductDescription() {
-    if (product == null) return;
-
-    // open description window with product id
-    ProductDescription desc = new ProductDescription(product.getId());
-    desc.setVisible(true);
-}
+    
 
     // Load product image
     private void loadProductImage() {
