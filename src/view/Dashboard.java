@@ -18,6 +18,7 @@ public class Dashboard extends javax.swing.JFrame {
     private Model.User currentUser;
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
+    
 
 
     private void initPopupMenu() {
@@ -34,6 +35,12 @@ private Controller.DashboardController controller;
         initPopupMenu();
         loadProductUI();
         loadAllProducts();
+        editPanel = new EditPanel();
+        editPanel.setBounds(450, 15, 240, 300);
+
+        editPanel.setVisible(false);
+
+        Shippingdetails.add(editPanel);
     }
     public void setCurrentUser(Model.User user) {
         this.currentUser = user;
@@ -122,13 +129,6 @@ private Controller.DashboardController controller;
         jButton5 = new javax.swing.JButton();
         btnproceed = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
-        Shippingdetails = new javax.swing.JPanel();
-        heder = new javax.swing.JPanel();
-        panelfrodetail = new javax.swing.JPanel();
-        txtlocation = new javax.swing.JLabel();
-        txtname = new javax.swing.JLabel();
-        txtnumber = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         categories = new javax.swing.JPanel();
         categoryFilterPanel = new javax.swing.JPanel();
         PainReliefbtn = new javax.swing.JButton();
@@ -141,6 +141,14 @@ private Controller.DashboardController controller;
         bmi = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         pharmacy = new javax.swing.JPanel();
+        Shippingdetails = new javax.swing.JPanel();
+        heder = new javax.swing.JPanel();
+        panelfrodetail = new javax.swing.JPanel();
+        txtlocation = new javax.swing.JLabel();
+        txtname = new javax.swing.JLabel();
+        txtnumber = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        btnedit = new javax.swing.JButton();
 
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
@@ -245,46 +253,6 @@ private Controller.DashboardController controller;
 
         contentPanel.setLayout(new java.awt.CardLayout());
 
-        Shippingdetails.setLayout(null);
-
-        heder.setBackground(new java.awt.Color(214, 242, 249));
-        heder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        heder.setLayout(null);
-
-        panelfrodetail.setBackground(new java.awt.Color(255, 255, 255));
-        panelfrodetail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        panelfrodetail.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
-        panelfrodetail.setLayout(null);
-
-        txtlocation.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
-        txtlocation.setText("location");
-        panelfrodetail.add(txtlocation);
-        txtlocation.setBounds(10, 50, 450, 40);
-
-        txtname.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
-        txtname.setText("name ");
-        panelfrodetail.add(txtname);
-        txtname.setBounds(10, 10, 90, 17);
-
-        txtnumber.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
-        txtnumber.setText("phone");
-        panelfrodetail.add(txtnumber);
-        txtnumber.setBounds(120, 10, 100, 17);
-
-        heder.add(panelfrodetail);
-        panelfrodetail.setBounds(0, 20, 470, 90);
-
-        jLabel1.setBackground(new java.awt.Color(214, 242, 249));
-        jLabel1.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
-        jLabel1.setText("Shipping Details");
-        heder.add(jLabel1);
-        jLabel1.setBounds(10, 0, 380, 20);
-
-        Shippingdetails.add(heder);
-        heder.setBounds(10, 60, 470, 110);
-
-        contentPanel.add(Shippingdetails, "Shippingdetails");
-
         categories.setBackground(new java.awt.Color(244, 252, 255));
         categories.setLayout(null);
 
@@ -345,6 +313,55 @@ private Controller.DashboardController controller;
 
         pharmacy.setBackground(new java.awt.Color(153, 0, 153));
         contentPanel.add(pharmacy, "pharmacy");
+
+        Shippingdetails.setLayout(null);
+
+        heder.setBackground(new java.awt.Color(214, 242, 249));
+        heder.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        heder.setLayout(null);
+
+        panelfrodetail.setBackground(new java.awt.Color(255, 255, 255));
+        panelfrodetail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelfrodetail.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        panelfrodetail.setLayout(null);
+
+        txtlocation.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        txtlocation.setText("location");
+        panelfrodetail.add(txtlocation);
+        txtlocation.setBounds(10, 50, 450, 40);
+
+        txtname.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        txtname.setText("name ");
+        panelfrodetail.add(txtname);
+        txtname.setBounds(10, 10, 90, 17);
+
+        txtnumber.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        txtnumber.setText("phone");
+        panelfrodetail.add(txtnumber);
+        txtnumber.setBounds(120, 10, 100, 17);
+
+        heder.add(panelfrodetail);
+        panelfrodetail.setBounds(0, 20, 430, 90);
+
+        jLabel1.setBackground(new java.awt.Color(214, 242, 249));
+        jLabel1.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        jLabel1.setText("Shipping Details");
+        heder.add(jLabel1);
+        jLabel1.setBounds(10, 0, 200, 20);
+
+        btnedit.setBackground(new java.awt.Color(214, 242, 249));
+        btnedit.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        btnedit.setText("Edit");
+        btnedit.setBorderPainted(false);
+        btnedit.setContentAreaFilled(false);
+        btnedit.addActionListener(this::btneditActionPerformed);
+        heder.add(btnedit);
+        btnedit.setBounds(370, 0, 60, 20);
+
+        Shippingdetails.add(heder);
+        heder.setBounds(10, 20, 430, 110);
+
+        contentPanel.add(Shippingdetails, "Shippingdetails");
 
         getContentPane().add(contentPanel);
         contentPanel.setBounds(0, 100, 700, 350);
@@ -415,7 +432,6 @@ private Controller.DashboardController controller;
 
     private void btnproceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproceedActionPerformed
         // TODO add your handling code here:
-         // Show shipping details panel
         // Show shipping details panel
     CardLayout card = (CardLayout) contentPanel.getLayout();
     card.show(contentPanel, "Shippingdetails");
@@ -437,6 +453,12 @@ private Controller.DashboardController controller;
     System.out.println("Address: " + address);
     
     }//GEN-LAST:event_btnproceedActionPerformed
+
+    private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
+        // TODO add your handling code here:
+        editPanel.setVisible(true);
+        editPanel.repaint();
+    }//GEN-LAST:event_btneditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -479,6 +501,7 @@ private Controller.DashboardController controller;
     private javax.swing.JPanel Shippingdetails;
     private javax.swing.JLabel Slogan;
     private javax.swing.JPanel bmi;
+    private javax.swing.JButton btnedit;
     private javax.swing.JButton btnproceed;
     private javax.swing.JPanel categories;
     private javax.swing.JPanel categoryFilterPanel;
@@ -503,5 +526,5 @@ private Controller.DashboardController controller;
     private javax.swing.JLabel txtnumber;
     // End of variables declaration//GEN-END:variables
 
-
+private EditPanel editPanel;
 }
