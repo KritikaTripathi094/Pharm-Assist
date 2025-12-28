@@ -30,6 +30,9 @@ lblImage.setBounds(10, 10, 180, 180); // adjust size and position
 lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 lblImage.setOpaque(true);
 lblImage.setBackground(Color.WHITE);
+lblImage.setBorder(
+    javax.swing.BorderFactory.createLineBorder(Color.GRAY)
+);
 add(lblImage);
 
         
@@ -77,33 +80,63 @@ add(lblImage);
     
     
 private void loadProductImage(String imageName) {
-    if (imageName == null || imageName.isEmpty()) {
+
+    if (imageName == null || imageName.isBlank()) {
         lblImage.setText("No Image");
         lblImage.setIcon(null);
         return;
     }
 
     try {
-        // Load from src/images folder directly
-        ImageIcon icon = new ImageIcon("src/images/" + imageName);
+        java.net.URL imageUrl =
+                getClass().getResource("/images/" + imageName);
+
+        if (imageUrl == null) {
+            System.out.println("Image not found: " + imageName);
+            lblImage.setText("No Image");
+            return;
+        }
+
+        ImageIcon icon = new ImageIcon(imageUrl);
         Image img = icon.getImage();
-        Image scaledImg = scaleImageToFit(img, lblImage.getWidth(), lblImage.getHeight());
+
+        // 🔥 FIXED SIZE (DO NOT use getWidth() here)
+        Image scaledImg = scaleImageToFit(img, 180, 180);
+
         lblImage.setIcon(new ImageIcon(scaledImg));
         lblImage.setText("");
+
     } catch (Exception e) {
+        e.printStackTrace();
         lblImage.setText("No Image");
         lblImage.setIcon(null);
     }
 }
 
+   
+
+// ADD THIS NEW METHOD right after loadProductImage()
 private Image scaleImageToFit(Image img, int width, int height) {
     int originalWidth = img.getWidth(null);
     int originalHeight = img.getHeight(null);
-    double ratio = Math.min((double) width / originalWidth, (double) height / originalHeight);
+    
+    // Calculate scaling ratio
+    double widthRatio = (double) width / originalWidth;
+    double heightRatio = (double) height / originalHeight;
+    double ratio = Math.min(widthRatio, heightRatio);
+    
+    // Calculate new dimensions
     int newWidth = (int) (originalWidth * ratio);
     int newHeight = (int) (originalHeight * ratio);
+    
+    // Scale image
     return img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-}
+       
+
+            
+    
+    }
+     
 
 
    
@@ -117,7 +150,6 @@ private Image scaleImageToFit(Image img, int width, int height) {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         Name = new javax.swing.JLabel();
         Price = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -129,22 +161,6 @@ private Image scaleImageToFit(Image img, int width, int height) {
         setPreferredSize(new java.awt.Dimension(575, 450));
         setLayout(null);
 
-        jPanel1.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 175, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 146, Short.MAX_VALUE)
-        );
-
-        add(jPanel1);
-        jPanel1.setBounds(0, 0, 175, 146);
-
         Name.setFont(new java.awt.Font("Comic Neue", 1, 14)); // NOI18N
         Name.setText("jLabel1");
         add(Name);
@@ -155,6 +171,7 @@ private Image scaleImageToFit(Image img, int width, int height) {
         add(Price);
         Price.setBounds(210, 30, 110, 17);
 
+        txtDescription.setEditable(false);
         txtDescription.setColumns(20);
         txtDescription.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         txtDescription.setRows(5);
@@ -175,7 +192,6 @@ private Image scaleImageToFit(Image img, int width, int height) {
     private javax.swing.JButton Back;
     private javax.swing.JLabel Name;
     private javax.swing.JLabel Price;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtDescription;
     // End of variables declaration//GEN-END:variables
