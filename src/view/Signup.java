@@ -3,6 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
+import controller.SignupController;
+import Model.User;
+import javax.swing.JOptionPane;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 /**
  *
@@ -28,40 +34,30 @@ public class Signup extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        background = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField10 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        txtname = new javax.swing.JTextField();
+        txtpasword = new javax.swing.JTextField();
+        lblname = new javax.swing.JLabel();
+        lblpasswords = new javax.swing.JLabel();
+        lblemail = new javax.swing.JLabel();
+        txtemail = new javax.swing.JTextField();
+        lblphoneno = new javax.swing.JLabel();
+        txtphoneno = new javax.swing.JTextField();
+        btnregester = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        lbladdress = new javax.swing.JLabel();
+        txtaddress = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/1.png"))); // NOI18N
-        background.setPreferredSize(new java.awt.Dimension(700, 450));
+        jTextField1.setText("jTextField1");
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/1.png"))); // NOI18N
+        jLabel1.setPreferredSize(new java.awt.Dimension(700, 450));
+
+        jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -69,141 +65,126 @@ public class Signup extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jLabel1.setText("Your Personal Details");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(6, 6, 263, 20);
+        txtname.addActionListener(this::txtnameActionPerformed);
+        jPanel1.add(txtname);
+        txtname.setBounds(20, 90, 230, 30);
 
-        jLabel3.setText("Gender:");
-        jPanel1.add(jLabel3);
-        jLabel3.setBounds(0, 20, 108, 24);
+        txtpasword.addActionListener(this::txtpaswordActionPerformed);
+        jPanel1.add(txtpasword);
+        txtpasword.setBounds(330, 90, 220, 30);
 
-        jLabel6.setText("First name:");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(20, 70, 68, 16);
+        lblname.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        lblname.setText("User Name");
+        jPanel1.add(lblname);
+        lblname.setBounds(20, 70, 90, 16);
 
-        jLabel7.setText("Last name:");
+        lblpasswords.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        lblpasswords.setText("Password");
+        jPanel1.add(lblpasswords);
+        lblpasswords.setBounds(330, 70, 140, 20);
+
+        lblemail.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        lblemail.setText("Email");
+        jPanel1.add(lblemail);
+        lblemail.setBounds(20, 130, 120, 16);
+
+        txtemail.addActionListener(this::txtemailActionPerformed);
+        jPanel1.add(txtemail);
+        txtemail.setBounds(20, 150, 230, 30);
+
+        lblphoneno.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        lblphoneno.setText("Phone No");
+        jPanel1.add(lblphoneno);
+        lblphoneno.setBounds(330, 130, 170, 20);
+        jPanel1.add(txtphoneno);
+        txtphoneno.setBounds(330, 150, 230, 30);
+
+        btnregester.setText("Register");
+        btnregester.addActionListener(this::btnregesterActionPerformed);
+        jPanel1.add(btnregester);
+        btnregester.setBounds(540, 250, 100, 23);
+
+        jLabel7.setFont(new java.awt.Font("Comic Neue", 1, 14)); // NOI18N
+        jLabel7.setText("Yours Personal Details");
         jPanel1.add(jLabel7);
-        jLabel7.setBounds(210, 70, 73, 16);
-        jPanel1.add(jTextField1);
-        jTextField1.setBounds(10, 90, 182, 22);
-        jPanel1.add(jTextField2);
-        jTextField2.setBounds(210, 90, 196, 22);
+        jLabel7.setBounds(0, 0, 160, 30);
 
-        jLabel8.setText("Date of birth:");
-        jPanel1.add(jLabel8);
-        jLabel8.setBounds(470, 70, 100, 16);
-        jPanel1.add(jLabel12);
-        jLabel12.setBounds(580, 227, 88, 22);
+        lbladdress.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        lbladdress.setText("Address");
+        jPanel1.add(lbladdress);
+        lbladdress.setBounds(20, 190, 90, 16);
 
-        jLabel13.setText("Email:");
-        jPanel1.add(jLabel13);
-        jLabel13.setBounds(20, 120, 76, 16);
-
-        jLabel14.setText("Phone:");
-        jPanel1.add(jLabel14);
-        jLabel14.setBounds(210, 120, 75, 20);
-
-        jLabel15.setText("Your Address:");
-        jPanel1.add(jLabel15);
-        jLabel15.setBounds(0, 160, 126, 20);
-
-        jTextField3.addActionListener(this::jTextField3ActionPerformed);
-        jPanel1.add(jTextField3);
-        jTextField3.setBounds(10, 140, 182, 22);
-
-        jTextField4.addActionListener(this::jTextField4ActionPerformed);
-        jPanel1.add(jTextField4);
-        jTextField4.setBounds(210, 140, 200, 22);
-
-        jLabel16.setText("Municiplity:");
-        jPanel1.add(jLabel16);
-        jLabel16.setBounds(20, 180, 90, 16);
-
-        jLabel17.setText("Ward no:");
-        jPanel1.add(jLabel17);
-        jLabel17.setBounds(210, 180, 96, 16);
-
-        jLabel18.setText("Area:");
-        jPanel1.add(jLabel18);
-        jLabel18.setBounds(470, 180, 60, 16);
-
-        jTextField5.addActionListener(this::jTextField5ActionPerformed);
-        jPanel1.add(jTextField5);
-        jTextField5.setBounds(10, 200, 180, 22);
-        jPanel1.add(jTextField6);
-        jTextField6.setBounds(210, 200, 200, 22);
-
-        jTextField7.addActionListener(this::jTextField7ActionPerformed);
-        jPanel1.add(jTextField7);
-        jTextField7.setBounds(470, 200, 145, 22);
-
-        jLabel19.setText("Your password");
-        jPanel1.add(jLabel19);
-        jLabel19.setBounds(0, 220, 98, 20);
-
-        jLabel20.setText("Confirm password:");
-        jPanel1.add(jLabel20);
-        jLabel20.setBounds(210, 240, 109, 16);
-
-        jLabel21.setText("Password:");
-        jPanel1.add(jLabel21);
-        jLabel21.setBounds(20, 240, 90, 16);
-        jPanel1.add(jTextField8);
-        jTextField8.setBounds(10, 260, 180, 22);
-        jPanel1.add(jTextField9);
-        jTextField9.setBounds(210, 260, 200, 22);
-
-        jButton1.setText("Register");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
-        jPanel1.add(jButton1);
-        jButton1.setBounds(10, 290, 110, 23);
-
-        jRadioButton1.setText("Male");
-        jPanel1.add(jRadioButton1);
-        jRadioButton1.setBounds(30, 40, 49, 21);
-
-        jRadioButton2.setText("Female");
-        jPanel1.add(jRadioButton2);
-        jRadioButton2.setBounds(120, 40, 61, 21);
-
-        jTextField10.addActionListener(this::jTextField10ActionPerformed);
-        jPanel1.add(jTextField10);
-        jTextField10.setBounds(470, 90, 140, 20);
+        txtaddress.addActionListener(this::txtaddressActionPerformed);
+        jPanel1.add(txtaddress);
+        txtaddress.setBounds(20, 210, 310, 30);
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(10, 120, 690, 330);
+        jPanel1.setBounds(0, 130, 690, 300);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/1.png"))); // NOI18N
-        jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, -4, 700, 460);
+        jLabel2.setBounds(0, 0, 700, 450);
 
         setBounds(0, 0, 714, 458);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtnameActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtemailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtemailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtemailActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtpaswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpaswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtpaswordActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnregesterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregesterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+       // Get values from the form fields
+    String username = txtname.getText().trim();
+    String password = txtpasword.getText().trim();  // Plain password
+    String email = txtemail.getText().trim();
+    String phoneNumber = txtphoneno.getText().trim();
+    String address = txtaddress.getText().trim();
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+    // Simple validation to make sure no fields are empty
+    if (username.isEmpty() || password.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || address.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "All fields must be filled!", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;  // Stop the execution if validation fails
+    }
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    // Create a User object with the data
+    User user = new User(username, email, password, phoneNumber, address, "USER");
+
+    // Create the SignupController to handle registration
+    SignupController controller = new SignupController();
+    String resultMessage = controller.register(user);  // Call the register method from the controller
+
+    // Display the result message
+    JOptionPane.showMessageDialog(this, resultMessage);
+
+    // If registration is successful, clear the fields
+    if ("Registration successful!".equals(resultMessage)) {
+        clearFields();
+    }
+}
+
+// Helper method to clear the fields after successful registration
+private void clearFields() {
+    txtname.setText("");
+    txtpasword.setText("");
+    txtemail.setText("");
+    txtphoneno.setText("");
+    txtaddress.setText("");
+  
+
+    }//GEN-LAST:event_btnregesterActionPerformed
+
+    private void txtaddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtaddressActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtaddressActionPerformed
 
     /**
      * @param args the command line arguments
@@ -231,36 +212,22 @@ public class Signup extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel background;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnregester;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel lbladdress;
+    private javax.swing.JLabel lblemail;
+    private javax.swing.JLabel lblname;
+    private javax.swing.JLabel lblpasswords;
+    private javax.swing.JLabel lblphoneno;
+    private javax.swing.JTextField txtaddress;
+    private javax.swing.JTextField txtemail;
+    private javax.swing.JTextField txtname;
+    private javax.swing.JTextField txtpasword;
+    private javax.swing.JTextField txtphoneno;
     // End of variables declaration//GEN-END:variables
 }
