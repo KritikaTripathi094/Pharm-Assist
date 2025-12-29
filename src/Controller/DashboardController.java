@@ -11,6 +11,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import view.Dashboard;
 import view.ProductCard;
+import dao.BloodBankDAO; 
+import Model.BloodBank;
+
+
+
 
 
 /**
@@ -22,10 +27,12 @@ public class DashboardController {
 
     private ProductDAO dao;
     private Dashboard view;
+    private BloodBankDAO bloodDao;
 
     public DashboardController(Dashboard view) {
         this.view = view;
         this.dao = new ProductDAO();
+        this.bloodDao = new BloodBankDAO();
     }
 
     public List<Product> getAllProducts() {
@@ -88,7 +95,32 @@ public void loadAllProducts() {
         
         
     }
+    public void loadBloodBanks() {
+    try {
+        List<BloodBank> banks = bloodDao.getAllBloodBanks();
+
+        javax.swing.JTable table = view.getBloodBankTable(); // getter from Dashboard
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
+
+        // Clear existing rows
+        model.setRowCount(0);
+
+        // Add rows
+        for (BloodBank bank : banks) {
+            Object[] row = { bank.getId(), bank.getName(), bank.getPhone(), bank.getLocation() };
+            model.addRow(row);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 }
+
+        
+    
+}
+
+
 
 
     

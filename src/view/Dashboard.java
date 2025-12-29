@@ -8,6 +8,9 @@ import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -39,6 +42,13 @@ private Controller.DashboardController controller;
     public javax.swing.JPanel getProductListPanel() {
         return productListPanel;
     }
+    public JTable getBloodBankTable() {
+    return bloodBankTable; // the variable name of your JTable
+}
+
+    
+
+
      
     
     
@@ -80,6 +90,8 @@ private Controller.DashboardController controller;
         productScrollPane = new javax.swing.JScrollPane();
         productListPanel = new javax.swing.JPanel();
         emergency = new javax.swing.JPanel();
+        emergencyScrollPane = new javax.swing.JScrollPane();
+        bloodBankTable = new javax.swing.JTable();
         bmi = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -235,7 +247,33 @@ private Controller.DashboardController controller;
 
         contentPanel.add(categories, "categories");
 
-        emergency.setBackground(new java.awt.Color(255, 0, 0));
+        emergency.setBackground(new java.awt.Color(244, 252, 255));
+        emergency.setLayout(null);
+
+        bloodBankTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "S.N.", "Blood Banks Name", "Phone", "Location"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        emergencyScrollPane.setViewportView(bloodBankTable);
+
+        emergency.add(emergencyScrollPane);
+        emergencyScrollPane.setBounds(30, 20, 650, 310);
+
         contentPanel.add(emergency, "emergency");
 
         bmi.setBackground(new java.awt.Color(245, 253, 255));
@@ -348,6 +386,8 @@ private Controller.DashboardController controller;
         // TODO add your handling code here:
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "emergency");
+        controller.loadBloodBanks();
+        
     }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
     private void PainReliefbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainReliefbtnActionPerformed
@@ -437,11 +477,13 @@ private Controller.DashboardController controller;
     private javax.swing.JTextField Searchbar;
     private javax.swing.JLabel Slogan;
     private javax.swing.JTextField Weight;
+    private javax.swing.JTable bloodBankTable;
     private javax.swing.JPanel bmi;
     private javax.swing.JPanel categories;
     private javax.swing.JPanel categoryFilterPanel;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel emergency;
+    private javax.swing.JScrollPane emergencyScrollPane;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
