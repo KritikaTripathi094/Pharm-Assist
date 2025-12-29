@@ -15,6 +15,8 @@ public class EditPanel extends javax.swing.JPanel {
      */
     public EditPanel() {
         initComponents();
+        this.setOpaque(true);
+        this.setBackground(new java.awt.Color(255, 255, 255));
     }
 
     /**
@@ -27,11 +29,11 @@ public class EditPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         nameLabel = new javax.swing.JLabel();
+        addressTextArea = new javax.swing.JTextArea();
         contactLabel = new javax.swing.JLabel();
         addressLabel = new javax.swing.JLabel();
         nameTextField = new javax.swing.JTextField();
         contactTextField = new javax.swing.JTextField();
-        addressTextArea = new javax.swing.JTextField();
         cancelButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         lbltitle = new javax.swing.JLabel();
@@ -44,6 +46,13 @@ public class EditPanel extends javax.swing.JPanel {
         nameLabel.setText("Full Name");
         add(nameLabel);
         nameLabel.setBounds(20, 50, 70, 14);
+
+        addressTextArea.setColumns(20);
+        addressTextArea.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        addressTextArea.setRows(5);
+        addressTextArea.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        add(addressTextArea);
+        addressTextArea.setBounds(20, 170, 200, 50);
 
         contactLabel.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         contactLabel.setText("Contact Number");
@@ -64,23 +73,19 @@ public class EditPanel extends javax.swing.JPanel {
         add(contactTextField);
         contactTextField.setBounds(20, 120, 200, 30);
 
-        addressTextArea.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
-        add(addressTextArea);
-        addressTextArea.setBounds(20, 170, 200, 50);
-
         cancelButton.setBackground(new java.awt.Color(239, 79, 79));
         cancelButton.setFont(new java.awt.Font("Comic Neue", 1, 12)); // NOI18N
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(this::cancelButtonActionPerformed);
         add(cancelButton);
-        cancelButton.setBounds(30, 250, 72, 21);
+        cancelButton.setBounds(30, 240, 72, 21);
 
         saveButton.setBackground(new java.awt.Color(14, 93, 174));
         saveButton.setFont(new java.awt.Font("Comic Neue", 1, 12)); // NOI18N
         saveButton.setText("Save");
         saveButton.addActionListener(this::saveButtonActionPerformed);
         add(saveButton);
-        saveButton.setBounds(150, 250, 72, 21);
+        saveButton.setBounds(140, 240, 72, 21);
 
         lbltitle.setFont(new java.awt.Font("Comic Neue", 1, 16)); // NOI18N
         lbltitle.setText("New Shipping Address");
@@ -95,6 +100,7 @@ public class EditPanel extends javax.swing.JPanel {
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
+        
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
@@ -105,7 +111,7 @@ public class EditPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel;
-    private javax.swing.JTextField addressTextArea;
+    private javax.swing.JTextArea addressTextArea;
     private javax.swing.JButton cancelButton;
     private javax.swing.JLabel contactLabel;
     private javax.swing.JTextField contactTextField;
@@ -114,4 +120,32 @@ public class EditPanel extends javax.swing.JPanel {
     private javax.swing.JTextField nameTextField;
     private javax.swing.JButton saveButton;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTextField getNameTextField() {
+        return nameTextField;
+    }
+
+    public javax.swing.JTextField getContactTextField() {
+        return contactTextField;
+    }
+
+    public javax.swing.JTextArea getAddressTextArea() {
+        return addressTextArea;
+    }
+
+    public javax.swing.JButton getSaveButton() {
+        return saveButton;
+    }
+
+    public javax.swing.JButton getCancelButton() {
+        return cancelButton;
+    }
+
+    // Load current user data into fields
+    public void loadUserData(String name, String phone, String address) {
+        getNameTextField().setText(name != null ? name : "");
+        getContactTextField().setText(phone != null ? phone : "");
+        getAddressTextArea().setText(address != null ? address : "");
+    }
 }
+    

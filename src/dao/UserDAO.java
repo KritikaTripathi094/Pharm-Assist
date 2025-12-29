@@ -105,4 +105,24 @@ public class UserDAO {
             return false;
         }
     }
+    
+        public boolean updateShippingDetails(int userId, String username, String phoneNumber, String address) {
+        String sql = "UPDATE users SET username = ?, phone_number = ?, address = ? WHERE id = ?";
+        
+        try (Connection con = DBConnections.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            
+            ps.setString(1, username);
+            ps.setString(2, phoneNumber);
+            ps.setString(3, address);
+            ps.setInt(4, userId);
+            
+            int rows = ps.executeUpdate();
+            return rows > 0;
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

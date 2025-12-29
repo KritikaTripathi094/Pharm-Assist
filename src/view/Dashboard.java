@@ -8,7 +8,9 @@ import Model.User;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import Controller.ShippingController;
 
 /**
  *
@@ -149,6 +151,16 @@ private Controller.DashboardController controller;
         txtnumber = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         btnedit = new javax.swing.JButton();
+        itempricedetail = new javax.swing.JPanel();
+        detail = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        lblitemprice = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lbltotalprice = new javax.swing.JLabel();
+        lbldetail = new javax.swing.JLabel();
 
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
@@ -314,6 +326,7 @@ private Controller.DashboardController controller;
         pharmacy.setBackground(new java.awt.Color(153, 0, 153));
         contentPanel.add(pharmacy, "pharmacy");
 
+        Shippingdetails.setBackground(new java.awt.Color(245, 253, 255));
         Shippingdetails.setLayout(null);
 
         heder.setBackground(new java.awt.Color(214, 242, 249));
@@ -328,7 +341,7 @@ private Controller.DashboardController controller;
         txtlocation.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         txtlocation.setText("location");
         panelfrodetail.add(txtlocation);
-        txtlocation.setBounds(10, 50, 450, 40);
+        txtlocation.setBounds(10, 50, 330, 40);
 
         txtname.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         txtname.setText("name ");
@@ -344,13 +357,13 @@ private Controller.DashboardController controller;
         panelfrodetail.setBounds(0, 20, 430, 90);
 
         jLabel1.setBackground(new java.awt.Color(214, 242, 249));
-        jLabel1.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Neue", 1, 14)); // NOI18N
         jLabel1.setText("Shipping Details");
         heder.add(jLabel1);
-        jLabel1.setBounds(10, 0, 200, 20);
+        jLabel1.setBounds(10, 0, 120, 20);
 
         btnedit.setBackground(new java.awt.Color(214, 242, 249));
-        btnedit.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        btnedit.setFont(new java.awt.Font("Comic Neue", 1, 14)); // NOI18N
         btnedit.setText("Edit");
         btnedit.setBorderPainted(false);
         btnedit.setContentAreaFilled(false);
@@ -359,7 +372,65 @@ private Controller.DashboardController controller;
         btnedit.setBounds(370, 0, 60, 20);
 
         Shippingdetails.add(heder);
-        heder.setBounds(10, 20, 430, 110);
+        heder.setBounds(20, 20, 430, 110);
+
+        itempricedetail.setBackground(new java.awt.Color(214, 243, 250));
+        itempricedetail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        itempricedetail.setLayout(null);
+
+        detail.setBackground(new java.awt.Color(255, 255, 255));
+        detail.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        detail.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        detail.setLayout(null);
+
+        jLabel3.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        jLabel3.setText("Item Total");
+        detail.add(jLabel3);
+        jLabel3.setBounds(10, 10, 70, 14);
+
+        jLabel4.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        jLabel4.setText("Delivery Fee");
+        detail.add(jLabel4);
+        jLabel4.setBounds(10, 40, 64, 14);
+
+        jLabel5.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        jLabel5.setText("Total:");
+        detail.add(jLabel5);
+        jLabel5.setBounds(10, 80, 60, 14);
+
+        jButton1.setBackground(new java.awt.Color(14, 93, 174));
+        jButton1.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Place Order");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        detail.add(jButton1);
+        jButton1.setBounds(32, 120, 92, 20);
+
+        lblitemprice.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        lblitemprice.setText("iprice");
+        detail.add(lblitemprice);
+        lblitemprice.setBounds(90, 10, 50, 14);
+
+        jLabel6.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        jLabel6.setText("RS.90");
+        detail.add(jLabel6);
+        jLabel6.setBounds(89, 40, 40, 14);
+
+        lbltotalprice.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        lbltotalprice.setText("tprice");
+        detail.add(lbltotalprice);
+        lbltotalprice.setBounds(90, 80, 60, 14);
+
+        itempricedetail.add(detail);
+        detail.setBounds(0, 30, 150, 160);
+
+        lbldetail.setFont(new java.awt.Font("Comic Neue", 1, 14)); // NOI18N
+        lbldetail.setText("Order Details");
+        itempricedetail.add(lbldetail);
+        lbldetail.setBounds(30, 6, 90, 20);
+
+        Shippingdetails.add(itempricedetail);
+        itempricedetail.setBounds(540, 20, 150, 190);
 
         contentPanel.add(Shippingdetails, "Shippingdetails");
 
@@ -456,8 +527,21 @@ private Controller.DashboardController controller;
 
     private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
         // TODO add your handling code here:
+        if (currentUser == null) {
+            JOptionPane.showMessageDialog(this, "No user logged in!");
+            return;
+        }
+
+        // Create controller (loads data + handles Save/Cancel)
+        ShippingController shippingController = new ShippingController(editPanel, currentUser, this);
+        // Bring EditPanel to front
+        Shippingdetails.setComponentZOrder(editPanel, 0);
         editPanel.setVisible(true);
-        editPanel.repaint();
+
+        // Refresh layout
+        Shippingdetails.revalidate();
+        Shippingdetails.repaint();
+        
     }//GEN-LAST:event_btneditActionPerformed
 
     /**
@@ -506,15 +590,25 @@ private Controller.DashboardController controller;
     private javax.swing.JPanel categories;
     private javax.swing.JPanel categoryFilterPanel;
     private javax.swing.JPanel contentPanel;
+    private javax.swing.JPanel detail;
     private javax.swing.JPanel emergency;
     private javax.swing.JPanel heder;
+    private javax.swing.JPanel itempricedetail;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel lbldetail;
+    private javax.swing.JLabel lblitemprice;
+    private javax.swing.JLabel lbltotalprice;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JLabel namepharmassist;
     private javax.swing.JPanel panelfrodetail;
@@ -526,5 +620,23 @@ private Controller.DashboardController controller;
     private javax.swing.JLabel txtnumber;
     // End of variables declaration//GEN-END:variables
 
-private EditPanel editPanel;
+public javax.swing.JLabel getTxtname() {
+        return txtname;
+    }
+
+    public javax.swing.JLabel getTxtnumber() {
+        return txtnumber;
+    }
+
+    public javax.swing.JLabel getTxtlocation() {
+        return txtlocation;
+    }
+        public javax.swing.JPanel getDetailPanel() {
+        return detail;
+    }
+    public javax.swing.JPanel getShippingDetailsPanel() {
+        return Shippingdetails;
+    }
+    
+    private EditPanel editPanel;
 }
