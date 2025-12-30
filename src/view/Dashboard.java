@@ -250,6 +250,9 @@ private Controller.DashboardController controller;
         emergency.setBackground(new java.awt.Color(244, 252, 255));
         emergency.setLayout(null);
 
+        emergencyScrollPane.setBackground(new java.awt.Color(255, 255, 255));
+
+        bloodBankTable.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         bloodBankTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
