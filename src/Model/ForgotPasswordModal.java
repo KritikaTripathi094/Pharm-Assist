@@ -31,6 +31,7 @@ public class ForgotPasswordModal {
         props.put("mail.smtp.starttls.enable", "true");
 
         Session session = Session.getInstance(props, new Authenticator() {
+            @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(fromEmail, password);
             }
@@ -44,7 +45,7 @@ public class ForgotPasswordModal {
             message.setText("Your OTP is: " + generatedOtp);
 
             Transport.send(message);
-        } catch (Exception e) {
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }

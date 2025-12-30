@@ -16,7 +16,6 @@ public class Group5PharmAssist {
      */
      public static void main(String[] args) {
 
-        // OPTIONAL: DB test (you can remove later)
         UserDAO userDAO = new UserDAO();
         String testEmail = "kritikatripathi0094@gmail.com";
 

@@ -11,10 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author This PC
- */
+import database.DBConnection;
+import database.mysqlconnection;
+import java.sql.*;
+
 public class UserDAO {
 
     // ===== REGISTER USER =====

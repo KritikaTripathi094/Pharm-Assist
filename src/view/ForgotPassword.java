@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 public class ForgotPassword extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ForgotPassword.class.getName());
-private ForgotPasswordController controller = new ForgotPasswordController();
+private final ForgotPasswordController controller = new ForgotPasswordController();
 
     /**
      * Creates new form ForgotPassword
@@ -68,20 +68,20 @@ public ForgotPassword() {
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 450));
         jPanel1.setLayout(null);
 
-        Pharmassist.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        Pharmassist.setFont(new java.awt.Font("Comic Neue", 0, 20)); // NOI18N
         Pharmassist.setText("Pharm-Assist");
         jPanel1.add(Pharmassist);
-        Pharmassist.setBounds(50, 10, 160, 27);
+        Pharmassist.setBounds(50, 10, 160, 23);
 
-        Slogan.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        Slogan.setFont(new java.awt.Font("Comic Neue", 0, 11)); // NOI18N
         Slogan.setText("Your healthy dose of convenience ");
         jPanel1.add(Slogan);
-        Slogan.setBounds(0, 50, 180, 15);
+        Slogan.setBounds(0, 50, 180, 13);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         jLabel1.setText("Emergency Contacts");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -100,7 +100,7 @@ public ForgotPassword() {
 
         Bmi.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         jLabel2.setText("BMI");
 
         javax.swing.GroupLayout BmiLayout = new javax.swing.GroupLayout(Bmi);
@@ -117,14 +117,14 @@ public ForgotPassword() {
         jPanel1.add(Bmi);
         Bmi.setBounds(370, 70, 90, 20);
 
-        pCONTACTS.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        pCONTACTS.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         pCONTACTS.setText("Contact Pharmacy");
         jPanel1.add(pCONTACTS);
         pCONTACTS.setBounds(590, 60, 110, 40);
 
         jPanel3.setBackground(new java.awt.Color(14, 93, 174));
 
-        categories.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        categories.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         categories.setForeground(new java.awt.Color(255, 255, 255));
         categories.setText("All Categories");
 
@@ -139,14 +139,14 @@ public ForgotPassword() {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 2, Short.MAX_VALUE)
+                .addGap(0, 4, Short.MAX_VALUE)
                 .addComponent(categories))
         );
 
         jPanel1.add(jPanel3);
         jPanel3.setBounds(0, 70, 120, 20);
 
-        Account.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        Account.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Account.setText("Account");
         jPanel1.add(Account);
         Account.setBounds(640, 20, 50, 30);
@@ -154,23 +154,24 @@ public ForgotPassword() {
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(null);
 
-        Forgot.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        Forgot.setFont(new java.awt.Font("Comic Neue", 1, 20)); // NOI18N
         Forgot.setText("Forgot your Password?");
         jPanel4.add(Forgot);
         Forgot.setBounds(6, 0, 239, 30);
 
-        edit.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        edit.setFont(new java.awt.Font("Comic Neue", 0, 18)); // NOI18N
         edit.setText("E-mail");
         jPanel4.add(edit);
         edit.setBounds(10, 40, 250, 20);
 
+        txtEmail.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         txtEmail.setText("Enter your email");
         txtEmail.addActionListener(this::txtEmailActionPerformed);
         jPanel4.add(txtEmail);
         txtEmail.setBounds(10, 70, 290, 30);
 
         btnSendOtp.setBackground(new java.awt.Color(14, 93, 174));
-        btnSendOtp.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnSendOtp.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         btnSendOtp.setForeground(new java.awt.Color(255, 255, 255));
         btnSendOtp.setText("Send OTP");
         btnSendOtp.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -178,18 +179,19 @@ public ForgotPassword() {
         jPanel4.add(btnSendOtp);
         btnSendOtp.setBounds(260, 110, 90, 25);
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Comic Neue", 0, 18)); // NOI18N
         jLabel3.setText("OTP");
         jPanel4.add(jLabel3);
-        jLabel3.setBounds(10, 130, 50, 25);
+        jLabel3.setBounds(10, 130, 50, 22);
 
+        txtOtp.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         txtOtp.setText("Enter the OTP");
         txtOtp.addActionListener(this::txtOtpActionPerformed);
         jPanel4.add(txtOtp);
-        txtOtp.setBounds(10, 160, 280, 22);
+        txtOtp.setBounds(10, 160, 280, 20);
 
         btnVerifyOtp.setBackground(new java.awt.Color(14, 93, 174));
-        btnVerifyOtp.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
+        btnVerifyOtp.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         btnVerifyOtp.setForeground(new java.awt.Color(255, 255, 255));
         btnVerifyOtp.setText("Verify");
         btnVerifyOtp.setPreferredSize(new java.awt.Dimension(56, 20));
@@ -197,23 +199,24 @@ public ForgotPassword() {
         jPanel4.add(btnVerifyOtp);
         btnVerifyOtp.setBounds(260, 190, 90, 20);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Comic Neue", 0, 18)); // NOI18N
         jLabel4.setText("Password");
         jPanel4.add(jLabel4);
         jLabel4.setBounds(10, 220, 110, 30);
 
+        txtNewPassword.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         txtNewPassword.setText("Enter your new password");
         txtNewPassword.addActionListener(this::txtNewPasswordActionPerformed);
         jPanel4.add(txtNewPassword);
-        txtNewPassword.setBounds(10, 250, 280, 22);
+        txtNewPassword.setBounds(10, 250, 280, 20);
 
         btnResetPassword.setBackground(new java.awt.Color(14, 97, 174));
-        btnResetPassword.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        btnResetPassword.setFont(new java.awt.Font("Comic Neue", 1, 13)); // NOI18N
         btnResetPassword.setForeground(new java.awt.Color(255, 255, 255));
         btnResetPassword.setText("Reset");
         btnResetPassword.addActionListener(this::btnResetPasswordActionPerformed);
         jPanel4.add(btnResetPassword);
-        btnResetPassword.setBounds(260, 280, 100, 25);
+        btnResetPassword.setBounds(260, 280, 100, 23);
 
         jPanel1.add(jPanel4);
         jPanel4.setBounds(120, 110, 470, 320);
@@ -234,13 +237,14 @@ public ForgotPassword() {
 
     private void btnSendOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendOtpActionPerformed
         // TODO add your handling code here:
-         String email = txtEmail.getText();
+        
+        
+String email = txtEmail.getText();
     if (controller.sendOtp(email)) {
         JOptionPane.showMessageDialog(this, "OTP sent to email");
     } else {
         JOptionPane.showMessageDialog(this, "Email not found");
     }
-
        
     }//GEN-LAST:event_btnSendOtpActionPerformed
 
@@ -279,6 +283,7 @@ public ForgotPassword() {
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtEmailActionPerformed
 
     /**
@@ -303,7 +308,16 @@ public ForgotPassword() {
         //</editor-fold>
 
         /* Create and display the form */
-     
+      try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
