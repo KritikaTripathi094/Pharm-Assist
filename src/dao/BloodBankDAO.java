@@ -29,6 +29,7 @@ public class BloodBankDAO {
                 b.setName(rs.getString("name"));
                 b.setPhone(rs.getString("phone"));
                 b.setLocation(rs.getString("location"));
+                b.setType(rs.getString("type"));
                 list.add(b);
             }
         } catch (Exception e) {

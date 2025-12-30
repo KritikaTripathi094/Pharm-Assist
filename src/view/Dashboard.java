@@ -255,17 +255,17 @@ private Controller.DashboardController controller;
         bloodBankTable.setFont(new java.awt.Font("Comic Sans MS", 0, 12)); // NOI18N
         bloodBankTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "S.N.", "Blood Banks Name", "Phone", "Location"
+                "S.N.", "Name", "Phone", "Location", "Type"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

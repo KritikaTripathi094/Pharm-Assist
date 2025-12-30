@@ -107,7 +107,7 @@ public void loadAllProducts() {
 
         // Add rows
         for (BloodBank bank : banks) {
-            Object[] row = { bank.getId(), bank.getName(), bank.getPhone(), bank.getLocation() };
+            Object[] row = { bank.getId(), bank.getName(), bank.getPhone(), bank.getLocation(), bank.getType() };
             model.addRow(row);
         }
 
