@@ -7,7 +7,15 @@ package Controller;
 import java.util.List;
 import dao.ProductDAO;
 import Model.Product;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import view.Dashboard;
+import view.ProductCard;
+import dao.BloodBankDAO; 
+import Model.BloodBank;
+
+
+
 
 
 /**
@@ -19,10 +27,12 @@ public class DashboardController {
 
     private final ProductDAO dao;
     private Dashboard view;
+    private BloodBankDAO bloodDao;
 
     public DashboardController(Dashboard view) {
         this.view = view;
         this.dao = new ProductDAO();
+        this.bloodDao = new BloodBankDAO();
     }
 
     public List<Product> getAllProducts() {
@@ -34,7 +44,83 @@ public class DashboardController {
     }
     
     
+    
+
+
+public void loadAllProducts() {
+    javax.swing.JPanel productListPanel = view.getProductListPanel();
+
+    productListPanel.removeAll();
+    productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
+
+    try {
+        List<Product> products = dao.getAllProducts(); 
+        for (Model.Product product : products) {
+            ProductCard card = new ProductCard();
+            card.setProduct(product);
+            card.setPreferredSize(new Dimension(150, 170));
+            productListPanel.add(card);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
 }
+    public void loadProductsByCategory(String category) {
+        javax.swing.JPanel productListPanel = view.getProductListPanel();
+           productListPanel.removeAll();
+    productListPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+
+    try {
+        List<Product> products = dao.getProductsByCategory(category);
+
+
+        for (Model.Product product : products) {
+            ProductCard card = new ProductCard();
+            card.setProduct(product);
+            card.setPreferredSize(new Dimension(150, 170));
+            productListPanel.add(card);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
+        
+        
+        
+    }
+    public void loadBloodBanks() {
+    try {
+        List<BloodBank> banks = bloodDao.getAllBloodBanks();
+
+        javax.swing.JTable table = view.getBloodBankTable(); // getter from Dashboard
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
+
+        // Clear existing rows
+        model.setRowCount(0);
+
+        // Add rows
+        for (BloodBank bank : banks) {
+            Object[] row = { bank.getId(), bank.getName(), bank.getPhone(), bank.getLocation(), bank.getType() };
+            model.addRow(row);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
+        
+    
+}
+
+
 
 
     
