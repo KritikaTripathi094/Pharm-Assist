@@ -2,6 +2,7 @@
 build/
 dist/
 nbproject/private/
+src/database/
 
 *.class
 *.jar
