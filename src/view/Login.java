@@ -81,6 +81,11 @@ public class Login extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Comic Neue", 1, 14)); // NOI18N
         jLabel4.setText("Forgot Password?");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
         jPanel2.add(jLabel4);
         jLabel4.setBounds(300, 160, 110, 20);
 
@@ -167,6 +172,12 @@ public class Login extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+        new ForgotPassword().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments

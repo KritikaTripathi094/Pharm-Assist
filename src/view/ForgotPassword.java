@@ -271,6 +271,17 @@ String email = txtEmail.getText();
 
     if (success) {
         JOptionPane.showMessageDialog(this, "Password reset successful!");
+
+        // Close current window
+        this.dispose();
+
+        // Open Login window, centered
+        java.awt.EventQueue.invokeLater(() -> {
+            Login login = new Login();                    // ← Change if name is different
+            login.setLocationRelativeTo(null);            // Centers it
+            login.setVisible(true);
+        });
+
     } else {
         JOptionPane.showMessageDialog(this, "Please verify OTP first!");
     }

@@ -11,7 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import database.DBConnection;
+import database.DBConnections;
 import database.mysqlconnection;
 import java.sql.*;
 
