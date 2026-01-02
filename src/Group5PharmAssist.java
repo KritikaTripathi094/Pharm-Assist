@@ -4,7 +4,7 @@
  */
 
 import dao.UserDAO;
-import view.ForgotPassword;
+import view.Login;
 
 /**
  *
@@ -27,7 +27,7 @@ public class Group5PharmAssist {
 
         // ✅ OPEN FORGOT PASSWORD UI
         java.awt.EventQueue.invokeLater(() -> {
-            new ForgotPassword().setVisible(true);
+            new Login().setVisible(true);
         });
     }
 }

@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.ImageUploader;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JOptionPane;
@@ -147,23 +148,35 @@ public class AdminDashboardController {
 
         DefaultTableModel model = (DefaultTableModel) table.getModel();
 
-        // ✅ get ID BEFORE removing row
+        // Get data BEFORE removing row
         int productId = (int) model.getValueAt(selectedRow, 0);
+        String imageFileName = (String) model.getValueAt(selectedRow, 4);  // Image column
 
         int confirm = JOptionPane.showConfirmDialog(
             null,
-            "Are you sure you want to delete this product?",
+            "Delete this product?\nThis will also permanently delete the image file.",
             "Confirm Delete",
-            JOptionPane.YES_NO_OPTION
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE
         );
 
         if (confirm != JOptionPane.YES_OPTION) return;
 
+        // First: Delete from database
         if (deleteProductFromDatabase(productId)) {
+            // Second: Delete physical image file
+            boolean imageDeleted = ImageUploader.deleteImage(imageFileName);
+
+            // Third: Remove row from table
             model.removeRow(selectedRow);
-            JOptionPane.showMessageDialog(null, "Product deleted successfully.");
+
+            String msg = "Product deleted successfully.";
+            if (!imageDeleted && !imageFileName.isEmpty()) {
+                msg += "\nWarning: Image file could not be deleted.";
+            }
+            JOptionPane.showMessageDialog(null, msg);
         } else {
-            JOptionPane.showMessageDialog(null, "Failed to delete product.");
+            JOptionPane.showMessageDialog(null, "Failed to delete product from database.");
         }
     }
 
@@ -211,6 +224,8 @@ public class AdminDashboardController {
         null,
         " product saved successfully."
     );
+    
+    
 }
 
 }

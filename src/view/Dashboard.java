@@ -28,12 +28,10 @@ public class Dashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
     
-
-
     private void initPopupMenu() {
         
-}
-private final Controller.DashboardController controller;
+    }
+    private final Controller.DashboardController controller;
 
     /**
      * Creates new form Dashboard
@@ -96,17 +94,22 @@ private final Controller.DashboardController controller;
                 card.addMouseListener(new java.awt.event.MouseAdapter() {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent e) {
-                        ProductDescriptionPanel.setLayout(new BorderLayout());
-                        ProductDescriptionPanel pd = new ProductDescriptionPanel(product.getId(), contentPanel);
-                        ProductDescriptionPanel.removeAll();
-                        ProductDescriptionPanel.add(pd, BorderLayout.CENTER);
-                        ProductDescriptionPanel.revalidate();
-                        ProductDescriptionPanel.repaint();
+                        // Simplified version - remove complex logic temporarily
+                        try {
+                            ProductDescriptionPanel.setLayout(new BorderLayout());
+                            ProductDescriptionPanel pd = new ProductDescriptionPanel(product.getId(), contentPanel);
+                            ProductDescriptionPanel.removeAll();
+                            ProductDescriptionPanel.add(pd, BorderLayout.CENTER);
+                            ProductDescriptionPanel.revalidate();
+                            ProductDescriptionPanel.repaint();
 
-                        CardLayout cl = (CardLayout) contentPanel.getLayout();
-                        cl.show(contentPanel, "productDescription");
-                        contentPanel.revalidate();
-                        contentPanel.repaint();
+                            CardLayout cl = (CardLayout) contentPanel.getLayout();
+                            cl.show(contentPanel, "productDescription");
+                            contentPanel.revalidate();
+                            contentPanel.repaint();
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
                     }
                 });
 
@@ -190,9 +193,9 @@ private final Controller.DashboardController controller;
         contentPanel = new javax.swing.JPanel();
         categories = new javax.swing.JPanel();
         categoryFilterPanel = new javax.swing.JPanel();
+        Allbtn = new javax.swing.JButton();
         PainReliefbtn = new javax.swing.JButton();
         AntiFungalbtn = new javax.swing.JButton();
-        Allbtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         productScrollPane = new javax.swing.JScrollPane();
         productListPanel = new javax.swing.JPanel();
@@ -264,7 +267,7 @@ private final Controller.DashboardController controller;
 
         Emergencycontactsbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
         Emergencycontactsbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
-        Emergencycontactsbtn.setText("Emergency Contacts  ");
+        Emergencycontactsbtn.setText("Emergency Contacts ");
         Emergencycontactsbtn.setBorder(null);
         Emergencycontactsbtn.setBorderPainted(false);
         Emergencycontactsbtn.setContentAreaFilled(false);
@@ -343,6 +346,12 @@ private final Controller.DashboardController controller;
         categoryFilterPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         categoryFilterPanel.setLayout(null);
 
+        Allbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        Allbtn.setText("All");
+        Allbtn.addActionListener(this::AllbtnActionPerformed);
+        categoryFilterPanel.add(Allbtn);
+        Allbtn.setBounds(0, 0, 120, 30);
+
         PainReliefbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
         PainReliefbtn.setText("Pain Relief");
         PainReliefbtn.addActionListener(this::PainReliefbtnActionPerformed);
@@ -354,12 +363,6 @@ private final Controller.DashboardController controller;
         AntiFungalbtn.addActionListener(this::AntiFungalbtnActionPerformed);
         categoryFilterPanel.add(AntiFungalbtn);
         AntiFungalbtn.setBounds(0, 60, 120, 30);
-
-        Allbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
-        Allbtn.setText("All");
-        Allbtn.addActionListener(this::AllbtnActionPerformed);
-        categoryFilterPanel.add(Allbtn);
-        Allbtn.setBounds(0, 0, 120, 30);
 
         categories.add(categoryFilterPanel);
         categoryFilterPanel.setBounds(30, 20, 120, 330);
@@ -424,7 +427,6 @@ private final Controller.DashboardController controller;
         jPanel14.add(jLabel1);
         jLabel1.setBounds(230, 10, 220, 30);
 
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/BMI_Chart.png"))); // NOI18N
         jLabel3.setOpaque(true);
         jPanel14.add(jLabel3);
@@ -445,7 +447,6 @@ private final Controller.DashboardController controller;
         Height.setBounds(30, 140, 50, 30);
 
         jLabel6.setText("CM");
-        jLabel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel14.add(jLabel6);
         jLabel6.setBounds(80, 140, 37, 30);
 
@@ -459,7 +460,6 @@ private final Controller.DashboardController controller;
         Weight.setBounds(30, 220, 50, 30);
 
         jLabel8.setText("KG");
-        jLabel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel14.add(jLabel8);
         jLabel8.setBounds(80, 220, 37, 30);
 
@@ -482,6 +482,11 @@ private final Controller.DashboardController controller;
 
         pharmacy.setBackground(new java.awt.Color(153, 0, 153));
         contentPanel.add(pharmacy, "pharmacy");
+
+        ProductDescriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ProductDescriptionPanel.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        ProductDescriptionPanel.setPreferredSize(new java.awt.Dimension(500, 200));
+        contentPanel.add(ProductDescriptionPanel, "productDescription");
 
         Shippingdetails.setBackground(new java.awt.Color(245, 253, 255));
         Shippingdetails.setLayout(null);
@@ -513,7 +518,6 @@ private final Controller.DashboardController controller;
         heder.add(panelfrodetail);
         panelfrodetail.setBounds(0, 20, 430, 90);
 
-        jLabel9.setBackground(new java.awt.Color(214, 242, 249));
         jLabel9.setFont(new java.awt.Font("Comic Neue", 1, 14)); // NOI18N
         jLabel9.setText("Shipping Details");
         heder.add(jLabel9);
@@ -559,7 +563,6 @@ private final Controller.DashboardController controller;
         jButton1.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Place Order");
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         detail.add(jButton1);
         jButton1.setBounds(32, 120, 92, 20);
 
@@ -590,15 +593,11 @@ private final Controller.DashboardController controller;
         itempricedetail.setBounds(540, 20, 150, 190);
 
         contentPanel.add(Shippingdetails, "Shippingdetails");
-        ProductDescriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
-        ProductDescriptionPanel.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
-        ProductDescriptionPanel.setPreferredSize(new java.awt.Dimension(500, 200));
-        contentPanel.add(ProductDescriptionPanel, "card6");
 
         getContentPane().add(contentPanel);
         contentPanel.setBounds(0, 100, 700, 350);
 
-        setBounds(0, 0, 717, 459);
+        setBounds(0, 0, 716, 460);
     }// </editor-fold>//GEN-END:initComponents
 
     private void SearchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbarActionPerformed
@@ -606,33 +605,27 @@ private final Controller.DashboardController controller;
     }//GEN-LAST:event_SearchbarActionPerformed
 
     private void AccountbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountbtnActionPerformed
-        // TODO add your handling code here:
-    jPopupMenu1.show(Accountbtn, 0, Accountbtn.getHeight());
+        jPopupMenu1.show(Accountbtn, 0, Accountbtn.getHeight());
     }//GEN-LAST:event_AccountbtnActionPerformed
 
     private void ContactpharmacybtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContactpharmacybtnActionPerformed
-        // TODO add your handling code here:
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "pharmacy");
     }//GEN-LAST:event_ContactpharmacybtnActionPerformed
 
     private void BmibtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BmibtnActionPerformed
-        // TODO add your handling code here:
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "bmi");
     }//GEN-LAST:event_BmibtnActionPerformed
 
     private void AllcategoriesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllcategoriesbtnActionPerformed
-        // TODO add your handling code here:
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "categories");
     }//GEN-LAST:event_AllcategoriesbtnActionPerformed
 
     private void EmergencycontactsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmergencycontactsbtnActionPerformed
-        // TODO add your handling code here:
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "emergency");
-        // Added from their version:
         controller.loadBloodBanks();
     }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
@@ -661,21 +654,17 @@ private final Controller.DashboardController controller;
     }//GEN-LAST:event_LogoutActionPerformed
 
     private void btnproceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproceedActionPerformed
-        // Show shipping details panel
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "Shippingdetails");
         
-        // Use currentUser's data
         String username = currentUser.getUsername();
         String phone = currentUser.getPhoneNumber();
         String address = currentUser.getAddress();
         
-        // Set the text (handle null values)
         txtname.setText(username != null ? username : "Name not available");
         txtnumber.setText(phone != null ? phone : "Phone not available");
         txtlocation.setText(address != null ? address : "Address not available");
         
-        // Show in console
         System.out.println("=== Shipping Details ===");
         System.out.println("User: " + username);
         System.out.println("Phone: " + phone);
@@ -688,31 +677,20 @@ private final Controller.DashboardController controller;
             return;
         }
 
-        // Create controller (loads data + handles Save/Cancel)
         ShippingController shippingController = new ShippingController(editPanel, currentUser, this);
-        // Bring EditPanel to front
         Shippingdetails.setComponentZOrder(editPanel, 0);
         editPanel.setVisible(true);
 
-        // Refresh layout
         Shippingdetails.revalidate();
         Shippingdetails.repaint();
     }//GEN-LAST:event_btneditActionPerformed
 
-    // Added from their version: BMI Calculator handler
     private void CalculatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalculatebtnActionPerformed
         try {
-            // Read height in CM and weight in KG
             double heightCm = Double.parseDouble(Height.getText());
             double weightKg = Double.parseDouble(Weight.getText());
-
-            // Convert height from CM to meters
             double heightM = heightCm / 100.0;
-
-            // Calculate BMI
             double bmi = weightKg / (heightM * heightM);
-
-            // Determine BMI category
             String category;
             if (bmi < 18.5) {
                 category = "Underweight";
@@ -723,24 +701,13 @@ private final Controller.DashboardController controller;
             } else {
                 category = "Obese";
             }
-
-            // Show result in JLabel
             Result.setText(String.format("%.2f", bmi) + " (" + category + ")");
-
         } catch (NumberFormatException e) {
             Result.setText("Enter valid numbers");
         }
     }//GEN-LAST:event_CalculatebtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -748,16 +715,14 @@ private final Controller.DashboardController controller;
                     break;
                 }
             }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (Exception ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Dashboard().setVisible(true));
     }
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Accountbtn;
     private javax.swing.JButton Allbtn;
     private javax.swing.JButton Allcategoriesbtn;
@@ -796,17 +761,17 @@ private final Controller.DashboardController controller;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel jLabel7;   
-    private javax.swing.JLabel jLabel8;     
-    private javax.swing.JLabel jLabel9; 
-    private javax.swing.JLabel jLabel2; 
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel lbldetail;
     private javax.swing.JLabel lblitemprice;
@@ -822,7 +787,7 @@ private final Controller.DashboardController controller;
     private javax.swing.JLabel txtnumber;
     // End of variables declaration//GEN-END:variables
 
-public javax.swing.JLabel getTxtname() {
+    public javax.swing.JLabel getTxtname() {
         return txtname;
     }
 
@@ -833,13 +798,14 @@ public javax.swing.JLabel getTxtname() {
     public javax.swing.JLabel getTxtlocation() {
         return txtlocation;
     }
-        public javax.swing.JPanel getDetailPanel() {
+    
+    public javax.swing.JPanel getDetailPanel() {
         return detail;
     }
+    
     public javax.swing.JPanel getShippingDetailsPanel() {
         return Shippingdetails;
     }
     
     private EditPanel editPanel;
-    
 }
