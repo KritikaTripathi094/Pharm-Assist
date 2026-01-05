@@ -7,12 +7,15 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.List;
 import javax.swing.JPanel;
 
 /**
  *
  * @author This PC
  */
+
+
 public class Dashboard extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
@@ -20,19 +23,54 @@ public class Dashboard extends javax.swing.JFrame {
         
 }
 private Controller.DashboardController controller;
+private Controller.ShoppingCartController cartController;
+private Controller.SearchController searchController;
+private String currentCategory = "All";
+private javax.swing.JLabel selectedPriceLabel = new javax.swing.JLabel("Rs. 0");
+private javax.swing.JLabel totalPriceLabel = new javax.swing.JLabel("Rs. 0");
+
+
 
     /**
      * Creates new form Dashboard
      */
     public Dashboard() {
         initComponents();
+        SelectedPrice.setLayout(new java.awt.BorderLayout());
+TotalPriceAdd.setLayout(new java.awt.BorderLayout());
+
+SelectedPrice.add(selectedPriceLabel, java.awt.BorderLayout.CENTER);
+TotalPriceAdd.add(totalPriceLabel, java.awt.BorderLayout.CENTER);
+        
         controller = new Controller.DashboardController(this);
+        searchController = new Controller.SearchController();
+        
+        cartController = new Controller.ShoppingCartController(this); 
+        
+
+// Select all
+checkbox1.addItemListener(e -> cartController.selectAll(checkbox1.getState()));
+
+// Delete selected
+jButton1.addActionListener(e -> cartController.deleteSelected());
+
+// Confirm cart
+ConfirmPayment.addActionListener(e -> cartController.confirmCart());
+
+// whenever cart page opens
+jButton5.addActionListener(e -> {
+    CardLayout card = (CardLayout) contentPanel.getLayout();
+    card.show(contentPanel, "cart");
+    cartController.refreshCart();
+});
+
         initPopupMenu();
         loadProductUI();
         loadAllProducts();
         
-        
+        SearchButton.addActionListener(e -> performSearch()); 
     }
+
      private void loadProductUI() {
          
            
@@ -45,11 +83,13 @@ private Controller.DashboardController controller;
     try {
         java.util.List<Model.Product> products = controller.getAllProducts();
         for (Model.Product product : products) {
-            ProductCard card = new ProductCard();
-            card.setProduct(product);
-            card.setPreferredSize(new Dimension(150, 170));
-            productListPanel.add(card);
-        }
+    ProductCard card = new ProductCard();
+    card.setDashboard(this);          // 🔥 VERY IMPORTANT
+    card.setProduct(product);
+    card.setPreferredSize(new Dimension(150, 170));
+    productListPanel.add(card);
+}
+
 
     } catch (Exception e) {
         e.printStackTrace();
@@ -67,7 +107,8 @@ private Controller.DashboardController controller;
 
 
         for (Model.Product product : products) {
-            ProductCard card = new ProductCard();
+           ProductCard card = new ProductCard();
+            card.setDashboard(this);          // ✅ VERY IMPORTANT
             card.setProduct(product);
             card.setPreferredSize(new Dimension(150, 170));
             productListPanel.add(card);
@@ -101,7 +142,12 @@ private Controller.DashboardController controller;
         RateUs = new javax.swing.JMenuItem();
         Logout = new javax.swing.JMenuItem();
         jLabel2 = new javax.swing.JLabel();
+        scrollPane1 = new java.awt.ScrollPane();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
+        SearchButton = new javax.swing.JButton();
+        Searchbar = new javax.swing.JTextField();
         Allcategoriesbtn = new javax.swing.JButton();
         Emergencycontactsbtn = new javax.swing.JButton();
         Bmibtn = new javax.swing.JButton();
@@ -110,7 +156,6 @@ private Controller.DashboardController controller;
         Accountbtn = new javax.swing.JButton();
         namepharmassist = new javax.swing.JLabel();
         Slogan = new javax.swing.JLabel();
-        Searchbar = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
         categories = new javax.swing.JPanel();
@@ -125,6 +170,26 @@ private Controller.DashboardController controller;
         bmi = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         pharmacy = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        ShoppingCart = new javax.swing.JPanel();
+        Selected = new javax.swing.JPanel();
+        checkbox1 = new java.awt.Checkbox();
+        jButton1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        OrderSummary = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        SelectedPrice = new javax.swing.JPanel();
+        TotalPriceAdd = new javax.swing.JPanel();
+        ConfirmPayment = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        PictureOfMeds = new javax.swing.JPanel();
+        NameOfMeds = new javax.swing.JPanel();
+        Quantity = new javax.swing.JLabel();
+        ADD = new javax.swing.JButton();
+        Subtract = new javax.swing.JButton();
 
         Profile.setText("Profile");
         jPopupMenu1.add(Profile);
@@ -137,11 +202,26 @@ private Controller.DashboardController controller;
 
         jLabel2.setText("jLabel2");
 
+        jLabel1.setText("jLabel1");
+        scrollPane1.add(jLabel1);
+
+        jLabel4.setBackground(new java.awt.Color(255, 204, 204));
+        jLabel4.setText("jLabel4");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
+
+        SearchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/searchlogo.png"))); // NOI18N
+        SearchButton.addActionListener(this::SearchButtonActionPerformed);
+        jPanel1.add(SearchButton);
+        SearchButton.setBounds(515, 10, 45, 30);
+
+        Searchbar.addActionListener(this::SearchbarActionPerformed);
+        jPanel1.add(Searchbar);
+        Searchbar.setBounds(200, 10, 360, 30);
 
         Allcategoriesbtn.setBackground(new java.awt.Color(14, 94, 174));
         Allcategoriesbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
@@ -181,7 +261,7 @@ private Controller.DashboardController controller;
         Contactpharmacybtn.setContentAreaFilled(false);
         Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
         jPanel1.add(Contactpharmacybtn);
-        Contactpharmacybtn.setBounds(560, 70, 131, 28);
+        Contactpharmacybtn.setBounds(560, 70, 132, 28);
 
         logopharmassist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reallogo.png"))); // NOI18N
         jPanel1.add(logopharmassist);
@@ -204,16 +284,13 @@ private Controller.DashboardController controller;
         Slogan.setFont(new java.awt.Font("Comic Neue", 0, 11)); // NOI18N
         Slogan.setText("Your healthy dose of convenience");
         jPanel1.add(Slogan);
-        Slogan.setBounds(10, 50, 210, 15);
-
-        Searchbar.addActionListener(this::SearchbarActionPerformed);
-        jPanel1.add(Searchbar);
-        Searchbar.setBounds(200, 10, 360, 30);
+        Slogan.setBounds(10, 50, 210, 13);
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
         jButton5.setBorderPainted(false);
         jButton5.setContentAreaFilled(false);
         jButton5.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButton5.addActionListener(this::jButton5ActionPerformed);
         jPanel1.add(jButton5);
         jButton5.setBounds(570, 10, 40, 30);
 
@@ -280,8 +357,108 @@ private Controller.DashboardController controller;
 
         contentPanel.add(bmi, "bmi");
 
-        pharmacy.setBackground(new java.awt.Color(153, 0, 153));
+        pharmacy.setBackground(new java.awt.Color(244, 252, 255));
+        pharmacy.setLayout(null);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(null);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Contact pharmacy1.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        jPanel2.add(jLabel3);
+        jLabel3.setBounds(0, 0, 640, 300);
+
+        pharmacy.add(jPanel2);
+        jPanel2.setBounds(30, 30, 640, 300);
+
         contentPanel.add(pharmacy, "pharmacy");
+
+        ShoppingCart.setBackground(new java.awt.Color(244, 252, 255));
+        ShoppingCart.setLayout(null);
+
+        Selected.setBackground(new java.awt.Color(255, 255, 255));
+        Selected.setLayout(null);
+
+        checkbox1.setFont(new java.awt.Font("Comic Neue", 1, 10)); // NOI18N
+        checkbox1.setLabel("SelectAll");
+        Selected.add(checkbox1);
+        checkbox1.setBounds(10, 0, 90, 16);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bin.png"))); // NOI18N
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+        Selected.add(jButton1);
+        jButton1.setBounds(280, 0, 20, 20);
+
+        jLabel5.setFont(new java.awt.Font("Comic Neue", 1, 11)); // NOI18N
+        jLabel5.setText("Delete Selected");
+        Selected.add(jLabel5);
+        jLabel5.setBounds(300, 0, 90, 20);
+
+        ShoppingCart.add(Selected);
+        Selected.setBounds(30, 50, 402, 24);
+
+        OrderSummary.setBackground(new java.awt.Color(255, 255, 255));
+        OrderSummary.setLayout(null);
+
+        jLabel7.setFont(new java.awt.Font("Comic Neue", 1, 12)); // NOI18N
+        jLabel7.setText("Order Summary");
+        OrderSummary.add(jLabel7);
+        jLabel7.setBounds(10, 10, 150, 30);
+
+        SelectedPrice.setBackground(new java.awt.Color(255, 255, 255));
+        OrderSummary.add(SelectedPrice);
+        SelectedPrice.setBounds(160, 50, 70, 20);
+
+        TotalPriceAdd.setBackground(new java.awt.Color(255, 255, 255));
+        OrderSummary.add(TotalPriceAdd);
+        TotalPriceAdd.setBounds(160, 80, 70, 20);
+
+        ConfirmPayment.setBackground(new java.awt.Color(14, 94, 174));
+        ConfirmPayment.setForeground(new java.awt.Color(255, 255, 255));
+        ConfirmPayment.setText("Confirm Cart");
+        ConfirmPayment.addActionListener(this::ConfirmPaymentActionPerformed);
+        OrderSummary.add(ConfirmPayment);
+        ConfirmPayment.setBounds(35, 110, 160, 23);
+
+        jLabel6.setText("Total Payment");
+        OrderSummary.add(jLabel6);
+        jLabel6.setBounds(10, 80, 130, 20);
+
+        jLabel8.setText("Selected items price");
+        OrderSummary.add(jLabel8);
+        jLabel8.setBounds(10, 50, 130, 20);
+
+        ShoppingCart.add(OrderSummary);
+        OrderSummary.setBounds(460, 50, 230, 138);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setLayout(null);
+        jPanel6.add(PictureOfMeds);
+        PictureOfMeds.setBounds(10, 20, 50, 40);
+        jPanel6.add(NameOfMeds);
+        NameOfMeds.setBounds(70, 20, 80, 20);
+
+        Quantity.setText("Quantity");
+        jPanel6.add(Quantity);
+        Quantity.setBounds(70, 40, 46, 16);
+
+        ADD.setBackground(new java.awt.Color(14, 94, 174));
+        ADD.setForeground(new java.awt.Color(255, 255, 255));
+        ADD.setText("+");
+        ADD.addActionListener(this::ADDActionPerformed);
+        jPanel6.add(ADD);
+        ADD.setBounds(120, 40, 20, 23);
+
+        Subtract.setBackground(new java.awt.Color(14, 94, 174));
+        Subtract.setForeground(new java.awt.Color(255, 255, 255));
+        Subtract.setText("-");
+        jPanel6.add(Subtract);
+        Subtract.setBounds(180, 40, 20, 23);
+
+        ShoppingCart.add(jPanel6);
+        jPanel6.setBounds(30, 80, 402, 77);
+
+        contentPanel.add(ShoppingCart, "cart");
 
         getContentPane().add(contentPanel);
         contentPanel.setBounds(0, 100, 700, 350);
@@ -325,16 +502,40 @@ private Controller.DashboardController controller;
     }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
     private void PainReliefbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainReliefbtnActionPerformed
-       loadProductsByCategory("Pain Relief");// TODO add your handling code here:
+          currentCategory = "Pain Relief";
+    loadProductsByCategory("Pain Relief");
     }//GEN-LAST:event_PainReliefbtnActionPerformed
 
     private void AntiFungalbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AntiFungalbtnActionPerformed
-       loadProductsByCategory("Anti-fungal"); // TODO add your handling code here:
+       currentCategory = "Anti-fungal";
+    loadProductsByCategory("Anti-fungal");
     }//GEN-LAST:event_AntiFungalbtnActionPerformed
 
     private void AllbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllbtnActionPerformed
-       loadAllProducts();   // TODO add your handling code here:
+        currentCategory = "All";
+    loadAllProducts();   // TODO add your handling code here:
     }//GEN-LAST:event_AllbtnActionPerformed
+
+    private void SearchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchButtonActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+    card.show(contentPanel, "cart");
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void ConfirmPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmPaymentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ConfirmPaymentActionPerformed
+
+    private void ADDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ADDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ADDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,36 +563,130 @@ private Controller.DashboardController controller;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ADD;
     private javax.swing.JButton Accountbtn;
     private javax.swing.JButton Allbtn;
     private javax.swing.JButton Allcategoriesbtn;
     private javax.swing.JButton AntiFungalbtn;
     private javax.swing.JButton Bmibtn;
+    private javax.swing.JButton ConfirmPayment;
     private javax.swing.JButton Contactpharmacybtn;
     private javax.swing.JButton Emergencycontactsbtn;
     private javax.swing.JMenuItem Logout;
+    private javax.swing.JPanel NameOfMeds;
+    private javax.swing.JPanel OrderSummary;
     private javax.swing.JButton PainReliefbtn;
+    private javax.swing.JPanel PictureOfMeds;
     private javax.swing.JMenuItem Profile;
+    private javax.swing.JLabel Quantity;
     private javax.swing.JMenuItem RateUs;
+    private javax.swing.JButton SearchButton;
     private javax.swing.JTextField Searchbar;
+    private javax.swing.JPanel Selected;
+    private javax.swing.JPanel SelectedPrice;
+    private javax.swing.JPanel ShoppingCart;
     private javax.swing.JLabel Slogan;
+    private javax.swing.JButton Subtract;
+    private javax.swing.JPanel TotalPriceAdd;
     private javax.swing.JPanel bmi;
     private javax.swing.JPanel categories;
     private javax.swing.JPanel categoryFilterPanel;
+    private java.awt.Checkbox checkbox1;
     private javax.swing.JPanel contentPanel;
     private javax.swing.JPanel emergency;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JLabel logopharmassist;
     private javax.swing.JLabel namepharmassist;
     private javax.swing.JPanel pharmacy;
     private javax.swing.JPanel productListPanel;
     private javax.swing.JScrollPane productScrollPane;
+    private java.awt.ScrollPane scrollPane1;
     // End of variables declaration//GEN-END:variables
+public Controller.ShoppingCartController getCartController() {
+    return cartController;
+}
 
-   
+
+       private void performSearch() {
+           
+    String keyword = Searchbar.getText().trim();
+
+    if (keyword.isEmpty()) {
+        if ("All".equalsIgnoreCase(currentCategory)) loadAllProducts();
+        else loadProductsByCategory(currentCategory);
+        return;
+    }
+
+    productListPanel.removeAll();
+    productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
+
+    Model.SearchModel model = new Model.SearchModel(keyword, currentCategory);
+    java.util.List<Model.Product> products = searchController.search(model);
+
+    if (products.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "No products found for: " + keyword);
+    }
+
+   for (Model.Product product : products) {
+    ProductCard card = new ProductCard();
+    card.setDashboard(this);          // 🔥 VERY IMPORTANT
+    card.setProduct(product);
+    card.setPreferredSize(new Dimension(150, 170));
+    productListPanel.add(card);
+}
+
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
+}
+       // used by controller.plus/minus to know current qty shown
+private java.util.Map<Integer, Integer> qtyMap = new java.util.HashMap<>();
+
+public int getDisplayedQty(int productId) {
+    return qtyMap.getOrDefault(productId, 1);
+}
+
+ public void renderCart(java.util.List<Model.CartItem> items) {
+
+    jPanel6.removeAll();
+    jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.Y_AXIS));
+    qtyMap.clear();
+
+    java.math.BigDecimal selectedTotal = java.math.BigDecimal.ZERO;
+
+    for (Model.CartItem item : items) {
+        qtyMap.put(item.getProductId(), item.getQuantity());
+
+        view.CartRowPanel row = new view.CartRowPanel(cartController, item);
+        jPanel6.add(row);
+
+        if (item.isSelected()) {
+            selectedTotal = selectedTotal.add(item.getLineTotal());
+        }
+    }
+
+    selectedPriceLabel.setText("Rs. " + selectedTotal.toPlainString());
+    totalPriceLabel.setText("Rs. " + selectedTotal.toPlainString());
+
+    jPanel6.revalidate();
+    jPanel6.repaint();
+}
+
+
+
 }

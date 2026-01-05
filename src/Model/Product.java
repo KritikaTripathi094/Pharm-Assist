@@ -63,5 +63,23 @@ public class Product {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    private String description;
+private int stock;
+
+public String getDescription() {
+    return description;
+}
+public void setDescription(String description) {
+    this.description = description;
+}
+
+public int getStock() {
+    return stock;
+}
+public void setStock(int stock) {
+    this.stock = stock;
+}
+
     
 }
