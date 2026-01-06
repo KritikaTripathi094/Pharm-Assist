@@ -68,7 +68,7 @@ public class ProductDAO {
 
                 db.closeConnection(conn);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 

@@ -4,6 +4,7 @@
  */
 package view;
 import Controller.AdminDashboardController;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -59,8 +60,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         txtDescription = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
-        txtImagePath = new javax.swing.JTextField();
         lblimage = new javax.swing.JLabel();
+        btnBrowseImage = new javax.swing.JButton();
+        lblImagePreview = new javax.swing.JLabel();
+        txtImagePath = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -124,11 +127,11 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(btnmanageproduct)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnaddproduct)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         getContentPane().add(Sidebar);
-        Sidebar.setBounds(10, 80, 140, 280);
+        Sidebar.setBounds(10, 80, 140, 150);
 
         Maincontentpanel.setLayout(new java.awt.CardLayout());
 
@@ -177,62 +180,72 @@ public class AdminDashboard extends javax.swing.JFrame {
         lblName.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         lblName.setText("Product Name");
         productFormPanel.add(lblName);
-        lblName.setBounds(40, 40, 120, 20);
+        lblName.setBounds(40, 20, 120, 20);
 
         txtName.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         productFormPanel.add(txtName);
-        txtName.setBounds(230, 40, 240, 20);
+        txtName.setBounds(150, 20, 240, 20);
 
         lblPrice.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         lblPrice.setText("Price");
         productFormPanel.add(lblPrice);
-        lblPrice.setBounds(40, 80, 90, 20);
+        lblPrice.setBounds(40, 50, 90, 20);
 
         jTextField2.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         productFormPanel.add(jTextField2);
-        jTextField2.setBounds(230, 80, 240, 20);
+        jTextField2.setBounds(150, 50, 240, 20);
 
         lblCategory.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         lblCategory.setText("Category");
         productFormPanel.add(lblCategory);
-        lblCategory.setBounds(40, 120, 80, 20);
+        lblCategory.setBounds(40, 80, 80, 20);
 
         jTextField3.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         productFormPanel.add(jTextField3);
-        jTextField3.setBounds(230, 120, 240, 20);
+        jTextField3.setBounds(150, 80, 240, 20);
 
         btnSave.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         btnSave.setText("Save product");
         btnSave.addActionListener(this::btnSaveActionPerformed);
         productFormPanel.add(btnSave);
-        btnSave.setBounds(340, 250, 120, 21);
+        btnSave.setBounds(190, 270, 120, 21);
 
         lblDescription.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         lblDescription.setText("Description");
         productFormPanel.add(lblDescription);
-        lblDescription.setBounds(40, 160, 90, 17);
+        lblDescription.setBounds(40, 110, 90, 17);
 
         jLabel3.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         jLabel3.setText("Stock");
         productFormPanel.add(jLabel3);
-        jLabel3.setBounds(40, 200, 70, 17);
+        jLabel3.setBounds(40, 150, 70, 17);
 
         txtDescription.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         productFormPanel.add(txtDescription);
-        txtDescription.setBounds(230, 160, 240, 20);
+        txtDescription.setBounds(150, 110, 240, 20);
 
         txtStock.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         productFormPanel.add(txtStock);
-        txtStock.setBounds(230, 200, 240, 20);
-
-        txtImagePath.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
-        productFormPanel.add(txtImagePath);
-        txtImagePath.setBounds(230, 240, 64, 23);
+        txtStock.setBounds(150, 150, 150, 20);
 
         lblimage.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
         lblimage.setText("Image");
         productFormPanel.add(lblimage);
-        lblimage.setBounds(40, 240, 70, 16);
+        lblimage.setBounds(40, 210, 70, 16);
+
+        btnBrowseImage.setText("Browse");
+        btnBrowseImage.addActionListener(this::btnBrowseImageActionPerformed);
+        productFormPanel.add(btnBrowseImage);
+        btnBrowseImage.setBounds(150, 200, 72, 23);
+
+        lblImagePreview.setFont(new java.awt.Font("Comic Neue", 0, 14)); // NOI18N
+        lblImagePreview.setText("Preview");
+        productFormPanel.add(lblImagePreview);
+        lblImagePreview.setBounds(340, 140, 150, 150);
+
+        txtImagePath.setEditable(false);
+        productFormPanel.add(txtImagePath);
+        txtImagePath.setBounds(240, 200, 64, 22);
 
         Maincontentpanel.add(productFormPanel, "card3");
 
@@ -300,6 +313,21 @@ public class AdminDashboard extends javax.swing.JFrame {
         AdminDashboardController.saveTableChanges(jTable1);
     }//GEN-LAST:event_btnsaveActionPerformed
 
+    private void btnBrowseImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseImageActionPerformed
+        // TODO add your handling code here:
+        // 1. Open file chooser and upload image
+    String uploadedImageName = Model.ImageUploader.selectAndUploadImage(this);
+    
+    if (uploadedImageName != null) {
+        // 2. Put filename in text field
+        txtImagePath.setText(uploadedImageName);
+        
+        // 3. Show preview
+        ImageIcon preview = Model.ImageUploader.getPreviewIcon(uploadedImageName, 150, 150);
+        lblImagePreview.setIcon(preview);
+    }
+    }//GEN-LAST:event_btnBrowseImageActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -330,6 +358,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Sidebar;
     private javax.swing.JLabel Slogan;
     private javax.swing.JPanel Topbar;
+    private javax.swing.JButton btnBrowseImage;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnaddproduct;
     private javax.swing.JButton btndelete;
@@ -346,6 +375,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblCategory;
     private javax.swing.JLabel lblDescription;
+    private javax.swing.JLabel lblImagePreview;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblPrice;
     private javax.swing.JLabel lblimage;

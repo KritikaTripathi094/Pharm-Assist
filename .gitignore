@@ -1,3 +1,11 @@
-src/database
-nbproject/private
-/dist/
+# NetBeans and Java build
+build/
+dist/
+nbproject/private/
+src/database/
+
+*.class
+*.jar
+
+
+>>>>>>>>> Temporary merge branch 2
