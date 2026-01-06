@@ -1,0 +1,504 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package view;
+
+import Controller.DashboardController;
+import java.awt.CardLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import view.ProductDescriptionPanel;
+
+import java.awt.BorderLayout;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
+
+/**
+ *
+ * @author This PC
+ */
+public class Dashboard extends javax.swing.JFrame {
+
+    private final DashboardController controller;
+
+    public Dashboard() {
+   controller = new DashboardController(this);
+
+        initComponents();
+         setupContentPanels(); 
+       loadAllProducts();
+       
+       contentPanel.add(ProductDescriptionPanel, "productDescription");
+       
+        addTestPaymentButton();
+    }
+
+    
+    private void addTestPaymentButton() {
+    JButton testPaymentBtn = new JButton("💰 Test Payment");
+    testPaymentBtn.setBounds(500, 70, 120, 25); // Position in header
+    testPaymentBtn.setFont(new java.awt.Font("Comic Neue", 1, 12));
+    testPaymentBtn.addActionListener(e -> {
+        // Show payment method selection
+        CardLayout cl = (CardLayout) contentPanel.getLayout();
+        cl.show(contentPanel, "card7"); // Show Payment panel
+    });
+    jPanel1.add(testPaymentBtn); // Add to header panel
+}
+   
+  private void setupContentPanels() {
+   
+    // Make sure Payment container uses BorderLayout
+    Payment.setLayout(new java.awt.BorderLayout());
+    Payment.removeAll();
+
+    // Create PaymentMethodPanel with listener
+    PaymentMethodPanel paymentMethodPanel = new PaymentMethodPanel(new PaymentMethodPanel.PaymentSelectionListener() {
+        @Override
+        public void stripeSelected() {
+        System.out.println("DEBUG: Stripe selected!"); // Add this
+        double totalAmount = 2567;
+        
+        StripePaymentPanel stripePanel = new StripePaymentPanel(contentPanel, totalAmount);
+        Payment.removeAll();
+        Payment.add(stripePanel, BorderLayout.CENTER);
+        Payment.revalidate();
+        Payment.repaint();
+
+        CardLayout cl = (CardLayout) contentPanel.getLayout();
+        cl.show(contentPanel, "card7");
+    }
+
+        @Override
+        public void codSelected() {
+        System.out.println("DEBUG: COD selected!"); // Add this
+        JOptionPane.showMessageDialog(Dashboard.this, "Cash on Delivery selected!");
+        CardLayout cl = (CardLayout) contentPanel.getLayout();
+        cl.show(contentPanel, "card7");
+    }
+    });
+
+    // Add PaymentMethodPanel initially
+    Payment.add(paymentMethodPanel, java.awt.BorderLayout.CENTER);
+    Payment.revalidate();
+    Payment.repaint();
+}
+
+  
+  
+private void loadAllProducts() {
+    productListPanel.removeAll();
+    productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
+
+    try {
+        java.util.List<Model.Product> products = controller.getAllProducts();
+
+        for (Model.Product product : products) {
+            ProductCard card = new ProductCard();
+            card.setProduct(product);
+            card.setPreferredSize(new Dimension(150, 170));
+
+            // Clicking a product opens the ProductDescriptionPanel
+            card.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                 
+                    ProductDescriptionPanel.setLayout(new BorderLayout());
+        ProductDescriptionPanel pd = new ProductDescriptionPanel(product.getId(), contentPanel);
+        ProductDescriptionPanel.removeAll();
+        ProductDescriptionPanel.add(pd, BorderLayout.CENTER);
+        ProductDescriptionPanel.revalidate();
+        ProductDescriptionPanel.repaint();
+
+        CardLayout cl = (CardLayout) contentPanel.getLayout();
+        cl.show(contentPanel, "productDescription");
+   
+
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
+                }
+            });
+
+            productListPanel.add(card);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
+}
+
+private void loadProductsByCategory(String category) {
+    productListPanel.removeAll();
+    productListPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+
+    try {
+        java.util.List<Model.Product> products = controller.getProductsByCategory(category);
+
+        for (Model.Product product : products) {
+            ProductCard card = new ProductCard();
+            card.setProduct(product);
+            card.setPreferredSize(new Dimension(150, 170));
+
+            card.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                 ProductDescriptionPanel.setLayout(new BorderLayout());
+        ProductDescriptionPanel pd = new ProductDescriptionPanel(product.getId(), contentPanel);
+        ProductDescriptionPanel.removeAll();
+        ProductDescriptionPanel.add(pd, BorderLayout.CENTER);
+        ProductDescriptionPanel.revalidate();
+        ProductDescriptionPanel.repaint();
+
+        CardLayout cl = (CardLayout) contentPanel.getLayout();
+        cl.show(contentPanel, "productDescription");
+
+
+                    contentPanel.revalidate();
+                    contentPanel.repaint();
+                }
+            });
+
+            productListPanel.add(card);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    productListPanel.revalidate();
+    productListPanel.repaint();
+}
+
+    
+    
+   
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        Profile = new javax.swing.JMenuItem();
+        RateUs = new javax.swing.JMenuItem();
+        Logout = new javax.swing.JMenuItem();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        Allcategoriesbtn = new javax.swing.JButton();
+        Emergencycontactsbtn = new javax.swing.JButton();
+        Bmibtn = new javax.swing.JButton();
+        Contactpharmacybtn = new javax.swing.JButton();
+        logopharmassist = new javax.swing.JLabel();
+        Accountbtn = new javax.swing.JButton();
+        namepharmassist = new javax.swing.JLabel();
+        Slogan = new javax.swing.JLabel();
+        Searchbar = new javax.swing.JTextField();
+        jButton5 = new javax.swing.JButton();
+        contentPanel = new javax.swing.JPanel();
+        categories = new javax.swing.JPanel();
+        categoryFilterPanel = new javax.swing.JPanel();
+        PainReliefbtn = new javax.swing.JButton();
+        AntiFungalbtn = new javax.swing.JButton();
+        Allbtn = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        productScrollPane = new javax.swing.JScrollPane();
+        productListPanel = new javax.swing.JPanel();
+        emergency = new javax.swing.JPanel();
+        bmi = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        pharmacy = new javax.swing.JPanel();
+        ProductDescriptionPanel = new javax.swing.JPanel();
+        Payment = new javax.swing.JPanel();
+
+        Profile.setText("Profile");
+        jPopupMenu1.add(Profile);
+
+        RateUs.setText("Rateus");
+        jPopupMenu1.add(RateUs);
+
+        Logout.setText("Logout");
+        jPopupMenu1.add(Logout);
+
+        jLabel2.setText("jLabel2");
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(null);
+
+        Allcategoriesbtn.setBackground(new java.awt.Color(14, 94, 174));
+        Allcategoriesbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Allcategoriesbtn.setForeground(new java.awt.Color(255, 255, 255));
+        Allcategoriesbtn.setText("All Categories");
+        Allcategoriesbtn.setBorder(null);
+        Allcategoriesbtn.setBorderPainted(false);
+        Allcategoriesbtn.addActionListener(this::AllcategoriesbtnActionPerformed);
+        jPanel1.add(Allcategoriesbtn);
+        Allcategoriesbtn.setBounds(0, 70, 122, 28);
+
+        Emergencycontactsbtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Emergencycontactsbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emergencyicon.png"))); // NOI18N
+        Emergencycontactsbtn.setText("Emergency Contacts  ");
+        Emergencycontactsbtn.setBorder(null);
+        Emergencycontactsbtn.setBorderPainted(false);
+        Emergencycontactsbtn.setContentAreaFilled(false);
+        Emergencycontactsbtn.addActionListener(this::EmergencycontactsbtnActionPerformed);
+        jPanel1.add(Emergencycontactsbtn);
+        Emergencycontactsbtn.setBounds(180, 70, 160, 28);
+
+        Bmibtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Bmibtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bmiicon.png"))); // NOI18N
+        Bmibtn.setText("BMI");
+        Bmibtn.setBorder(null);
+        Bmibtn.setBorderPainted(false);
+        Bmibtn.setContentAreaFilled(false);
+        Bmibtn.addActionListener(this::BmibtnActionPerformed);
+        jPanel1.add(Bmibtn);
+        Bmibtn.setBounds(410, 70, 60, 28);
+
+        Contactpharmacybtn.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
+        Contactpharmacybtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/contactpharmacyicon.png"))); // NOI18N
+        Contactpharmacybtn.setText("Contact Pharmacy");
+        Contactpharmacybtn.setBorder(null);
+        Contactpharmacybtn.setBorderPainted(false);
+        Contactpharmacybtn.setContentAreaFilled(false);
+        Contactpharmacybtn.addActionListener(this::ContactpharmacybtnActionPerformed);
+        jPanel1.add(Contactpharmacybtn);
+        Contactpharmacybtn.setBounds(560, 70, 130, 28);
+
+        logopharmassist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/reallogo.png"))); // NOI18N
+        jPanel1.add(logopharmassist);
+        logopharmassist.setBounds(10, 10, 40, 40);
+
+        Accountbtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accounticon.png"))); // NOI18N
+        Accountbtn.setText("Account");
+        Accountbtn.setBorder(null);
+        Accountbtn.setBorderPainted(false);
+        Accountbtn.setContentAreaFilled(false);
+        Accountbtn.addActionListener(this::AccountbtnActionPerformed);
+        jPanel1.add(Accountbtn);
+        Accountbtn.setBounds(620, 10, 80, 23);
+
+        namepharmassist.setFont(new java.awt.Font("Comic Neue", 1, 20)); // NOI18N
+        namepharmassist.setText("Pharm-Assist");
+        jPanel1.add(namepharmassist);
+        namepharmassist.setBounds(60, 3, 130, 40);
+
+        Slogan.setFont(new java.awt.Font("Comic Neue", 0, 11)); // NOI18N
+        Slogan.setText("Your healthy dose of convenience");
+        jPanel1.add(Slogan);
+        Slogan.setBounds(10, 50, 210, 13);
+
+        Searchbar.addActionListener(this::SearchbarActionPerformed);
+        jPanel1.add(Searchbar);
+        Searchbar.setBounds(200, 10, 360, 30);
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
+        jButton5.setBorderPainted(false);
+        jButton5.setContentAreaFilled(false);
+        jButton5.setPreferredSize(new java.awt.Dimension(25, 25));
+        jPanel1.add(jButton5);
+        jButton5.setBounds(570, 10, 40, 30);
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 700, 100);
+
+        contentPanel.setLayout(new java.awt.CardLayout());
+
+        categories.setBackground(new java.awt.Color(244, 252, 255));
+        categories.setLayout(null);
+
+        categoryFilterPanel.setBackground(new java.awt.Color(255, 255, 255));
+        categoryFilterPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        categoryFilterPanel.setLayout(null);
+
+        PainReliefbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        PainReliefbtn.setText("Pain Relief");
+        PainReliefbtn.addActionListener(this::PainReliefbtnActionPerformed);
+        categoryFilterPanel.add(PainReliefbtn);
+        PainReliefbtn.setBounds(0, 30, 120, 30);
+
+        AntiFungalbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        AntiFungalbtn.setText("Antifungal");
+        AntiFungalbtn.addActionListener(this::AntiFungalbtnActionPerformed);
+        categoryFilterPanel.add(AntiFungalbtn);
+        AntiFungalbtn.setBounds(0, 60, 120, 30);
+
+        Allbtn.setFont(new java.awt.Font("Comic Sans MS", 1, 12)); // NOI18N
+        Allbtn.setText("All");
+        Allbtn.addActionListener(this::AllbtnActionPerformed);
+        categoryFilterPanel.add(Allbtn);
+        Allbtn.setBounds(0, 0, 120, 30);
+
+        categories.add(categoryFilterPanel);
+        categoryFilterPanel.setBounds(30, 20, 120, 330);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(null);
+
+        productScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
+        productListPanel.setBackground(new java.awt.Color(255, 255, 255));
+        productScrollPane.setViewportView(productListPanel);
+
+        jPanel3.add(productScrollPane);
+        productScrollPane.setBounds(0, 0, 550, 330);
+
+        categories.add(jPanel3);
+        jPanel3.setBounds(150, 20, 530, 330);
+
+        contentPanel.add(categories, "categories");
+
+        emergency.setBackground(new java.awt.Color(255, 0, 0));
+        contentPanel.add(emergency, "emergency");
+
+        bmi.setBackground(new java.awt.Color(245, 253, 255));
+        bmi.setLayout(null);
+
+        jPanel14.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel14.setPreferredSize(new java.awt.Dimension(651, 319));
+        jPanel14.setLayout(null);
+        bmi.add(jPanel14);
+        jPanel14.setBounds(30, 10, 651, 319);
+
+        contentPanel.add(bmi, "bmi");
+
+        pharmacy.setBackground(new java.awt.Color(153, 0, 153));
+        contentPanel.add(pharmacy, "pharmacy");
+
+        ProductDescriptionPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ProductDescriptionPanel.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        ProductDescriptionPanel.setPreferredSize(new java.awt.Dimension(500, 200));
+        contentPanel.add(ProductDescriptionPanel, "card6");
+
+        Payment.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
+        contentPanel.add(Payment, "card7");
+
+        getContentPane().add(contentPanel);
+        contentPanel.setBounds(0, 100, 700, 350);
+
+        setBounds(0, 0, 717, 459);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void SearchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchbarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SearchbarActionPerformed
+
+    private void AccountbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountbtnActionPerformed
+        // TODO add your handling code here:
+    jPopupMenu1.show(Accountbtn, 0, Accountbtn.getHeight());
+    }//GEN-LAST:event_AccountbtnActionPerformed
+
+    private void ContactpharmacybtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContactpharmacybtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "pharmacy");
+    }//GEN-LAST:event_ContactpharmacybtnActionPerformed
+
+    private void BmibtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BmibtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "bmi");
+    }//GEN-LAST:event_BmibtnActionPerformed
+
+    private void AllcategoriesbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllcategoriesbtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "categories");
+        
+        
+    }//GEN-LAST:event_AllcategoriesbtnActionPerformed
+
+    private void EmergencycontactsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmergencycontactsbtnActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "emergency");
+    }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
+
+    private void PainReliefbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainReliefbtnActionPerformed
+       loadProductsByCategory("Pain Relief");// TODO add your handling code here:
+    }//GEN-LAST:event_PainReliefbtnActionPerformed
+
+    private void AntiFungalbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AntiFungalbtnActionPerformed
+       loadProductsByCategory("Anti-fungal"); // TODO add your handling code here:
+    }//GEN-LAST:event_AntiFungalbtnActionPerformed
+
+    private void AllbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllbtnActionPerformed
+       loadAllProducts();   // TODO add your handling code here:
+    }//GEN-LAST:event_AllbtnActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+          try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
+            }
+        }
+    } catch (Exception ex) {
+        ex.printStackTrace(); // FIXED: Use simple printStackTrace instead of logger
+    }
+        //</editor-fold>
+
+        /* Create and display the form */
+         java.awt.EventQueue.invokeLater(() -> {
+        new Dashboard().setVisible(true); // FIXED: Uncommented this line
+    });
+    }
+          
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Accountbtn;
+    private javax.swing.JButton Allbtn;
+    private javax.swing.JButton Allcategoriesbtn;
+    private javax.swing.JButton AntiFungalbtn;
+    private javax.swing.JButton Bmibtn;
+    private javax.swing.JButton Contactpharmacybtn;
+    private javax.swing.JButton Emergencycontactsbtn;
+    private javax.swing.JMenuItem Logout;
+    private javax.swing.JButton PainReliefbtn;
+    private javax.swing.JPanel Payment;
+    private javax.swing.JPanel ProductDescriptionPanel;
+    private javax.swing.JMenuItem Profile;
+    private javax.swing.JMenuItem RateUs;
+    private javax.swing.JTextField Searchbar;
+    private javax.swing.JLabel Slogan;
+    private javax.swing.JPanel bmi;
+    private javax.swing.JPanel categories;
+    private javax.swing.JPanel categoryFilterPanel;
+    private javax.swing.JPanel contentPanel;
+    private javax.swing.JPanel emergency;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JLabel logopharmassist;
+    private javax.swing.JLabel namepharmassist;
+    private javax.swing.JPanel pharmacy;
+    private javax.swing.JPanel productListPanel;
+    private javax.swing.JScrollPane productScrollPane;
+    // End of variables declaration//GEN-END:variables
+
+   
+}
