@@ -105,7 +105,7 @@ public class UserDAO {
             return false;
         }
     }
-    
+        
         public boolean updateShippingDetails(int userId, String username, String phoneNumber, String address) {
         String sql = "UPDATE users SET username = ?, phone_number = ?, address = ? WHERE id = ?";
         
