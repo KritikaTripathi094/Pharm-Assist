@@ -1,5 +1,9 @@
 
-src/database
+# NetBeans and Java build
+build/
+dist/
 nbproject/private/
+src/database/
 
-/dist/
+*.class
+*.jar
