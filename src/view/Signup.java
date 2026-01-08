@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package view;
-import controller.SignupController;
+import Controller.SignupController;
 import Model.User;
 import javax.swing.JOptionPane;
 import java.security.MessageDigest;

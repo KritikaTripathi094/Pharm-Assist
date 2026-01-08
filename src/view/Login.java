@@ -126,6 +126,8 @@ public class Login extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
+        new Signup().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
