@@ -2,25 +2,30 @@ package Model;
 
 public class User {
     private int id; 
+    private String username;
     private String email;
     private String password;
-    private String username;
-    private String role;
-    private String address;   
     private String phoneNumber;
+    private String address;
+    private String role;
 
     public User() {}
 
-    public User(String email, String password) {
+    // Constructor with all fields except id
+    public User(String username, String email, String password, String phoneNumber, String address, String role) {
+        this.username = username;
         this.email = email;
         this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.role = role;
     }
 
-    // ADD GETTER AND SETTER FOR ID
+    // Getters and setters
     public int getId() { 
         return id; 
     }
-    
+
     public void setId(int id) { 
         this.id = id; 
     }
@@ -49,12 +54,12 @@ public class User {
         this.password = password; 
     }
 
-    public String getRole() { 
-        return role; 
+    public String getPhoneNumber() { 
+        return phoneNumber; 
     }
 
-    public void setRole(String role) { 
-        this.role = role; 
+    public void setPhoneNumber(String phoneNumber) { 
+        this.phoneNumber = phoneNumber; 
     }
 
     public String getAddress() { 
@@ -65,11 +70,11 @@ public class User {
         this.address = address; 
     }
 
-    public String getPhoneNumber() { 
-        return phoneNumber; 
+    public String getRole() { 
+        return role; 
     }
 
-    public void setPhoneNumber(String phoneNumber) { 
-        this.phoneNumber = phoneNumber; 
+    public void setRole(String role) { 
+        this.role = role; 
     }
 }

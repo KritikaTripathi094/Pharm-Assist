@@ -19,22 +19,27 @@ public class UserDAO {
 
     // ===== REGISTER USER =====
     public boolean register(User user) {
-        String sql = "INSERT INTO users(username, email, password) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO users (username, email, password, phone_number, address, role) "
+                   + "VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection con = DBConnections.getConnection();
+        try (Connection con = mysqlconnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
+            // Set values for each parameter in the prepared statement
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());
+            ps.setString(3, user.getPassword());  // Plain password
+            ps.setString(4, user.getPhoneNumber());
+            ps.setString(5, user.getAddress());
+            ps.setString(6, user.getRole());  // Default role is 'USER'
 
-            int result = ps.executeUpdate();
-            return result > 0;
-
+            // Execute the query and check if insertion was successful
+            return ps.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
+    }
     }
 
     // ===== LOGIN =====
@@ -119,10 +124,11 @@ public class UserDAO {
             
             int rows = ps.executeUpdate();
             return rows > 0;
-            
-        } catch (SQLException e) {
+            } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
+    
 }
