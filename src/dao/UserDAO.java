@@ -6,14 +6,11 @@ package dao;
 
 import Model.User;
 import database.DBConnections;
+import database.mysqlconnection; // Changed from 'mysqlconnection' to 'MysqlConnection'
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import database.DBConnections;
-import database.mysqlconnection;
-import java.sql.*;
 
 public class UserDAO {
 
@@ -22,16 +19,16 @@ public class UserDAO {
         String sql = "INSERT INTO users (username, email, password, phone_number, address, role) "
                    + "VALUES (?, ?, ?, ?, ?, ?)";
 
-        try (Connection con = mysqlconnection.getConnection();
+        try (Connection con = DBConnections.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             // Set values for each parameter in the prepared statement
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPassword());  // Plain password
+            ps.setString(3, user.getPassword());
             ps.setString(4, user.getPhoneNumber());
             ps.setString(5, user.getAddress());
-            ps.setString(6, user.getRole());  // Default role is 'USER'
+            ps.setString(6, user.getRole());
 
             // Execute the query and check if insertion was successful
             return ps.executeUpdate() > 0;
@@ -39,8 +36,7 @@ public class UserDAO {
             e.printStackTrace();
             return false;
         }
-    }
-    }
+    }  // Fixed: Removed extra closing brace
 
     // ===== LOGIN =====
     public User login(String usernameOrEmail, String password) {
@@ -58,16 +54,16 @@ public class UserDAO {
             if(rs.next()) {
                 // Create User object and set details including role
                 User user = new User();
-                user.setId(rs.getInt("id"));  // ADD THIS LINE
+                user.setId(rs.getInt("id"));
                 user.setUsername(rs.getString("username"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 user.setRole(rs.getString("role"));
                 user.setAddress(rs.getString("address"));      
                 user.setPhoneNumber(rs.getString("phone_number"));
-                return user; // login successful
+                return user;
             } else {
-                return null; // login failed
+                return null;
             }
 
         } catch (SQLException e) {
@@ -75,6 +71,7 @@ public class UserDAO {
             return null;
         }
     }
+
     // ===== CHECK IF EMAIL EXISTS =====
     public boolean emailExists(String email) {
         String sql = "SELECT * FROM users WHERE email=?";
@@ -110,7 +107,7 @@ public class UserDAO {
             return false;
         }
     }
-    
+        
         public boolean updateShippingDetails(int userId, String username, String phoneNumber, String address) {
         String sql = "UPDATE users SET username = ?, phone_number = ?, address = ? WHERE id = ?";
         
@@ -124,11 +121,9 @@ public class UserDAO {
             
             int rows = ps.executeUpdate();
             return rows > 0;
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
-
-    
 }

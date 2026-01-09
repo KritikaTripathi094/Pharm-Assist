@@ -2,10 +2,23 @@
 build/
 dist/
 nbproject/private/
+nbproject/project.properties
+src/database/
+nbproject/
 src/database/
 
 *.class
 *.jar
 
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
 
->>>>>>>>> Temporary merge branch 2
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
