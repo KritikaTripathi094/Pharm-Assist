@@ -4,6 +4,7 @@
  */
 package view;
 
+import Controller.DashboardController;
 import Model.User;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -24,12 +25,13 @@ import Controller.ShippingController;
  * @author This PC
  */
 public class Dashboard extends javax.swing.JFrame {
+
     private Model.User currentUser;
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Dashboard.class.getName());
-    
+
     private void initPopupMenu() {
-        
+
     }
     private final Controller.DashboardController controller;
 
@@ -38,46 +40,49 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
-        controller = new Controller.DashboardController(this);
-        initPopupMenu();
-        
+        controller = new DashboardController(this);
+
+        // Show categories panel by default
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "categories");
+
+        // Add ProductDescriptionPanel card
         contentPanel.add(ProductDescriptionPanel, "productDescription");
-        loadProductUI();
+
+        // Load all products initially
         loadAllProducts();
+
+        // Initialize Shipping panel (from second version)
         editPanel = new EditPanel();
         editPanel.setBounds(450, 15, 240, 300);
-
         editPanel.setVisible(false);
-
         Shippingdetails.add(editPanel);
-        
-        // Added from their version: Show categories panel on startup
-        CardLayout card = (CardLayout) contentPanel.getLayout();
-        card.show(contentPanel, "categories"); 
-        controller.loadAllProducts();
+
+        // Add test payment button if needed
+        addTestPaymentButton();
     }
-    
+
     public void setCurrentUser(Model.User user) {
         this.currentUser = user;
         if (user != null) {
             System.out.println("User set: " + user.getUsername());
         }
     }
-    
+
     // Added from their version
     public javax.swing.JPanel getProductListPanel() {
         return productListPanel;
     }
-    
+
     // Added from their version
     public JTable getBloodBankTable() {
         return bloodBankTable;
     }
-    
+
     private void loadProductUI() {
-         
+
     }
-    
+
     private void loadAllProducts() {
         productListPanel.removeAll();
         productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
@@ -163,6 +168,14 @@ public class Dashboard extends javax.swing.JFrame {
         productListPanel.revalidate();
         productListPanel.repaint();
     }
+
+    private void addTestPaymentButton() {
+        controller.addTestPaymentButton(jPanel1, contentPanel);
+    }
+
+//    private void setupContentPanels() {
+//        controller.setupPaymentPanel(Payment, contentPanel);
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -630,15 +643,15 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_EmergencycontactsbtnActionPerformed
 
     private void PainReliefbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PainReliefbtnActionPerformed
-       loadProductsByCategory("Pain Relief");
+        loadProductsByCategory("Pain Relief");
     }//GEN-LAST:event_PainReliefbtnActionPerformed
 
     private void AntiFungalbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AntiFungalbtnActionPerformed
-       loadProductsByCategory("Anti-fungal");
+        loadProductsByCategory("Anti-fungal");
     }//GEN-LAST:event_AntiFungalbtnActionPerformed
 
     private void AllbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllbtnActionPerformed
-       loadAllProducts();
+        loadAllProducts();
     }//GEN-LAST:event_AllbtnActionPerformed
 
     private void RateUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RateUsActionPerformed
@@ -656,15 +669,15 @@ public class Dashboard extends javax.swing.JFrame {
     private void btnproceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproceedActionPerformed
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "Shippingdetails");
-        
+
         String username = currentUser.getUsername();
         String phone = currentUser.getPhoneNumber();
         String address = currentUser.getAddress();
-        
+
         txtname.setText(username != null ? username : "Name not available");
         txtnumber.setText(phone != null ? phone : "Phone not available");
         txtlocation.setText(address != null ? address : "Address not available");
-        
+
         System.out.println("=== Shipping Details ===");
         System.out.println("User: " + username);
         System.out.println("Phone: " + phone);
@@ -798,14 +811,14 @@ public class Dashboard extends javax.swing.JFrame {
     public javax.swing.JLabel getTxtlocation() {
         return txtlocation;
     }
-    
+
     public javax.swing.JPanel getDetailPanel() {
         return detail;
     }
-    
+
     public javax.swing.JPanel getShippingDetailsPanel() {
         return Shippingdetails;
     }
-    
+
     private EditPanel editPanel;
 }
