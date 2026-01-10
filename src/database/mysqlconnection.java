@@ -16,7 +16,7 @@ import java.sql.SQLException;
 public class mysqlconnection {
     private String url = "jdbc:mysql://localhost:3306/pharm_assist?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true"; // Replace with your database URL
     private String username = "root"; // Replace with your database username
-    private String password = "sagar"; // Replace with your database password
+    private String password = "samyat2006"; // Replace with your database password
 
     private Connection connection;
 
