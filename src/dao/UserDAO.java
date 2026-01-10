@@ -73,21 +73,31 @@ public class UserDAO {
     }
 
     // ===== CHECK IF EMAIL EXISTS =====
-    public boolean emailExists(String email) {
-        String sql = "SELECT * FROM users WHERE email=?";
+  public boolean emailExists(String email) {
+    String sql = "SELECT 1 FROM users WHERE email = ? LIMIT 1";
 
-        try (Connection con = DBConnections.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
+    Connection con = new mysqlconnection().openConnection();
 
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-            return rs.next();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+    if (con == null) {
+        System.out.println("❌ Connection is null (DB not connected). Check URL/user/pass.");
+        return false;
     }
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, email);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            return rs.next();
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    } finally {
+        try { con.close(); } catch (Exception ignored) {}
+    }
+}
+
 
     // ===== UPDATE PASSWORD =====
     public boolean updatePassword(String email, String newPassword) {

@@ -14,27 +14,33 @@ import java.sql.SQLException;
  * @author This PC
  */
 public class mysqlconnection {
-    private String url = "jdbc:mysql://localhost:3306/project?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true"; // Replace with your database URL
+   private String url =
+"jdbc:mysql://localhost:3306/pharm_assist?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+
     private String username = "root"; // Replace with your database username
-    private String password = "kritika123"; // Replace with your database password
+    private String password = "samyat2006"; // Replace with your database password
 
     private Connection connection;
 
     // Method to open the database connection
     public Connection openConnection() {
-        try {
-            if (connection == null || connection.isClosed()) {
-                // Load the MySQL JDBC driver (optional in modern versions of JDBC)
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                
-                // Establish the connection
-                connection = DriverManager.getConnection(url, username, password);
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
+      try {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
+        String url =
+            "jdbc:mysql://localhost:3306/pharm_assist"
+            + "?useSSL=false"
+            + "&allowPublicKeyRetrieval=true"
+            + "&serverTimezone=UTC";
+
+        return DriverManager.getConnection(url, "root", "samyat2006");
+
+    } catch (Exception e) {
+        System.out.println("❌ DB connection failed: " + e.getMessage());
+        e.printStackTrace();
+        return null;
     }
+}
 
     // Method to execute a query
     public ResultSet runQuery(Connection conn, String query) {

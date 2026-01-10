@@ -1,170 +1,161 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controller;
 
-import java.util.List;
-import dao.ProductDAO;
 import Model.Product;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import dao.ProductDAO;
+
+import java.awt.CardLayout;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+
 import view.Dashboard;
 import view.ProductCard;
-import dao.BloodBankDAO;
-import Model.BloodBank;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Font;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import view.PaymentMethodPanel;
-import view.StripePaymentPanel;
 
-/**
- *
- * @author rojal
- */
 public class DashboardController {
 
-    private final ProductDAO dao;
-    private Dashboard view;
-    private BloodBankDAO bloodDao;
+    private final Dashboard dashboard;
+    private final ProductDAO productDAO;
 
-    public DashboardController(Dashboard view) {
-        this.view = view;
-        this.dao = new ProductDAO();
-        this.bloodDao = new BloodBankDAO();
+    public DashboardController(Dashboard dashboard) {
+        this.dashboard = dashboard;
+        this.productDAO = new ProductDAO();
+
+        // ✅ IMPORTANT: do these immediately (NOT invokeLater),
+        // because Dashboard loads products right after controller is created.
+        attachAutoLinkListener();
+        linkExistingProductCards();
     }
 
+    // ---------------- PRODUCTS ----------------
+
+    public List<Product> searchProducts(String keyword) {
+    return productDAO.searchProducts(keyword, "All");
+}
+
     public List<Product> getAllProducts() {
-        return dao.getAllProducts();
+        try {
+            List<Product> list = productDAO.getAllProducts();
+            return list != null ? list : new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
     }
 
     public List<Product> getProductsByCategory(String category) {
-        return dao.getProductsByCategory(category);
-    }
-
-    public void loadAllProducts() {
-        javax.swing.JPanel productListPanel = view.getProductListPanel();
-
-        productListPanel.removeAll();
-        productListPanel.setLayout(new java.awt.GridLayout(0, 4, 20, 20));
-
         try {
-            List<Product> products = dao.getAllProducts();
-            for (Model.Product product : products) {
-                ProductCard card = new ProductCard();
-                card.setProduct(product);
-                card.setPreferredSize(new Dimension(150, 170));
-                productListPanel.add(card);
-            }
-
+            List<Product> list = productDAO.getProductsByCategory(category);
+            return list != null ? list : new ArrayList<>();
         } catch (Exception e) {
             e.printStackTrace();
+            return new ArrayList<>();
         }
-
-        productListPanel.revalidate();
-        productListPanel.repaint();
     }
 
-    public void loadProductsByCategory(String category) {
-        javax.swing.JPanel productListPanel = view.getProductListPanel();
-        productListPanel.removeAll();
-        productListPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
-
-        try {
-            List<Product> products = dao.getProductsByCategory(category);
-
-            for (Model.Product product : products) {
-                ProductCard card = new ProductCard();
-                card.setProduct(product);
-                card.setPreferredSize(new Dimension(150, 170));
-                productListPanel.add(card);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        productListPanel.revalidate();
-        productListPanel.repaint();
-
-    }
+    // ---------------- BLOOD BANK (safe) ----------------
 
     public void loadBloodBanks() {
         try {
-            List<BloodBank> banks = bloodDao.getAllBloodBanks();
+            JTable table = dashboard.getBloodBankTable();
+            if (table == null) return;
 
-            javax.swing.JTable table = view.getBloodBankTable(); // getter from Dashboard
-            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) table.getModel();
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0); // keep empty safely, no crash
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-            // Clear existing rows
-            model.setRowCount(0);
+    // ---------------- CART BUTTON HOOK ----------------
+    // Dashboard calls this in constructor -> MUST NOT crash.
+    public void addTestPaymentButton(JPanel topPanel, JPanel contentPanel) {
+        try {
+            JButton cartBtn = (JButton) getPrivateField(dashboard, "ShoppingCart"); // button name in your view
+            if (cartBtn == null) return;
 
-            // Add rows
-            for (BloodBank bank : banks) {
-                Object[] row = {bank.getId(), bank.getName(), bank.getPhone(), bank.getLocation(), bank.getType()};
-                model.addRow(row);
+            // remove old listeners (NetBeans sometimes auto adds)
+            for (var al : cartBtn.getActionListeners()) {
+                cartBtn.removeActionListener(al);
             }
+
+            cartBtn.addActionListener(e -> {
+                try {
+                    CardLayout cl = (CardLayout) contentPanel.getLayout();
+                    cl.show(contentPanel, "card8"); // your Shoppingcart panel key
+
+                    // refresh cart UI
+                    
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void addTestPaymentButton(JPanel jPanel1, JPanel contentPanel) {
-        // throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    // ---------------- AUTO LINK PRODUCTCARD -> DASHBOARD ----------------
+    // This fixes: "Dashboard not linked!" WITHOUT editing view.
 
-    public void setupPaymentPanel(JPanel paymentPanel, JPanel contentPanel) {
-        // Make sure Payment container uses BorderLayout
-        paymentPanel.setLayout(new BorderLayout());
-        paymentPanel.removeAll();
+    private void linkExistingProductCards() {
+        try {
+            JPanel productListPanel = dashboard.getProductListPanel();
+            if (productListPanel == null) return;
 
-        // Create PaymentMethodPanel with listener
-        PaymentMethodPanel paymentMethodPanel = new PaymentMethodPanel(new PaymentMethodPanel.PaymentSelectionListener() {
-            @Override
-            public void stripeSelected() {
-                handleStripeSelection(paymentPanel, contentPanel);
+            for (java.awt.Component c : productListPanel.getComponents()) {
+                if (c instanceof ProductCard) {
+                    forceSetProductCardDashboard((ProductCard) c);
+                }
             }
-
-            @Override
-            public void codSelected() {
-                handleCodSelection(contentPanel);
-            }
-        });
-
-        // Add PaymentMethodPanel initially
-        paymentPanel.add(paymentMethodPanel, BorderLayout.CENTER);
-        paymentPanel.revalidate();
-        paymentPanel.repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    /**
-     * Handle Stripe payment selection
-     */
-    private void handleStripeSelection(JPanel paymentPanel, JPanel contentPanel) {
-        System.out.println("DEBUG: Stripe selected!");
-        double totalAmount = 2567; // This should come from cart/order in real app
+    private void attachAutoLinkListener() {
+        try {
+            JPanel productListPanel = dashboard.getProductListPanel();
+            if (productListPanel == null) return;
 
-        StripePaymentPanel stripePanel = new StripePaymentPanel(contentPanel, totalAmount);
-        paymentPanel.removeAll();
-        paymentPanel.add(stripePanel, BorderLayout.CENTER);
-        paymentPanel.revalidate();
-        paymentPanel.repaint();
-
-        CardLayout cl = (CardLayout) contentPanel.getLayout();
-        cl.show(contentPanel, "card7");
+            productListPanel.addContainerListener(new ContainerAdapter() {
+                @Override
+                public void componentAdded(ContainerEvent e) {
+                    if (e.getChild() instanceof ProductCard) {
+                        forceSetProductCardDashboard((ProductCard) e.getChild());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    /**
-     * Handle Cash on Delivery selection
-     */
-    private void handleCodSelection(JPanel contentPanel) {
-        System.out.println("DEBUG: COD selected!");
-        JOptionPane.showMessageDialog(null, "Cash on Delivery selected!");
-        CardLayout cl = (CardLayout) contentPanel.getLayout();
-        cl.show(contentPanel, "card7");
+    private void forceSetProductCardDashboard(ProductCard card) {
+        try {
+            // ProductCard has: private Dashboard dashboard;
+            Field f = ProductCard.class.getDeclaredField("dashboard");
+            f.setAccessible(true);
+            f.set(card, dashboard);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Object getPrivateField(Object obj, String fieldName) throws Exception {
+        Field f = obj.getClass().getDeclaredField(fieldName);
+        f.setAccessible(true);
+        return f.get(obj);
+    }
+
+    public List<Product> search(String keyword) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

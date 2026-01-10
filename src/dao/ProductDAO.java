@@ -1,140 +1,146 @@
 package dao;
+
 import Model.Product;
 import database.mysqlconnection;
-import java.sql.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author rojal
- */
 public class ProductDAO {
-    
-    // Existing method to get all products
+
     public List<Product> getAllProducts() {
-        List<Product> products = new ArrayList<>();
-        
-        try {
-            mysqlconnection db = new mysqlconnection();
-            Connection conn = db.openConnection();
-            
-            if (conn != null) {
-                String query = "SELECT * FROM products";
-                ResultSet rs = db.runQuery(conn, query);
-                
-                while (rs != null && rs.next()) {
-                    Product product = new Product();
-                    product.setId(rs.getInt("id"));
-                    product.setName(rs.getString("name"));
-                    product.setPrice(rs.getDouble("price"));
-                    product.setImage(rs.getString("image"));
-                    products.add(product);
-                }
-                
-                System.out.println("Loaded " + products.size() + " products from database");
-                db.closeConnection(conn);
-            }
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
-        }
-        
-        return products;
-    }
-    
-    // Existing method to get products by category
-    public List<Product> getProductsByCategory(String category) {
-        List<Product> products = new ArrayList<>();
-
-        try {
-            mysqlconnection db = new mysqlconnection();
-            Connection conn = db.openConnection();
-
-            if (conn != null) {
-                String query = "SELECT * FROM products WHERE category = ?";
-                PreparedStatement ps = conn.prepareStatement(query);
-                ps.setString(1, category);
-                ResultSet rs = ps.executeQuery();
-
-                while (rs != null && rs.next()) {
-                    Product product = new Product();
-                    product.setId(rs.getInt("id"));
-                    product.setName(rs.getString("name"));
-                    product.setPrice(rs.getDouble("price"));
-                    product.setImage(rs.getString("image"));
-                    product.setCategory(rs.getString("category"));
-                    products.add(product);
-                }
-
-                db.closeConnection(conn);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return products;
-    }
-
-    // New method to add a product to the database
-    public boolean addProduct(Product product) {
-        String query = "INSERT INTO products (name, price, category, image, description, stock) VALUES (?, ?, ?, ?, ?, ?)";
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT id, name, price, image, category, description, stock FROM products";
 
         try (Connection conn = new mysqlconnection().openConnection();
-             PreparedStatement stmt = conn.prepareStatement(query)) {
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
 
-            // Set the parameters for the PreparedStatement
-            stmt.setString(1, product.getName());
-            stmt.setDouble(2, product.getPrice());
-            stmt.setString(3, product.getCategory());
-            stmt.setString(4, product.getImage());
-            stmt.setString(5, product.getDescription());
-            stmt.setInt(6, product.getStock());
-
-            int rowsAffected = stmt.executeUpdate();
-
-            // Return true if at least one row was inserted, otherwise false
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
+            while (rs.next()) {
+                list.add(map(rs));
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-            return false;  // If an error occurred, return false
         }
+        return list;
     }
-    
-    public boolean deleteProductById(int id) {
-    String query = "DELETE FROM products WHERE id = ?";
 
-    try (Connection conn = new mysqlconnection().openConnection();
-         PreparedStatement stmt = conn.prepareStatement(query)) {
+    public List<Product> getProductsByCategory(String category) {
+        List<Product> list = new ArrayList<>();
+        String sql = "SELECT id, name, price, image, category, description, stock FROM products WHERE category=?";
 
-        stmt.setInt(1, id);
-        return stmt.executeUpdate() > 0;
+        try (Connection conn = new mysqlconnection().openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
+            ps.setString(1, category);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(map(rs));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
-}
-    
+
+    // ✅ This is the method your SearchController is calling
+    public List<Product> searchProducts(String keyword, String categoryFilter) {
+        List<Product> list = new ArrayList<>();
+
+        boolean useCategory = categoryFilter != null
+                && !categoryFilter.trim().isEmpty()
+                && !categoryFilter.equalsIgnoreCase("All");
+
+        String sql =
+                "SELECT id, name, price, image, category, description, stock " +
+                "FROM products " +
+                "WHERE (name LIKE ? OR category LIKE ? OR description LIKE ?) " +
+                (useCategory ? "AND category=? " : "") +
+                "ORDER BY id DESC";
+
+        try (Connection conn = new mysqlconnection().openConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String like = "%" + (keyword == null ? "" : keyword.trim()) + "%";
+            ps.setString(1, like);
+            ps.setString(2, like);
+            ps.setString(3, like);
+
+            if (useCategory) {
+                ps.setString(4, categoryFilter);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(map(rs));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    private Product map(ResultSet rs) throws Exception {
+        Product p = new Product();
+        p.setId(rs.getInt("id"));
+        p.setName(rs.getString("name"));
+        p.setPrice(rs.getDouble("price"));
+        p.setImage(rs.getString("image"));
+        p.setCategory(rs.getString("category"));
+        p.setDescription(rs.getString("description"));
+        p.setStock(rs.getInt("stock"));
+        return p;
+    }
+
     public boolean updateProduct(Product product) {
-
-    String sql = "UPDATE products SET name=?, price=?, category=?, image=? WHERE id=?";
-
-    try (Connection conn = new mysqlconnection().openConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-
-        ps.setString(1, product.getName());
-        ps.setDouble(2, product.getPrice());
-        ps.setString(3, product.getCategory());
-        ps.setString(4, product.getImage());
-        ps.setInt(5, product.getId());
-
-        return ps.executeUpdate() > 0;
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public boolean addProduct(Product product) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+   public List<Product> searchProducts(String keyword) {
+    List<Product> list = new ArrayList<>();
+
+    String sql =
+        "SELECT id, name, price, image, category, description, stock " +
+        "FROM products " +
+        "WHERE name LIKE ? OR category LIKE ? OR description LIKE ?";
+
+    try (Connection con = new mysqlconnection().openConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        String k = "%" + keyword + "%";
+        ps.setString(1, k);
+        ps.setString(2, k);
+        ps.setString(3, k);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt("id"));
+                p.setName(rs.getString("name"));
+                p.setPrice(rs.getBigDecimal("price").doubleValue()); // or setPrice(BigDecimal) if you have
+                p.setImage(rs.getString("image"));
+                p.setCategory(rs.getString("category"));
+                p.setDescription(rs.getString("description"));
+                p.setStock(rs.getInt("stock"));
+                list.add(p);
+            }
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return list;
 }
 
 }

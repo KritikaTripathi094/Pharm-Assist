@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-
 package view;
 
 import Model.Product;
@@ -10,114 +9,109 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-
 /**
  *
  * @author This PC
  */
 public class ProductCard extends javax.swing.JPanel {
-    
-    
+
     private Product product;
-    
+    private Dashboard dashboard;
+
     /**
      * Creates new form product
      */
-    public ProductCard() {
-    initComponents();
-    lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-    
+    public int addToCart(int productId, int productName) {
+    return addToCart(productId, 1);
 }
 
-        // Set the product data
+    public ProductCard() {
+        initComponents();
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+    }
+    
+    public void setDashboard(Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+
+    // Set the product data
     public void setProduct(Product product) {
         this.product = product;
         if (product != null) {
             // Set name and price
             lblName.setText(product.getName());
             lblPrice.setText("Rs." + product.getPrice());
-            
+
             // Load the image
             loadProductImage();
         }
     }
-    
-    // Get the product
 
-    
-    
-    
+    // Get the product
     public void setCartButtonAction(java.awt.event.ActionListener listener) {
         btnAddToCart.addActionListener(listener);
     }
-    
-    
 
     // Load product image
     private void loadProductImage() {
         if (product == null) {
-        lblImage.setText("No Image");
-        lblImage.setIcon(null);
-        return;
-    }
-    
-    String imageName = product.getImage();
-    if (imageName == null || imageName.isEmpty()) {
-        lblImage.setText("No Image");
-        lblImage.setIcon(null);
-        return;
-    }
-    
-    try {
-        // Try to load from /images folder
-        java.net.URL imageUrl = getClass().getResource("/images/" + imageName);
-        
-        if (imageUrl != null) {
-            ImageIcon icon = new ImageIcon(imageUrl);
-            Image image = icon.getImage();
-            
-            // SCALE TO FIT 60x60 while keeping aspect ratio
-            Image scaledImage = scaleImageToFit(image, 60, 60);
-            
-            lblImage.setIcon(new ImageIcon(scaledImage));
-            lblImage.setText(""); // Clear text
-        } else {
-            // Image not found
+            lblImage.setText("No Image");
+            lblImage.setIcon(null);
+            return;
+        }
+
+        String imageName = product.getImage();
+        if (imageName == null || imageName.isEmpty()) {
+            lblImage.setText("No Image");
+            lblImage.setIcon(null);
+            return;
+        }
+
+        try {
+            // Try to load from /images folder
+            java.net.URL imageUrl = getClass().getResource("/images/" + imageName);
+
+            if (imageUrl != null) {
+                ImageIcon icon = new ImageIcon(imageUrl);
+                Image image = icon.getImage();
+
+                // SCALE TO FIT 60x60 while keeping aspect ratio
+                Image scaledImage = scaleImageToFit(image, 60, 60);
+
+                lblImage.setIcon(new ImageIcon(scaledImage));
+                lblImage.setText(""); // Clear text
+            } else {
+                // Image not found
+                lblImage.setText("No Image");
+                lblImage.setIcon(null);
+            }
+        } catch (Exception e) {
+            // If any error occurs
             lblImage.setText("No Image");
             lblImage.setIcon(null);
         }
-    } catch (Exception e) {
-        // If any error occurs
-        lblImage.setText("No Image");
-        lblImage.setIcon(null);
     }
-}
-    
-    
 
 // ADD THIS NEW METHOD right after loadProductImage()
-private Image scaleImageToFit(Image img, int width, int height) {
-    int originalWidth = img.getWidth(null);
-    int originalHeight = img.getHeight(null);
-    
-    // Calculate scaling ratio
-    double widthRatio = (double) width / originalWidth;
-    double heightRatio = (double) height / originalHeight;
-    double ratio = Math.min(widthRatio, heightRatio);
-    
-    // Calculate new dimensions
-    int newWidth = (int) (originalWidth * ratio);
-    int newHeight = (int) (originalHeight * ratio);
-    
-    // Scale image
-    return img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
-       
+    private Image scaleImageToFit(Image img, int width, int height) {
+        int originalWidth = img.getWidth(null);
+        int originalHeight = img.getHeight(null);
 
-            
-    
+        // Calculate scaling ratio
+        double widthRatio = (double) width / originalWidth;
+        double heightRatio = (double) height / originalHeight;
+        double ratio = Math.min(widthRatio, heightRatio);
+
+        // Calculate new dimensions
+        int newWidth = (int) (originalWidth * ratio);
+        int newHeight = (int) (originalHeight * ratio);
+
+        // Scale image
+        return img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+
     }
-     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +119,7 @@ private Image scaleImageToFit(Image img, int width, int height) {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-   // </editor-fold>                        
+    // </editor-fold>                        
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -160,16 +154,25 @@ private Image scaleImageToFit(Image img, int width, int height) {
         btnAddToCart.setBounds(30, 130, 100, 21);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddToCartActionPerformed
-          if (product != null) {
-            JOptionPane.showMessageDialog(this, 
-                "Added to cart: " + product.getName() + 
-                "\nPrice: Rs." + product.getPrice());
-        }// TODO add your handling code here:
-                                                
+    private void btnAddToCartActionPerformed(java.awt.event.ActionEvent evt) {                                             
+   if (product == null) return;
+
+    if (dashboard == null) {
+        JOptionPane.showMessageDialog(this, "Dashboard not linked!");
+        return;
+    }
+
+    int status = dashboard.getCartController().addToCart(product.getId(), 1);
+
+    if (status == 1) {
+        JOptionPane.showMessageDialog(this, "Added to cart ✅");
+    } else if (status == -1) {
+        JOptionPane.showMessageDialog(this, "Max amount of purchase is 7");
+    } else {
+        JOptionPane.showMessageDialog(this, "Could not add to cart");
+    }
+}
     
-    
-    }//GEN-LAST:event_btnAddToCartActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -179,5 +182,8 @@ private Image scaleImageToFit(Image img, int width, int height) {
     private javax.swing.JLabel lblPrice;
     // End of variables declaration//GEN-END:variables
 
-}
+    void setDashboard() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 
+}
