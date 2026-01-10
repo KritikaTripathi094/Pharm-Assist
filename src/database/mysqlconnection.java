@@ -18,6 +18,7 @@ public class mysqlconnection {
 "jdbc:mysql://localhost:3306/pharm_assist?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
 
     private String username = "root"; // Replace with your database username
+
     private String password = "samyat2006"; // Replace with your database password
 
     private Connection connection;
