@@ -6,6 +6,7 @@ package view;
 import Controller.SearchController;
 import Model.SearchModel;
 import Model.Product;
+import view.PaymentMethodPanel;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -76,8 +77,30 @@ jButton2.addActionListener(e -> {
 
 // ✅ Confirm cart popup
 ConfirmCart.addActionListener(e -> {
-    JOptionPane.showMessageDialog(this, "Confirmed!");
+    // Confirm the cart
+    cartController.confirmCart();
+    JOptionPane.showMessageDialog(this, "Order Confirmed Successfully!");
+
+    // Switch to the Shipping Details panel
+    CardLayout card = (CardLayout) contentPanel.getLayout();
+    card.show(contentPanel, "Shippingdetails");
+
+    // Populate the fields
+    String username = currentUser.getUsername();
+    String phone = currentUser.getPhoneNumber();
+    String address = currentUser.getAddress();
+
+    txtname.setText(username != null ? username : "Name not available");
+    txtnumber.setText(phone != null ? phone : "Phone not available");
+    txtlocation.setText(address != null ? address : "Address not available");
+
+    // Optional: log to console
+    System.out.println("=== Shipping Details ===");
+    System.out.println("User: " + username);
+    System.out.println("Phone: " + phone);
+    System.out.println("Address: " + address);
 });
+
 
         jButton2.addActionListener(e -> {
     int deleted = cartController.deleteSelected();
@@ -86,6 +109,8 @@ ConfirmCart.addActionListener(e -> {
 ConfirmCart.addActionListener(e -> {
     cartController.confirmCart();
     JOptionPane.showMessageDialog(this, "Order Confirmed Successfully!");
+    
+    
 });
 
 
@@ -99,7 +124,9 @@ ConfirmCart.addActionListener(e -> {
         
         // Add ProductDescriptionPanel card
         contentPanel.add(ProductDescriptionPanel, "productDescription");
-
+        contentPanel.add(Payment, "payment");
+        Payment.setLayout(new java.awt.BorderLayout()); 
+        setupPaymentPanelDirectly();  
         // Load all products initially
         loadAllProducts();
 
@@ -119,6 +146,37 @@ ConfirmCart.addActionListener(e -> {
             System.out.println("User set: " + user.getUsername());
         }
     }
+    
+    private void setupPaymentPanelDirectly() {
+    Payment.removeAll(); // Clear existing components
+    Payment.setLayout(new java.awt.BorderLayout());
+    
+    // Create and add PaymentMethodPanel
+    PaymentMethodPanel paymentMethodPanel = new PaymentMethodPanel(
+        new PaymentMethodPanel.PaymentSelectionListener() {
+            @Override
+            public void stripeSelected() {
+                System.out.println("Stripe payment selected");
+                JOptionPane.showMessageDialog(Dashboard.this, 
+                    "Stripe payment gateway would open here.");
+                // TODO: Add Stripe integration
+            }
+            
+            @Override
+            public void codSelected() {
+                System.out.println("COD selected");
+                JOptionPane.showMessageDialog(Dashboard.this, 
+                    "Order placed successfully! Cash on Delivery selected.");
+                // TODO: Save order to database with COD status
+            }
+        }
+    );
+    
+    Payment.add(paymentMethodPanel, java.awt.BorderLayout.CENTER);
+    Payment.revalidate();
+    Payment.repaint();
+}
+
 
     // Added from their version
     public javax.swing.JPanel getProductListPanel() {
@@ -210,7 +268,6 @@ private void loadProductsByCategory(String category) {
         Accountbtn = new javax.swing.JButton();
         namepharmassist = new javax.swing.JLabel();
         Slogan = new javax.swing.JLabel();
-        btnproceed = new javax.swing.JButton();
         ShoppingCart = new javax.swing.JButton();
         contentPanel = new javax.swing.JPanel();
         categories = new javax.swing.JPanel();
@@ -218,12 +275,12 @@ private void loadProductsByCategory(String category) {
         Allbtn = new javax.swing.JButton();
         PainReliefbtn = new javax.swing.JButton();
         AntiFungalbtn = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
         productScrollPane = new javax.swing.JScrollPane();
         productListPanel = new javax.swing.JPanel();
         emergency = new javax.swing.JPanel();
         emergencyScrollPane = new javax.swing.JScrollPane();
         bloodBankTable = new javax.swing.JTable();
+        Payment = new javax.swing.JPanel();
         bmi = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -270,6 +327,7 @@ private void loadProductsByCategory(String category) {
         jLabel16 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        proceed = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         ADD = new javax.swing.JButton();
         SUB = new javax.swing.JButton();
@@ -368,11 +426,6 @@ private void loadProductsByCategory(String category) {
         jPanel1.add(Slogan);
         Slogan.setBounds(10, 50, 210, 13);
 
-        btnproceed.setText("Proceed");
-        btnproceed.addActionListener(this::btnproceedActionPerformed);
-        jPanel1.add(btnproceed);
-        btnproceed.setBounds(500, 40, 75, 23);
-
         ShoppingCart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Cartlogo.png"))); // NOI18N
         ShoppingCart.setBorderPainted(false);
         ShoppingCart.setContentAreaFilled(false);
@@ -412,21 +465,15 @@ private void loadProductsByCategory(String category) {
         AntiFungalbtn.setBounds(0, 60, 120, 30);
 
         categories.add(categoryFilterPanel);
-        categoryFilterPanel.setBounds(30, 20, 120, 330);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setLayout(null);
+        categoryFilterPanel.setBounds(10, 10, 120, 310);
 
         productScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         productListPanel.setBackground(new java.awt.Color(255, 255, 255));
         productScrollPane.setViewportView(productListPanel);
 
-        jPanel3.add(productScrollPane);
-        productScrollPane.setBounds(0, 0, 550, 330);
-
-        categories.add(jPanel3);
-        jPanel3.setBounds(150, 20, 530, 330);
+        categories.add(productScrollPane);
+        productScrollPane.setBounds(150, 10, 550, 330);
 
         contentPanel.add(categories, "categories");
 
@@ -461,6 +508,10 @@ private void loadProductsByCategory(String category) {
         emergencyScrollPane.setBounds(30, 20, 650, 310);
 
         contentPanel.add(emergency, "emergency");
+
+        Payment.setBackground(new java.awt.Color(255, 255, 255));
+        Payment.setLayout(null);
+        contentPanel.add(Payment, "Payment");
 
         bmi.setBackground(new java.awt.Color(245, 253, 255));
         bmi.setLayout(null);
@@ -616,6 +667,7 @@ private void loadProductsByCategory(String category) {
         jButton1.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Place Order");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
         detail.add(jButton1);
         jButton1.setBounds(32, 120, 92, 20);
 
@@ -673,6 +725,7 @@ private void loadProductsByCategory(String category) {
         jPanel4.setLayout(null);
 
         ConfirmCart.setText("Confirm Cart");
+        ConfirmCart.addActionListener(this::ConfirmCartActionPerformed);
         jPanel4.add(ConfirmCart);
         ConfirmCart.setBounds(10, 100, 208, 25);
 
@@ -696,8 +749,13 @@ private void loadProductsByCategory(String category) {
         jPanel4.add(jPanel6);
         jPanel6.setBounds(145, 62, 60, 20);
 
+        proceed.setText("Proceed Now");
+        proceed.addActionListener(this::proceedActionPerformed);
+        jPanel4.add(proceed);
+        proceed.setBounds(60, 140, 120, 23);
+
         Shoppingcart.add(jPanel4);
-        jPanel4.setBounds(460, 50, 230, 138);
+        jPanel4.setBounds(460, 50, 230, 170);
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setLayout(null);
@@ -916,7 +974,20 @@ cartController.refreshCart();       // load items
     }
     }//GEN-LAST:event_SelectedItemActionPerformed
 
-    private void btnproceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnproceedActionPerformed
+    private void ConfirmCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmCartActionPerformed
+       
+    }//GEN-LAST:event_ConfirmCartActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        CardLayout card = (CardLayout) contentPanel.getLayout();
+        card.show(contentPanel, "Payment");
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void proceedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proceedActionPerformed
+        // TODO add your handling code here:
         CardLayout card = (CardLayout) contentPanel.getLayout();
         card.show(contentPanel, "Shippingdetails");
 
@@ -932,7 +1003,7 @@ cartController.refreshCart();       // load items
         System.out.println("User: " + username);
         System.out.println("Phone: " + phone);
         System.out.println("Address: " + address);
-    }//GEN-LAST:event_btnproceedActionPerformed
+    }//GEN-LAST:event_proceedActionPerformed
 
     public static void main(String args[]) {
         try {
@@ -964,6 +1035,7 @@ cartController.refreshCart();       // load items
     private javax.swing.JTextField Height;
     private javax.swing.JMenuItem Logout;
     private javax.swing.JButton PainReliefbtn;
+    private javax.swing.JPanel Payment;
     private javax.swing.JPanel Pic;
     private javax.swing.JPanel ProductDescriptionPanel;
     private javax.swing.JMenuItem Profile;
@@ -981,7 +1053,6 @@ cartController.refreshCart();       // load items
     private javax.swing.JTable bloodBankTable;
     private javax.swing.JPanel bmi;
     private javax.swing.JButton btnedit;
-    private javax.swing.JButton btnproceed;
     private javax.swing.JPanel categories;
     private javax.swing.JPanel categoryFilterPanel;
     private javax.swing.JPanel contentPanel;
@@ -1013,7 +1084,6 @@ cartController.refreshCart();       // load items
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
@@ -1028,6 +1098,7 @@ cartController.refreshCart();       // load items
     private javax.swing.JLabel namepharmassist;
     private javax.swing.JPanel panelfrodetail;
     private javax.swing.JPanel pharmacy;
+    private javax.swing.JButton proceed;
     private javax.swing.JPanel productListPanel;
     private javax.swing.JScrollPane productScrollPane;
     private javax.swing.JLabel txtlocation;

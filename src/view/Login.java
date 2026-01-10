@@ -146,7 +146,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     dao.UserDAO userDAO = new dao.UserDAO();
-    Model.User user = userDAO.login(username, password);
+    Model.User user = controller.login(username, password);
 
     if (user != null) {
         JOptionPane.showMessageDialog(this, "Login Successful!");

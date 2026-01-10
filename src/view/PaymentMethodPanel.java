@@ -25,6 +25,10 @@ public class PaymentMethodPanel extends javax.swing.JPanel {
      * Constructor with listener
      * @param listener
      */
+    public PaymentMethodPanel() {
+    this.listener = null;
+    initComponents();
+    }
     public PaymentMethodPanel(PaymentSelectionListener listener) {
         this.listener = listener;
         initComponents();
@@ -55,13 +59,13 @@ public class PaymentMethodPanel extends javax.swing.JPanel {
         add(jLabel1);
         jLabel1.setBounds(140, 20, 260, 40);
 
-        stripeimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/payyy.png"))); // NOI18N
+        stripeimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pay.jpeg"))); // NOI18N
         add(stripeimage);
-        stripeimage.setBounds(47, 100, 80, 70);
+        stripeimage.setBounds(47, 100, 70, 70);
 
-        codimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CODed.jpg"))); // NOI18N
+        codimage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cod.jpeg"))); // NOI18N
         add(codimage);
-        codimage.setBounds(340, 100, 0, 70);
+        codimage.setBounds(340, 100, 70, 70);
 
         jLabel2.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
         jLabel2.setText("Stripe");

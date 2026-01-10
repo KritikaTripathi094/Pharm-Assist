@@ -1,140 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
 import Controller.ProductDetailsController;
-import Model.Productdetails;
 import javax.swing.JPanel;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.Image;
-import javax.swing.ImageIcon;
 
 public class ProductDescriptionPanel extends javax.swing.JPanel {
-
     private final int productId;
-    private final ProductDetailsController Controller;
-    private final JPanel parentPanel;// reference to Dashboard's contentPanel
-    private final javax.swing.JLabel lblImage;
-
+    private final ProductDetailsController controller;
+    private final JPanel parentPanel;
+    private final javax.swing.JLabel lblImage;  
 
     public ProductDescriptionPanel(int productId, JPanel parentPanel) {
         this.productId = productId;
-        this.Controller = new ProductDetailsController();
-        this.parentPanel = parentPanel; // store reference
-        initComponents();   // NetBeans-generated init
-        lblImage = new javax.swing.JLabel();
-lblImage.setBounds(10, 10, 180, 180); // adjust size and position
-lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-lblImage.setOpaque(true);
-lblImage.setBackground(Color.WHITE);
-lblImage.setBorder(
-    javax.swing.BorderFactory.createLineBorder(Color.GRAY)
-);
-add(lblImage);
-
+        this.controller = new ProductDetailsController();
+        this.parentPanel = parentPanel;
+        initComponents();
         
-          txtDescription.setLineWrap(true);
-    txtDescription.setWrapStyleWord(true);
-    jScrollPane1.setVerticalScrollBarPolicy(
-            javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED
-    );
-    // Optional: increase visible height
-    jScrollPane1.setBounds(
-            jScrollPane1.getX(),
-            jScrollPane1.getY(),
-            jScrollPane1.getWidth(),
-            150 // adjust height as needed
-    );
-        loadProduct();      // load product info
        
+        lblImage = new javax.swing.JLabel();
+        lblImage.setBounds(10, 10, 180, 180);
+        lblImage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImage.setOpaque(true);
+        lblImage.setBackground(Color.WHITE);
+        lblImage.setBorder(
+            javax.swing.BorderFactory.createLineBorder(Color.GRAY)
+        );
+        add(lblImage);
         
-     Back.addActionListener(e -> {
-            CardLayout cl = (CardLayout) parentPanel.getLayout();
-            cl.show(parentPanel, "categories"); // Go back to product list
-        });
-    }
-
-    private void loadProduct() {
-        Productdetails product = Controller.getProductDetails(productId);
-
-        if (product != null) {
-            Name.setText(product.getName());
-            Price.setText("Rs. " + product.getPrice());
-            txtDescription.setText(product.getDescription());
-            loadProductImage(product.getImage());
         
-        } else {
-            Name.setText("Product not found");
-            Price.setText("");
-            txtDescription.setText("No description available");
-             lblImage.setText("No Image");
-        lblImage.setIcon(null);
-        }
-
         txtDescription.setLineWrap(true);
         txtDescription.setWrapStyleWord(true);
-    }
-    
-    
-private void loadProductImage(String imageName) {
-
-    if (imageName == null || imageName.isBlank()) {
-        lblImage.setText("No Image");
-        lblImage.setIcon(null);
-        return;
-    }
-
-    try {
-        java.net.URL imageUrl =
-                getClass().getResource("/images/" + imageName);
-
-        if (imageUrl == null) {
-            System.out.println("Image not found: " + imageName);
-            lblImage.setText("No Image");
-            return;
-        }
-
-        ImageIcon icon = new ImageIcon(imageUrl);
-        Image img = icon.getImage();
-
-        // 🔥 FIXED SIZE (DO NOT use getWidth() here)
-        Image scaledImg = scaleImageToFit(img, 180, 180);
-
-        lblImage.setIcon(new ImageIcon(scaledImg));
-        lblImage.setText("");
-
-    } catch (Exception e) {
-        e.printStackTrace();
-        lblImage.setText("No Image");
-        lblImage.setIcon(null);
-    }
-}
-
-   
-
-// ADD THIS NEW METHOD right after loadProductImage()
-private Image scaleImageToFit(Image img, int width, int height) {
-    int originalWidth = img.getWidth(null);
-    int originalHeight = img.getHeight(null);
-    
-    // Calculate scaling ratio
-    double widthRatio = (double) width / originalWidth;
-    double heightRatio = (double) height / originalHeight;
-    double ratio = Math.min(widthRatio, heightRatio);
-    
-    // Calculate new dimensions
-    int newWidth = (int) (originalWidth * ratio);
-    int newHeight = (int) (originalHeight * ratio);
-    
-    // Scale image
-    return img.getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        
        
-
-            
-    
+        controller.loadAndDisplayProduct(productId, Name, Price, txtDescription, lblImage);
+        
+        
+        Back.addActionListener(e -> {
+            CardLayout cl = (CardLayout) parentPanel.getLayout();
+            cl.show(parentPanel, "categories");
+        });
     }
      
 

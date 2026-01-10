@@ -1,70 +1,62 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controller;
-
-/**
- *
- * @author kritss
- */
-
-    
-
 
 import dao.UserDAO;
 import java.util.Random;
-
-
-
+import javax.swing.JOptionPane;
 
 public class ForgotPasswordController {
 
     private String generatedOtp;
     private boolean otpVerified = false;
-
+    private String userEmail;
     private final UserDAO userDAO = new UserDAO();
 
-
-    public boolean sendOtp(String email) {
-
+    
+    public void handleSendOtp(String email) {
+        this.userEmail = email;
+        
         if (!userDAO.emailExists(email)) {
-            return false;
+            JOptionPane.showMessageDialog(null, "Email not found");
+            return;
         }
 
         generatedOtp = String.valueOf(new Random().nextInt(900000) + 100000);
-        otpVerified = false; // reset old verification
+        otpVerified = false;
 
         EmailService.sendEmail(
             email,
             "Password Reset OTP",
             "Your OTP is: " + generatedOtp
         );
-
-        return true;
+        
+        JOptionPane.showMessageDialog(null, "OTP sent to email");
     }
 
-  
-    public boolean verifyOtp(String enteredOtp) {
-
+    public void handleVerifyOtp(String enteredOtp) {
         if (generatedOtp != null && generatedOtp.equals(enteredOtp)) {
             otpVerified = true;
-            return true;
+            JOptionPane.showMessageDialog(null, "OTP Verified");
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid OTP");
         }
-
-        return false;
     }
 
-    // 🔒 Reset password ONLY if OTP verified
-    public boolean resetPassword(String email, String newPassword) {
-
+   
+    public void handleResetPassword(String newPassword) {
         if (!otpVerified) {
-            return false; 
+            JOptionPane.showMessageDialog(null, "Please verify OTP first!");
+            return;
         }
 
-        return userDAO.updatePassword(email, newPassword);
+        if (userDAO.updatePassword(userEmail, newPassword)) {
+            JOptionPane.showMessageDialog(null, "Password reset successful!");
+            
+            
+            otpVerified = false;
+            generatedOtp = null;
+            userEmail = null;
+        } else {
+            JOptionPane.showMessageDialog(null, "Password reset failed!");
+        }
     }
 }
-
-    
-

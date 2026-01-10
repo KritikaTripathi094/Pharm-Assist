@@ -1,12 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import Controller.ForgotPasswordController;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author kritss
@@ -16,9 +10,7 @@ public class ForgotPassword extends javax.swing.JFrame {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ForgotPassword.class.getName());
 private final ForgotPasswordController controller = new ForgotPasswordController();
 
-    /**
-     * Creates new form ForgotPassword
-     */
+   
 public ForgotPassword() {
         initComponents();
      
@@ -165,7 +157,6 @@ public ForgotPassword() {
         edit.setBounds(10, 40, 250, 20);
 
         txtEmail.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
-        txtEmail.setText("Enter your email");
         txtEmail.addActionListener(this::txtEmailActionPerformed);
         jPanel4.add(txtEmail);
         txtEmail.setBounds(10, 70, 290, 30);
@@ -185,10 +176,9 @@ public ForgotPassword() {
         jLabel3.setBounds(10, 130, 50, 22);
 
         txtOtp.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
-        txtOtp.setText("Enter the OTP");
         txtOtp.addActionListener(this::txtOtpActionPerformed);
         jPanel4.add(txtOtp);
-        txtOtp.setBounds(10, 160, 280, 20);
+        txtOtp.setBounds(10, 150, 280, 30);
 
         btnVerifyOtp.setBackground(new java.awt.Color(14, 93, 174));
         btnVerifyOtp.setFont(new java.awt.Font("Comic Neue", 0, 13)); // NOI18N
@@ -202,13 +192,12 @@ public ForgotPassword() {
         jLabel4.setFont(new java.awt.Font("Comic Neue", 0, 18)); // NOI18N
         jLabel4.setText("Password");
         jPanel4.add(jLabel4);
-        jLabel4.setBounds(10, 220, 110, 30);
+        jLabel4.setBounds(10, 210, 110, 30);
 
         txtNewPassword.setFont(new java.awt.Font("Comic Neue", 0, 12)); // NOI18N
-        txtNewPassword.setText("Enter your new password");
         txtNewPassword.addActionListener(this::txtNewPasswordActionPerformed);
         jPanel4.add(txtNewPassword);
-        txtNewPassword.setBounds(10, 250, 280, 20);
+        txtNewPassword.setBounds(10, 240, 280, 30);
 
         btnResetPassword.setBackground(new java.awt.Color(14, 97, 174));
         btnResetPassword.setFont(new java.awt.Font("Comic Neue", 1, 13)); // NOI18N
@@ -238,13 +227,7 @@ public ForgotPassword() {
     private void btnSendOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendOtpActionPerformed
         // TODO add your handling code here:
         
-        
-String email = txtEmail.getText();
-    if (controller.sendOtp(email)) {
-        JOptionPane.showMessageDialog(this, "OTP sent to email");
-    } else {
-        JOptionPane.showMessageDialog(this, "Email not found");
-    }
+controller.handleSendOtp(txtEmail.getText());
        
     }//GEN-LAST:event_btnSendOtpActionPerformed
 
@@ -253,38 +236,13 @@ String email = txtEmail.getText();
     }//GEN-LAST:event_txtOtpActionPerformed
 
     private void btnVerifyOtpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyOtpActionPerformed
-        // TODO add your handling code here:
-         if (controller.verifyOtp(txtOtp.getText())) {
-        JOptionPane.showMessageDialog(this, "OTP Verified");
-    } else {
-        JOptionPane.showMessageDialog(this, "Invalid OTP");
-    }
+        controller.handleVerifyOtp(txtOtp.getText());
 
     }//GEN-LAST:event_btnVerifyOtpActionPerformed
 
     private void btnResetPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetPasswordActionPerformed
         // TODO add your handling code here:
-         boolean success = controller.resetPassword(
-        txtEmail.getText(),
-        txtNewPassword.getText()
-    );
-
-    if (success) {
-        JOptionPane.showMessageDialog(this, "Password reset successful!");
-
-        // Close current window
-        this.dispose();
-
-        // Open Login window, centered
-        java.awt.EventQueue.invokeLater(() -> {
-            Login login = new Login();                    // ← Change if name is different
-            login.setLocationRelativeTo(null);            // Centers it
-            login.setVisible(true);
-        });
-
-    } else {
-        JOptionPane.showMessageDialog(this, "Please verify OTP first!");
-    }
+        controller.handleResetPassword(txtNewPassword.getText());
 
     }//GEN-LAST:event_btnResetPasswordActionPerformed
 
